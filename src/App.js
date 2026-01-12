@@ -14,7 +14,7 @@ function App() {
   const { user } = useAuth();
 
   return (
-    <BrowserRouter basename="/MahoganyQen">
+    <BrowserRouter>
       <ColorSchemesExample />
 
       <Routes>
