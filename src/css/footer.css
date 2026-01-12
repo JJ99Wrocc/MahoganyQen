@@ -1,0 +1,369 @@
+/* ——————————————————————————
+      FOOTER — BLACK LABEL 2025
+——————————————————————————— */
+.gold-footer {
+  border-top: 1px solid #1a1a1a;
+  background: #000;
+  color: #fff;
+  padding: 90px 20px 40px;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Cinzel', serif;
+}
+
+/* Usunięty glow — czysty minimalizm */
+.gold-footer::before {
+  display: none;
+}
+
+/* ——————————————————————————
+      FOOTER GRID
+——————————————————————————— */
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  z-index: 2;
+  position: relative;
+  text-align: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  gap: 60px;
+}
+
+/* ——————————————————————————
+      LOGO — MATOWA BIEL
+——————————————————————————— */
+.footer-logo {
+  font-size: 40px;
+  letter-spacing: 4px;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  background: linear-gradient(to bottom, #ffffff, #dcdcdc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-desc {
+  color: #cfcfcf;
+  font-size: 17px;
+  letter-spacing: 1.4px;
+  font-style: italic;
+}
+
+/* ——————————————————————————
+      SECTION HEADERS
+——————————————————————————— */
+.footer-links h3,
+.footer-contact h3 {
+  margin-bottom: 16px;
+  font-size: 20px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  background: linear-gradient(to bottom, #ffffff, #d0d0d0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  transition: 0.2s ease;
+}
+
+.footer-links h3:hover,
+.footer-contact h3:hover {
+  transform: scale(1.04);
+}
+
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin: 10px 0;
+  font-size: 17px;
+}
+
+.footer-links a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: 0.25s ease;
+}
+
+.footer-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  height: 2px;
+  width: 0%;
+  background: #ffffff;
+  transition: 0.3s ease;
+}
+
+.footer-links a:hover {
+  transform: scale(1.08);
+}
+
+.footer-links a:hover::after {
+  width: 100%;
+}
+
+/* ——————————————————————————
+      ICONS
+——————————————————————————— */
+.footer-contact i,
+.footer-links i {
+  margin-right: 10px;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+/* ——————————————————————————
+      CONTACT
+——————————————————————————— */
+.footer-contact p {
+  margin: 8px 0;
+  color: #e0e0e0;
+  font-size: 16px;
+}
+
+.email-link {
+  color: #fff;
+  text-decoration: none;
+  transition: 0.25s ease;
+}
+
+.email-link:hover {
+  opacity: 0.7;
+}
+
+/* ——————————————————————————
+      BOTTOM BAR
+——————————————————————————— */
+.footer-bottom {
+  margin-top: 50px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.12);
+  text-align: center;
+  font-size: 14px;
+  color: #bdbdbd;
+  letter-spacing: 1px;
+}
+
+/* VISIBILITY */
+.mobile-only { display: none; }
+.desktop-only { display: block; }
+
+/* LISTS */
+.contact-list,
+.explore-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.contact-list li,
+.explore-list li {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ——————————————————————————
+   MOBILE — BASE (ACCORDION)
+——————————————————————————— */
+@media (max-width: 768px) {
+  .mobile-only {
+    display: block;
+    cursor: pointer;
+  }
+  .footer-bottom{
+    margin-top: 10px;
+    font-size: 10px;
+    margin-bottom: -30px;
+  }
+  .desktop-only {
+    display: none;
+  }
+  .footer-logo{
+    margin-top: -50px;
+    font-size: 30px;
+  }
+  .footer-desc{
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  .contact-list,
+  .explore-list {
+    display: none;
+    text-align: center; /* wyśrodkowanie tekstu */
+
+  }
+  
+  .contact-list.open,
+  .explore-list.open {
+    display: block;
+  }
+
+  .contact-list li,
+  .explore-list li {
+    justify-content: center; /* wyśrodkowanie flex itemów */
+    margin-bottom: 10px;
+    font-size: 14px ;
+      margin-right:8px;
+  }
+.contact-list li:last-child,
+.explore-list li:last-child {
+  
+  margin-bottom: 30px !important;
+  font-size: 14px;
+}
+
+
+  .contact-list li i,
+  .explore-list li i {
+    margin-right: 8px;
+    font-size: 13px;
+  }
+
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 40px;
+  }
+
+  .footer-left,
+  .footer-links,
+  .footer-contact {
+    width: 100%;
+  }
+
+  /* Wrapper nie zmienia nic na mobile */
+  .footer-links-contact-wrapper {
+    width: 100%;
+  }
+  .footer-links h3{
+    margin-bottom: 15px;
+  }
+  .footer-contact h3{
+    margin-bottom: 15px;
+  }
+  .footer-links h3,.footer-contact h3{
+    font-size: 16px;
+  }
+  .fa-solid.fa-arrow-down{
+    margin-left: 8px;
+    font-size: 14px;
+  }
+}
+@media (max-width: 576px) {
+
+  .footer-bottom{
+    margin-top: 5px;
+    font-size: 9px;
+  }
+  .footer-logo{
+    font-size: 27px;
+  }
+  .footer-desc{
+    font-size: 15px;
+    margin-bottom: 0px;
+  }  
+  .contact-list li,
+  .explore-list li {
+    font-size: 13px ;
+  }
+.contact-list li:last-child,
+.explore-list li:last-child {  
+  margin-bottom: 25px !important;
+  font-size: 13px;
+}
+  .contact-list li i,
+  .explore-list li i {
+    font-size: 12px;
+  }
+  .footer-container {
+    gap: 35px;
+  }
+  .footer-links h3,.footer-contact h3{
+    font-size: 15px;
+  }
+  .fa-solid.fa-arrow-down{
+    font-size: 13px;
+  }
+}
+@media (min-width:300px) and ( max-width: 576px)  {
+
+  .footer-bottom{
+    margin-top: 2px;
+    font-size: 7px!important;
+  }
+  .footer-logo{
+    font-size: 22px;
+  }
+  .footer-desc{
+    font-size: 13px;
+  }  
+  .contact-list li,
+  .explore-list li {
+    font-size: 11px ;
+  }
+.contact-list li:last-child,
+.explore-list li:last-child {  
+  margin-bottom: 20px !important;
+}
+  .contact-list li i,
+  .explore-list li i {
+    font-size: 10px;
+  }
+  .footer-container {
+    gap: 30px;
+  }
+  .footer-links h3,.footer-contact h3{
+    font-size: 14px;
+  }
+  .fa-solid.fa-arrow-down{
+    font-size: 12px;
+  }
+}
+
+/* ——————————————————————————
+   DESKTOP — NORMAL (769px+)
+——————————————————————————— */
+@media (min-width: 768px) {
+
+  .footer-container {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-links-contact-wrapper {
+    display: flex;
+    justify-content: center;
+    gap: 100px;              /* kontrolowana przestrzeń */
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .footer-links,
+  .footer-contact {
+    width: 260px;            /* stabilna szerokość kolumn */
+    text-align: center;
+  }
+
+
+  .contact-list li,
+  .explore-list li {
+    justify-content: center;   /* ← NAJWAŻNIEJSZA LINIA */
+  }
+
+  .contact-list,
+  .explore-list {
+    display: block !important;
+  }
+}

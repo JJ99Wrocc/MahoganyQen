@@ -1,0 +1,658 @@
+/* --- 2025 ULTRA CLEAN BLACK DESIGN --- */
+
+.session-booking {
+  background: #000;
+  padding: 60px 50px;
+  max-width: 700px;
+  margin: 80px auto;
+  color: #fff;
+  font-family: "Inter", "Arial", sans-serif;
+  /* border: 1px solid rgba(139, 0, 0, 0.25);  */
+  border-radius: 20px;
+}
+
+
+.session-header h2 {
+  font-size: 38px ;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  text-align: center;
+  margin: 0 0 10px 0;
+}
+
+.session-header p {
+  font-size: 17px;
+  text-align: center;
+  opacity: 0.75;
+  margin-bottom: 30px;
+}
+
+
+.session-form {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+
+
+.session-form label {
+  font-size: 17px;
+  font-weight: 500;
+  opacity: 0.85;
+  letter-spacing: 1px;
+
+}
+
+
+.session-form input,
+.session-form select {
+  background: #0d0d0d;
+  border: none;
+  border-bottom: 2px solid rgba(139, 0, 0, 0.4);
+  padding: 12px 0;
+  font-size: 12px;
+  color: #fff;
+  transition: border-color 0.25s ease, color 0.25s ease;
+  border-radius: 0;
+}
+
+.session-form input::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+/* FOCUS — nowoczesna bordowa linia */
+.session-form input:focus,
+.session-form select:focus {
+  border-bottom-color: #8b0000;
+}
+
+
+.session-submit {
+  background: #8b0000;
+  border: none;
+  padding: 12px 0;
+  font-size: 14px!important;
+  font-weight: 700;
+  width: 50%;
+  margin: 0 auto;
+  color: #fff;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.15s ease;
+}
+
+
+.session-submit:hover {
+  background: #a30000;
+  transform: translateY(-2px);
+}
+
+
+.session-form input:hover,
+.session-form select:hover {
+  border-bottom-color: rgba(179, 0, 0, 0.8);
+}
+
+.react-datepicker__day.available-day.warszawa,.react-datepicker__day.available-day.londyn,.react-datepicker__day.available-day.wroclaw {
+    color: #fff !important;
+  border-radius: 50% !important; 
+}
+
+.react-datepicker__day.unavailable-day {
+  color: #555 !important;
+}
+.react-datepicker__day.available-day.warszawa { 
+  background-color: #af664c !important;  
+}
+.react-datepicker__day.available-day.londyn { 
+  background-color: #2196f3 !important;  
+}
+.react-datepicker__day.available-day.wroclaw { 
+  background-color: #ff9800 !important;  
+}
+
+
+.react-datepicker {
+  width: 100%; /* zajmuje cały kontener */
+  max-width: 100%;
+  border: 1px solid #333;
+  font-family: inherit;
+  box-sizing: border-box;
+  padding: 8px;
+}
+
+.date-open-btn {
+  background: #8b0000;
+  border: none;
+  padding: 10px 15px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.25s ease, transform 0.15s ease;
+  margin-top: 10px;
+}
+
+/* --- Kalendarz ultra clean pod sesję --- */
+.react-datepicker {
+  width: 100%;
+  max-width: 100%;
+  background: #000; /* czarne tło */
+  border: 1px solid rgba(139,0,0,0.5);
+  border-radius: 20px;
+  padding: 16px;
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  box-sizing: border-box;
+}
+
+.calendar-wrapper {
+  width: 100%;
+}
+/* Header miesiąca */
+.react-datepicker__header {
+  width: 100%;
+  max-width: 1000px;
+  background: black;
+  border-bottom: 1px solid rgba(139,0,0,0.4);
+  padding: 10px 0;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+  color: #fff;
+}
+
+/* Strzałki nawigacyjne */
+.react-datepicker__navigation-icon--previous::before,
+.react-datepicker__navigation-icon--next::before {
+  margin-top: 12px;
+  content: "❮"; /* poprzednia strzałka */
+  font-size: 20px;
+  color: #fff;
+  transition: color 0.25s ease, transform 0.2s ease;
+}
+
+.react-datepicker__navigation-icon--next::before {
+  content: "❯"; /* następna strzałka */
+}
+
+.react-datepicker__navigation-icon--previous:hover::before,
+.react-datepicker__navigation-icon--next:hover::before {
+  color: #8b0000;
+}
+.react-datepicker__day-name{
+
+  color: #db2727;
+}
+/* Dni tygodnia */
+.react-datepicker__day-names {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+  margin-bottom: 6px;
+  color: rgba(255,255,255,0.7);
+  font-weight: 500;
+  color: #fff;
+  border-radius: 18px;
+}
+
+/* Miesiąc */
+.react-datepicker__month {
+  display: grid;
+  grid-template-rows: repeat(auto-fill, minmax(44px, 1fr));
+  gap: 6px;
+  width: 100%;
+  
+}
+.react-datepicker__current-month{
+  color: #fff;
+}
+/* Tydzień */
+.react-datepicker__week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 40px;
+  text-align: center;
+}
+
+/* Dni i nazwy dni */
+.react-datepicker__day,
+.react-datepicker__day-name {
+  width: 100%;
+  aspect-ratio: 1/1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  border-radius: 50%;
+  line-height: normal;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.react-datepicker__day.available-day.warszawa,.react-datepicker__day.available-day.londyn,.react-datepicker__day.available-day.wroclaw {
+    color: #fff !important;
+  border-radius: 50% !important; 
+}
+/* Hover na dostępnych dniach */
+.react-datepicker__day.available-day:hover {
+  transform: scale(1.15);
+  box-shadow: 0 0 10px rgba(255,0,0,0.4);
+}
+
+/* Kolory dostępnych dni wg miasta */
+.react-datepicker__day.available-day.warszawa { 
+  background-color: #af664c !important;  
+
+}
+.react-datepicker__day.available-day.londyn { 
+  background-color: #2196f3 !important;  
+
+}
+.react-datepicker__day.available-day.wroclaw { 
+  background-color: #ff9800 !important;  
+ 
+}
+
+/* Niedostępne dni */
+.react-datepicker__day.unavailable-day {
+  color: rgba(255,255,255,0.25);
+  cursor: not-allowed;
+}
+
+/* Tooltipy */
+.day-with-tooltip {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+}
+
+.day-with-tooltip:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a1a;
+  color: #fff;
+  font-size: 11px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+  opacity: 1;
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.2s ease;
+}
+
+.day-with-tooltip:hover::before {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: transparent transparent #1a1a1a transparent;
+  z-index: 10;
+}
+
+@media (min-width:767px) and  (max-width: 992px) {
+
+
+  .session-header h2 {
+    font-size: 28px;
+  }
+  
+.session-header p {
+  font-size: 15px;
+  margin-bottom: 25px;
+}
+.session-form {
+  gap: 20px;
+}
+.session-form label {
+  font-size: 13px;
+  letter-spacing:1.5px;
+}
+.session-submit {
+ padding: 12px 0;
+  font-size: 13px!important;
+}
+}
+
+@media (min-width:577px) and  (max-width: 768px) {
+
+
+  .session-header h2 {
+    font-size: 25px;
+  }
+  
+.session-header p {
+  font-size: 13px;
+}
+.session-form select{
+  font-size: 12px;
+}
+.session-form {
+  gap: 18px;
+}
+.session-form label {
+  font-size: 12px;
+  letter-spacing:1.5px;
+}
+.session-submit {
+ padding: 10px 0;
+  font-size: 12px!important;
+}
+
+
+
+
+.react-datepicker {
+  padding: 20px;
+}
+.react-datepicker__day-names {
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+  margin-bottom: 6px;
+  border-radius: 18px;
+}
+.react-datepicker__month {
+  gap: 4px;
+}
+.react-datepicker__week {
+  gap: 21px;
+}
+.react-datepicker__day,
+.react-datepicker__day-name {
+  width: 80%;
+}
+
+.day-with-tooltip {
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+}
+
+.day-with-tooltip:hover::after {
+  font-size: 8px;
+  padding: 5px 7px;
+}
+}
+
+@media(min-width:700px) and (max-width:768px){
+.react-datepicker__week {
+  gap: 37px;
+}}
+@media(min-width:650px) and (max-width:699px){
+.react-datepicker__week {
+  gap: 33px;
+}
+}
+@media(min-width:600px) and (max-width:649px){
+.react-datepicker__week {
+  gap: 23px;
+}
+}
+@media (min-width:450px) and  (max-width: 576px) {
+.react-datepicker__header{
+  width: 95%;
+}
+
+.react-datepicker {
+  padding: 20px;
+  height: 320px;
+}
+.react-datepicker__day-names {
+  grid-template-columns: repeat(7, 1fr);
+  width: 100%;
+  margin-bottom: 0px;
+  padding: 0;margin: 0;
+  border-radius: 18px;
+}
+.react-datepicker__month {
+  gap: 4px;
+  width: 20% !important;
+}
+.react-datepicker__week {
+  gap: 1px;
+}
+.react-datepicker__day,
+.react-datepicker__day-name {
+  width: 80%;
+}
+
+.day-with-tooltip {
+  width: 70%;
+  height: 70%;
+  border-radius: 50%;
+}
+
+.day-with-tooltip:hover::after {
+  font-size: 8px;
+  padding: 5px 7px;
+}
+}
+@media (min-width:530px) and  (max-width: 576px) {
+.react-datepicker__header{
+  width: 95%;
+}
+.react-datepicker__week {
+  gap: 15px;
+}}
+@media (min-width:500px) and  (max-width: 530px) {
+.react-datepicker__header{
+  width: 90%;
+}
+.react-datepicker__week {
+  gap: 11px;
+}
+.react-datepicker {
+  padding: 20px 0px 20px 20px;
+  height: 330px;
+}
+}
+@media (min-width:470px)and  (max-width: 500px)   {
+.react-datepicker__header{
+  width: 90%;
+}
+.react-datepicker__week {
+  gap: 5px;
+}
+.react-datepicker {
+  padding: 20px 0px 20px 20px;
+  height: 330px;
+}
+}
+@media (min-width:429px)and  (max-width: 450px)   {
+.react-datepicker__header{
+  width: 100%;
+}
+.react-datepicker__week {
+  gap:  5px;
+}
+.react-datepicker__day, .react-datepicker__day-name {
+      aspect-ratio:0.8/1;
+}
+.react-datepicker {
+  padding: 20px 20px 20px 20px;
+  height: 380px;
+}
+}
+@media (min-width:400px)and  (max-width: 429px)   {
+.react-datepicker__header{
+  width: 100%;
+}
+.react-datepicker__week {
+  gap:  1px;
+}
+.react-datepicker__day, .react-datepicker__day-name {
+      aspect-ratio:0.8/1;
+}
+.react-datepicker {
+  height: 390px;
+}
+}
+@media (min-width:370px)and  (max-width: 400px)   {
+.react-datepicker__header{
+  width: 90%;
+}
+.react-datepicker__week {
+  gap:  1px;
+}
+.react-datepicker__day, .react-datepicker__day-name {
+      aspect-ratio:0.68/1;
+}
+.react-datepicker {
+  padding: 20px 0px 20px 20px;
+  height: 380px;
+}
+}
+@media (min-width:340px)and  (max-width: 370px)   {
+.react-datepicker__header{
+  width:100%;
+}
+.react-datepicker__week {
+  gap:  1px;
+}
+.react-datepicker__day, .react-datepicker__day-name {
+      aspect-ratio:0.6/1;
+}
+.react-datepicker {
+  padding: 20px 0px 20px 20px;
+  height: 395px;
+}
+}
+@media (min-width:320px)and  (max-width: 340px)   {
+.react-datepicker__header{
+width: 100%;
+}
+.react-datepicker__week {
+gap:  1px;
+}
+.react-datepicker__day, .react-datepicker__day-name {
+    aspect-ratio:0.5/1
+}
+.react-datepicker {
+padding: 20px 0px 20px 20px;
+height: 400px;
+}
+}
+@media (min-width:300px)and  (max-width: 320px)   {
+.react-datepicker__header{
+width: 95%;
+}
+.react-datepicker__week {
+gap:  1px;
+}
+.react-datepicker__day, .react-datepicker__day-name {
+    aspect-ratio:0.45/1
+}
+.react-datepicker {
+padding: 20px 0px 20px 20px;
+height: 400px;
+}
+}
+@media (min-width:400px) and  (max-width: 576px) {
+  .session-header h2 {
+    font-size: 23px;
+    margin-left: 10px;
+  }
+  
+.session-header p {
+  font-size: 10px;
+  letter-spacing: 0.1px;
+}
+.session-form select{
+  font-size: 9px;
+}
+.session-form {
+  gap: 18px;
+}
+.session-form label {
+  font-size: 11px;
+  letter-spacing:1px;
+}
+.session-submit {
+ padding: 10px 0;
+  font-size: 10px!important;
+}
+
+}
+
+@media (min-width:300px) and  (max-width: 400px) {
+  .session-header h2 {
+    font-size: 21px;
+    letter-spacing: 1px;
+  }
+  .session-booking,
+.carousel-item{
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+.session-header p {
+  font-size: 9px;
+  letter-spacing: 0.1px;
+}
+.session-form select{
+  font-size: 8px;
+}
+.session-form {
+  gap: 18px;
+}
+.session-form label {
+  font-size: 10px;
+  letter-spacing:1px;
+}
+.session-submit {
+  width: 60%;
+ padding:14px 0;
+  font-size: 8px!important;
+}
+
+}
+
+
+ .react-select__control .react-select__indicator.react-select__dropdown-indicator.css-1xc3v61-indicatorContainer,.css-1jwv1jf-control,.css-hlgwow,.css-1jqq78o-placeholder,.css-1u9des2-indicatorSeparator,.css-1dimb5e-singleValue,.css-1dimb5e-singleValue,.css-1xc3v61-indicatorContainer{
+  background: #000;
+  color: #fff !important;
+  border: none;
+}
+  .css-1xc3v61-indicatorContainer:hover{
+    background: #000;
+  }
+/* Dropdown - lista */
+.react-select__menu {
+  background-color: #0d0d0d !important; /* czarne tło */
+  color: #fff !important;               /* białe litery */
+  border-radius: 0;                      /* pasuje do inputów */
+  border: none;
+  box-shadow: none;
+}
+
+/* Pojedyncza opcja */
+.react-select__option {
+  background-color: #0d0d0d !important; /* czarne tło */
+  color: #fff !important;
+  padding: 10px 12px;
+  cursor: pointer;
+}
+
+/* Hover / aktywna opcja */
+.react-select__option:hover,
+.react-select__option--is-focused,
+.react-select__option--is-selected {
+  background-color: #8b0000 !important; /* bordowe podświetlenie */
+  color: #fff !important;
+}
