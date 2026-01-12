@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.139cb784.css",
-    "main.js": "/static/js/main.d86d5e27.js",
+    "main.js": "/static/js/main.ca673a93.js",
     "static/js/453.38519e74.chunk.js": "/static/js/453.38519e74.chunk.js",
     "static/media/Mletter.png": "/static/media/Mletter.39449d3be62b8694c352.png",
     "static/media/Caruzel 2.jpeg": "/static/media/Caruzel 2.c81018b69298126d8501.jpeg",
@@ -298,11 +298,11 @@
     "static/media/pe.svg": "/static/media/pe.d64e9732fcaa8f765994.svg",
     "static/media/id.svg": "/static/media/id.f624e2c8444a7794b357.svg",
     "main.139cb784.css.map": "/static/css/main.139cb784.css.map",
-    "main.d86d5e27.js.map": "/static/js/main.d86d5e27.js.map",
+    "main.ca673a93.js.map": "/static/js/main.ca673a93.js.map",
     "453.38519e74.chunk.js.map": "/static/js/453.38519e74.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.139cb784.css",
-    "static/js/main.d86d5e27.js"
+    "static/js/main.ca673a93.js"
   ]
 }
