@@ -1,14 +1,19 @@
-
 {
   "name": "mahoganyqen-backend",
   "version": "1.0.0",
   "description": "Backend dla strony MahoganyQen - Node.js + Express + Google Calendar + MongoDB",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js"
+    "dev": "nodemon server.js",
+    "start": "node server.js"
   },
-  "keywords": ["mahoganyqen", "backend", "nodejs", "express", "google-calendar"],
+  "keywords": [
+    "mahoganyqen",
+    "backend",
+    "nodejs",
+    "express",
+    "google-calendar"
+  ],
   "author": "Joachim Esangbedo",
   "license": "ISC",
   "type": "commonjs",

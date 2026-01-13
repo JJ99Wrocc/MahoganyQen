@@ -11,6 +11,7 @@ const { google } = require("googleapis");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const crypto = require("crypto");
+const path = require("path");
 
 const serviceAccount = {
   type: "service_account",
@@ -39,6 +40,9 @@ const CALENDAR_ID =
 // EXPRESS
 // ===============================
 const app = express();
+app.get("/", (req, res) => {
+  res.status(200).send("API is running");
+});
 
 // ===============================
 // SECURITY CORE
@@ -149,7 +153,6 @@ app.get("/events", async (req, res) => {
 
 // ===============================
 // BOOKINGS (ONLY IDS)
-// ===============================
 app.get("/bookings", async (req, res) => {
   const bookings = await Booking.find({}, { slotId: 1, _id: 0 });
   res.json(bookings);
@@ -157,7 +160,6 @@ app.get("/bookings", async (req, res) => {
 
 // ===============================
 // BOOK SLOT
-// ===============================
 app.post("/book", async (req, res, next) => {
   try {
     const { token, id, name, email, date, time } = req.body;
@@ -217,15 +219,25 @@ Do zobaczenia!`,
 
 // ===============================
 // GLOBAL ERROR HANDLER
-// ===============================
 app.use((err, req, res, next) => {
   console.error("🔥 SERVER ERROR:", err);
   res.status(500).json({ error: "Internal server error" });
 });
 
 // ===============================
-// START
+// Serwowanie frontendu React
 // ===============================
+app.use(express.static(path.join(__dirname, "my-app/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
+});
+// ZAMIANA wildcard GET "*" na Express 5 friendly
+app.use((req, res) => {
+  res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
+});
+
+// ===============================
+// START
 app.listen(PORT, () =>
   console.log(`🚀 Server running on port ${PORT}`)
 );
