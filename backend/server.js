@@ -227,12 +227,13 @@ app.use((err, req, res, next) => {
 // ===============================
 // Serwowanie frontendu React
 // ===============================
-app.use(express.static(path.join(__dirname, "my-app/build")));
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
-});
+// Serwowanie statycznego frontendu
 // ZAMIANA wildcard GET "*" na Express 5 friendly
-app.use((req, res) => {
+
+app.use(express.static(path.join(__dirname, "my-app/build")));
+
+// Obsługa wszystkich pozostałych ścieżek Reacta
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
 });
 
