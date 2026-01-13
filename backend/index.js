@@ -20,11 +20,16 @@ const oauth2Client = new google.auth.OAuth2(
 // ROUTE: LOGIN / HOME
 // =======================================================
 app.get("/", (req, res) => {
-  const url = oauth2Client.generateAuthUrl({
-    access_type: "offline",
-    scope: ["https://www.googleapis.com/auth/calendar.readonly"],
-  });
-  res.redirect(url);
+  try {
+    const url = oauth2Client.generateAuthUrl({
+      access_type: "offline",
+      scope: ["https://www.googleapis.com/auth/calendar.readonly"],
+    });
+    res.redirect(url);
+  } catch (err) {
+    console.error("OAuth URL generation error:", err);
+    res.sendStatus(500); // klient NIC nie widzi
+  }
 });
 
 // =======================================================
@@ -32,16 +37,20 @@ app.get("/", (req, res) => {
 // =======================================================
 app.get("/redirect", async (req, res) => {
   const code = req.query.code;
-  if (!code) return res.send("No code found");
+
+  if (!code) {
+    console.error("No code in redirect");
+    return res.sendStatus(400); // brak komunikatu dla klienta
+  }
 
   oauth2Client.getToken(code, (err, tokens) => {
     if (err) {
       console.error("Could not get token:", err);
-      return res.send("Error getting token");
+      return res.sendStatus(500);
     }
 
     oauth2Client.setCredentials(tokens);
-    res.send("Successfully logged in! ✅");
+    res.sendStatus(204); // sukces, ale bez tekstu
   });
 });
 
@@ -56,7 +65,7 @@ app.get("/calendar", async (req, res) => {
     res.json(calendars);
   } catch (err) {
     console.error("Error fetching calendars:", err);
-    res.status(500).send("Error fetching calendars!");
+    res.sendStatus(500);
   }
 });
 
@@ -65,6 +74,7 @@ app.get("/calendar", async (req, res) => {
 // =======================================================
 app.get("/events", async (req, res) => {
   const calendarId = req.query.calendarId ?? "primary";
+
   try {
     const calendar = google.calendar({ version: "v3", auth: oauth2Client });
     const response = await calendar.events.list({
@@ -78,12 +88,14 @@ app.get("/events", async (req, res) => {
     res.json(events);
   } catch (err) {
     console.error("Error fetching events:", err);
-    res.status(500).send("Error fetching events!");
+    res.sendStatus(500);
   }
 });
 
 // =======================================================
 // START SERVER
 // =======================================================
-const PORT = 3001;
-app.listen(PORT, () => console.log(`✅ Backend działa na http://localhost:${PORT}`));
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () =>
+  console.log(`✅ Backend działa na http://localhost:${PORT}`)
+);
