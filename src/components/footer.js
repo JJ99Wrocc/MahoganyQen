@@ -2,13 +2,22 @@ import React, { useState } from "react";
 import "../css/footer.css";
 import { useTranslation } from "react-i18next";
 import i18n from '../i18n.js';
+
 function Footer() {
   const { t } = useTranslation();
   const [openContact, setOpenContact] = useState(false);
   const [openExplore, setOpenExplore] = useState(false);
-const handleLanguageChange = (lang) => {
-  i18n.changeLanguage(lang);
-};
+
+  const handleLanguageChange = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  // Funkcja scrollująca do sekcji
+  const scrollToSection = (id) => {
+    const el = document.getElementById(id);
+    if (el) el.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <footer
       id="contact-title"
@@ -83,28 +92,44 @@ const handleLanguageChange = (lang) => {
               aria-labelledby="explore-title"
             >
               <li role="listitem">
-                <a href="#about-me" aria-label={t("goToAbout")}>
+                <a
+                  href="#about-me"
+                  aria-label={t("goToAbout")}
+                  onClick={(e) => { e.preventDefault(); scrollToSection("about-me"); }}
+                >
                   <i className="fa-regular fa-address-card" aria-hidden="true"></i>{" "}
                   {t("about")}
                 </a>
               </li>
 
               <li role="listitem">
-                <a href="#gallery" aria-label={t("goToGallery")}>
+                <a
+                  href="#gallery"
+                  aria-label={t("goToGallery")}
+                  onClick={(e) => { e.preventDefault(); scrollToSection("gallery"); }}
+                >
                   <i className="fa-solid fa-pepper-hot" aria-hidden="true"></i>{" "}
                   {t("gallery")}
                 </a>
               </li>
 
               <li className="last-item" role="listitem">
-                <a href="#sessions-booking" aria-label={t("goToSessions")}>
+                <a
+                  href="#sessions-booking"
+                  aria-label={t("goToSessions")}
+                  onClick={(e) => { e.preventDefault(); scrollToSection("sessions-booking"); }}
+                >
                   <i className="fa-regular fa-calendar-days" aria-hidden="true"></i>{" "}
                   {t("sessions")}
                 </a>
               </li>
 
               <li role="listitem">
-                <a href="#contact" aria-label={t("goToContact")}>
+                <a
+                  href="#contact-title"
+                  aria-label={t("goToContact")}
+                  onClick={(e) => { e.preventDefault(); scrollToSection("contact-title"); }}
+                >
                   <i className="fa-solid fa-phone-volume" aria-hidden="true"></i>{" "}
                   {t("contact")}
                 </a>
