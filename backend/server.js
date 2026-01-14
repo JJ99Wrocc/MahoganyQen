@@ -43,6 +43,9 @@ const app = express();
 app.get("/", (req, res) => {
   res.status(200).send("API is running");
 });
+app.get("/token", (req, res) => {
+  res.json({ ok: true, message: "TOKEN ENDPOINT DZIAŁA" });
+});
 
 // ===============================
 // SECURITY CORE
