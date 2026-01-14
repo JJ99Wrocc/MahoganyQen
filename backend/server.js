@@ -1,6 +1,8 @@
 // ===============================
 // IMPORTY
 // ===============================
+import path from "path";
+import { fileURLToPath } from "url";
 require("dotenv").config();
 const mongoose = require("mongoose");
 const express = require("express");
@@ -12,7 +14,8 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const crypto = require("crypto");
 const path = require("path");
-
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const serviceAccount = {
   type: "service_account",
   project_id: process.env.GOOGLE_PROJECT_ID,
@@ -42,9 +45,6 @@ const CALENDAR_ID =
 const app = express();
 app.get("/", (req, res) => {
   res.status(200).send("API is running");
-});
-app.get("/token", (req, res) => {
-  res.json({ ok: true, message: "TOKEN ENDPOINT DZIAŁA" });
 });
 
 // ===============================
