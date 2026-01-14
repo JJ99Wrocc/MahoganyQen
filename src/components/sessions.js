@@ -36,7 +36,7 @@ function Sessions() {
   // 🔐 POBRANIE TOKENA (ANTI-BOT)
   // ===============================
   const fetchToken = () => {
-    fetch("http://localhost:3002/token")
+    fetch("https://api.mahoganyqen.com/token")
       .then((res) => res.json())
       .then((data) => setToken(data.token))
       .catch(() => setToken(null));
@@ -53,12 +53,12 @@ function Sessions() {
     const fetchSlots = async () => {
       try {
         const res = await fetch(
-          "http://localhost:3002/events?calendarId=8b61c25a0e56dfc35848864ed7cf55fe06376af0f65f32690f30f8315a14d7e0@group.calendar.google.com"
+          "https://api.mahoganyqen.com/events?calendarId=8b61c25a0e56dfc35848864ed7cf55fe06376af0f65f32690f30f8315a14d7e0@group.calendar.google.com"
         );
         if (!res.ok) throw new Error(t("backendNotResponding"));
         const data = await res.json();
 
-        const bookedRes = await fetch("http://localhost:3002/bookings");
+        const bookedRes = await fetch("https://api.mahoganyqen.com/bookings");
         const booked = await bookedRes.json();
 
         const slots = data
@@ -160,7 +160,7 @@ function Sessions() {
     setLoading(true);
 
     try {
-      const res = await fetch("http://localhost:3002/book", {
+      const res = await fetch("https://api.mahoganyqen.com/book", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -179,8 +179,7 @@ function Sessions() {
         fetchToken();
         return;
       }
-      if (!token) return;
-
+      
       if (res.status === 409) {
         alert(t("slotAlreadyBooked"));
         return;
