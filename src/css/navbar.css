@@ -486,7 +486,7 @@ font-size: 15px;
   .language-switcher .dropdown-toggle {
     font-size: 13px;
     padding: 4px 6px;
-  }
+    margin-right:60px;  }
 
   .language-switcher .dropdown-menu {
     min-width: 140px;

@@ -214,60 +214,72 @@ function ColorSchemesExample() {
             >
               <hr className="hr" />
 
-              <Nav.Link
-                href="#gallery"
-                role="menuitem"
-                tabIndex={0}
-                onClick={handleClose}
-              >
-                <img src={Icon} alt="" aria-hidden="true" className="red" />
-                {t("gallery")}
-              </Nav.Link>
+          <Nav.Link
+  role="menuitem"
+  tabIndex={0}
+  onClick={() => {
+    const section = document.getElementById("gallery");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+    handleClose();
+  }}
+>
+  <img src={Icon} alt="" aria-hidden="true" className="red" />
+  {t("gallery")}
+</Nav.Link>
 
               <hr className="hr" />
 
-              <Nav.Link
-                href="#about-me"
-                role="menuitem"
-                tabIndex={0}
-                onClick={handleClose}
-              >
-                <i
-                  className="fa-regular fa-address-card nav-icon"
-                  aria-hidden="true"
-                ></i>
-                {t("aboutMe")}
-              </Nav.Link>
+       <Nav.Link
+  role="menuitem"
+  tabIndex={0}
+  onClick={() => {
+    // Smooth scroll do sekcji
+    const section = document.getElementById("about-me");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+    // Zamknięcie burger menu
+    handleClose();
+  }}
+>
+  <i
+    className="fa-regular fa-address-card nav-icon"
+    aria-hidden="true"
+  ></i>
+  {t("aboutMe")}
+</Nav.Link>
 
               <hr className="hr" />
 
-              <Nav.Link
-                href="#sessions-booking"
-                role="menuitem"
-                tabIndex={0}
-                onClick={handleClose}
-              >
-                <i
-                  className="fa-regular fa-calendar-days nav-icon"
-                  aria-hidden="true"
-                ></i>
-                {t("session")}
-              </Nav.Link>
+           <Nav.Link
+  onClick={() => {
+    document
+      .getElementById("sessions-booking")
+      .scrollIntoView({ behavior: "smooth" });
+    handleClose(); // zamyka burger menu
+  }}
+>
+  {t("session")}
+</Nav.Link>
 
               <hr className="hr" />
 
-              <Nav.Link
-                href="#contact-title"
-                role="menuitem"
-                tabIndex={0}
-                onClick={handleClose}
-              >
-                <i
-                  className="fa-solid fa-phone-volume nav-icon"
-                  aria-hidden="true"
-                ></i>
-                {t("contact")}
-              </Nav.Link>
+        <Nav.Link
+  role="menuitem"
+  tabIndex={0}
+  onClick={() => {
+    const section = document.getElementById("gallery");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+    handleClose();
+  }}
+>
+  <img src={Icon} alt="" aria-hidden="true" className="red" />
+  {t("gallery")}
+</Nav.Link>
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
