@@ -266,19 +266,19 @@ function ColorSchemesExample() {
 
               <hr className="hr" />
 
-        <Nav.Link
+  <Nav.Link
   role="menuitem"
   tabIndex={0}
   onClick={() => {
-    const section = document.getElementById("gallery");
+    const section = document.getElementById("contact-title");
     if (section) {
       section.scrollIntoView({ behavior: "smooth" });
     }
     handleClose();
   }}
 >
-  <img src={Icon} alt="" aria-hidden="true" className="red" />
-  {t("gallery")}
+  <i className="fa-solid fa-phone-volume nav-icon" aria-hidden="true"></i>
+  {t("contact")}
 </Nav.Link>
             </Nav>
           </Offcanvas.Body>
