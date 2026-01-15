@@ -82,6 +82,8 @@ function Sessions() {
     };
 
     fetchSlots();
+    console.log("🔥 NEW BUILD LOADED");
+
   }, [t]);
 
   const formatDate = (date) => {
