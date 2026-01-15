@@ -53,12 +53,12 @@ function Sessions() {
     const fetchSlots = async () => {
       try {
         const res = await fetch(
-          "https://api.mahoganyqen.com/events?calendarId=8b61c25a0e56dfc35848864ed7cf55fe06376af0f65f32690f30f8315a14d7e0@group.calendar.google.com"
+          "https://mahoganyqen.onrender.com/events"
         );
         if (!res.ok) throw new Error(t("backendNotResponding"));
         const data = await res.json();
 
-        const bookedRes = await fetch("https://api.mahoganyqen.com/bookings");
+        const bookedRes = await fetch("https://mahoganyqen.onrender.com/bookings");
         const booked = await bookedRes.json();
 
         const slots = data
