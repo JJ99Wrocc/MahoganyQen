@@ -235,7 +235,8 @@ app.use((err, req, res, next) => {
 
 app.use(express.static(path.join(__dirname, "my-app/build")));
 
-app.get("/*", (req, res) => {
+// Wszystkie nie-API GET-y kierujemy do React
+app.get(/^(?!\/(events|bookings|book|token)).*$/, (req, res) => {
   res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
 });
 // ===============================
