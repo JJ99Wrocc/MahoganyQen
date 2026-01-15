@@ -26,7 +26,7 @@
     "react-dom": "^19.2.0",
     "react-i18next": "^16.5.0",
     "react-router-dom": "^7.9.6",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "^0.0.0",
     "react-select": "^5.10.2",
     "web-vitals": "^2.1.4"
   },
@@ -59,7 +59,8 @@
   "main": "index.js",
   "devDependencies": {
     "gh-pages": "^6.3.0",
-    "jest": "^27.5.1"
+    "jest": "^27.5.1",
+    "typescript": "^4.9.5"
   },
   "keywords": [],
   "author": "",
