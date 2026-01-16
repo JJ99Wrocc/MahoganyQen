@@ -49,39 +49,46 @@ function Sessions() {
   // ===============================
   // POBIERANIE SLOTÓW Z KALENDARZA I BOOKINGÓW
   // ===============================
-  useEffect(() => {
-    const fetchSlots = async () => {
-      try {
-        const res = await fetch("https://mahoganyqen.onrender.com/events");
-        if (!res.ok) throw new Error(t("backendNotResponding"));
-        const data = await res.json();
+useEffect(() => {
+  const fetchSlots = async () => {
+    try {
+      const res = await fetch("https://mahoganyqen.onrender.com/events");
+      if (!res.ok) throw new Error(t("backendNotResponding"));
+      const data = await res.json();
 
-        const bookedRes = await fetch("https://mahoganyqen.onrender.com/bookings");
-        const booked = await bookedRes.json();
+      const bookedRes = await fetch("https://mahoganyqen.onrender.com/bookings");
+      const booked = await bookedRes.json();
 
-        const slots = data
-          .filter((event) => !booked.some((b) => b.slotId === event.id))
-          .map((event) => ({
-            id: event.id,
-            date: event.start.dateTime
-              ? event.start.dateTime.split("T")[0]
-              : event.start.date,
-            time: event.start.dateTime
-              ? event.start.dateTime.split("T")[1].slice(0, 5)
-              : "",
-            summary: event.summary || t("noDescription"), // <- TO JEST TYTUŁ Z GOOGLE CALENDAR
-          }));
+      const slots = data
+        .map((event) => ({
+          id: event.id,
+          date: event.start.dateTime
+            ? event.start.dateTime.split("T")[0]
+            : event.start.date,
+          time: event.start.dateTime
+            ? event.start.dateTime.split("T")[1].slice(0, 5)
+            : "",
+          summary: event.summary || t("noDescription"),
+        }))
+        // filtrujemy po slotId + date, żeby nie blokować innych godzin
+        .filter(
+          (slot) =>
+            !booked.some(
+              (b) => b.slotId === slot.id && b.date === slot.date
+            )
+        );
 
-        setAvailableSlots(slots);
-      } catch (err) {
-        console.error(err);
-        alert(t("fetchErrorAlert"));
-      }
-    };
+      setAvailableSlots(slots);
+    } catch (err) {
+      console.error(err);
+      alert(t("fetchErrorAlert"));
+    }
+  };
 
-    fetchSlots();
-    console.log("🔥 NEW BUILD LOADED");
-  }, [t]);
+  fetchSlots();
+  console.log("🔥 NEW BUILD LOADED");
+}, [t]);
+
 
   const formatDate = (date) => {
     const y = date.getFullYear();

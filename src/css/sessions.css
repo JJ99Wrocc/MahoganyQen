@@ -434,6 +434,7 @@
 }
 
 .day-with-tooltip {
+  margin-top: 10px;
   width: 70%;
   height: 70%;
   border-radius: 50%;
