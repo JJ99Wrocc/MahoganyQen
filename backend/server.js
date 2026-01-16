@@ -14,7 +14,6 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const crypto = require("crypto");
 
-
 const serviceAccount = {
   type: "service_account",
   project_id: process.env.GOOGLE_PROJECT_ID,
@@ -201,17 +200,22 @@ app.post("/book", async (req, res, next) => {
       throw err;
     }
 
-    await transporter.sendMail({
-      from: `"Booking" <${process.env.SMTP_USER}>`,
-      to: email,
-      subject: "Potwierdzenie rezerwacji ✅",
-      text: `Cześć ${name},
+    // ===============================
+    // NODEMAILER - LOGI
+    // ===============================
+    console.log("🔹 Attempting to send email to:", email);
 
-📅 ${date}
-⏰ ${time}
-
-Do zobaczenia!`,
-    });
+    try {
+      const info = await transporter.sendMail({
+        from: `"Booking" <${process.env.SMTP_USER}>`,
+        to: email,
+        subject: "Potwierdzenie rezerwacji ✅",
+        text: `Cześć ${name},\n\n📅 ${date}\n⏰ ${time}\n\nDo zobaczenia!`,
+      });
+      console.log("✅ Email sent:", info.response);
+    } catch (err) {
+      console.error("❌ Email error:", err);
+    }
 
     res.json({ success: true });
   } catch (err) {
@@ -229,16 +233,12 @@ app.use((err, req, res, next) => {
 // ===============================
 // Serwowanie frontendu React
 // ===============================
-// Serwowanie statycznego frontendu
-// ZAMIANA wildcard GET "*" na Express 5 friendly
-
-
 app.use(express.static(path.join(__dirname, "my-app/build")));
 
-// Wszystkie nie-API GET-y kierujemy do React
 app.get(/^(?!\/(events|bookings|book|token)).*$/, (req, res) => {
   res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
 });
+
 // ===============================
 // START
 app.listen(PORT, () =>
