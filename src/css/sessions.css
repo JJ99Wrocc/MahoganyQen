@@ -306,10 +306,7 @@
   border-color: transparent transparent #1a1a1a transparent;
   z-index: 10;
 }
-.day-with-tooltip:hover::after,
-.day-with-tooltip:hover::before {
-  z-index: 9999; /* dużo wyżej niż wszystko w kalendarzu */
-}
+
 
 @media (min-width:767px) and  (max-width: 992px) {
 

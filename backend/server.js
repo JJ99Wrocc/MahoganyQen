@@ -104,21 +104,21 @@ mongoose
 // ===============================
 // NODEMAILER
 // ===============================
-const nodemailer = require("nodemailer");
+
 
 const transporter = nodemailer.createTransport({
-  host: "smtp.sendgrid.net",
-  port: 587,
-  secure: false,
+  service: "SendGrid",
   auth: {
-    user: "apikey",                
-    pass: process.env.SENDGRID_API_KEY,
-  },
-  tls: {
-    rejectUnauthorized: false,
+    user: "apikey",                  // tak, musi być dokładnie "apikey"
+    pass: process.env.SENDGRID_API_KEY, // Twój klucz API w .env
   },
 });
 
+// opcjonalne sprawdzenie połączenia
+transporter.verify((error, success) => {
+  if (error) console.log("❌ SendGrid ERROR:", error);
+  else console.log("✅ SendGrid ready");
+});
 
 // ===============================
 // GOOGLE CALENDAR
@@ -210,12 +210,13 @@ app.post("/book", async (req, res, next) => {
     console.log("🔹 Attempting to send email to:", email);
 
     try {
-      const info = await transporter.sendMail({
-        from: `"Booking" <${process.env.SMTP_USER}>`,
-        to: email,
-        subject: "Potwierdzenie rezerwacji ✅",
-        text: `Cześć ${name},\n\n📅 ${date}\n⏰ ${time}\n\nDo zobaczenia!`,
-      });
+    const info = await transporter.sendMail({
+  from: `"Booking" <${process.env.CLIENT_EMAIL}>`,
+  to: email,
+  subject: "Potwierdzenie rezerwacji ✅",
+  text: `Cześć ${name},\n\n📅 ${date}\n⏰ ${time}\n\nDo zobaczenia!`,
+});
+
       console.log("✅ Email sent:", info.response);
     } catch (err) {
       console.error("❌ Email error:", err);
