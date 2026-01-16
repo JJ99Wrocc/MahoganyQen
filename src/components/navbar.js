@@ -45,12 +45,18 @@ function ColorSchemesExample() {
       <Container>
 
         {/* LOGO */}
-        <Navbar.Brand
-          href="#home"
-          aria-label="Mahogany Queen Home"
-          tabIndex={0}
-          className="d-flex align-items-center"
-        >
+       <Navbar.Brand
+  onClick={(e) => {
+    e.preventDefault(); // zatrzymuje domyślne skokowe przewijanie
+    const section = document.getElementById("home");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+  }}
+  aria-label="Mahogany Queen Home"
+  tabIndex={0}
+  className="d-flex align-items-center"
+>
           <img
             src={Mletter}
             alt="Mahogany Queen logo"
@@ -258,7 +264,7 @@ function ColorSchemesExample() {
     document
       .getElementById("sessions-booking")
       .scrollIntoView({ behavior: "smooth" });
-    handleClose(); // zamyka burger menu
+    handleClose(); 
   }}
 >
   {t("session")}

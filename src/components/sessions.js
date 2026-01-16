@@ -36,7 +36,7 @@ function Sessions() {
   // 🔐 POBRANIE TOKENA (ANTI-BOT)
   // ===============================
   const fetchToken = () => {
-    fetch("https://api.mahoganyqen.com/token")
+    fetch("https://mahoganyqen.onrender.com/token")
       .then((res) => res.json())
       .then((data) => setToken(data.token))
       .catch(() => setToken(null));
@@ -52,9 +52,7 @@ function Sessions() {
   useEffect(() => {
     const fetchSlots = async () => {
       try {
-        const res = await fetch(
-          "https://mahoganyqen.onrender.com/events"
-        );
+        const res = await fetch("https://mahoganyqen.onrender.com/events");
         if (!res.ok) throw new Error(t("backendNotResponding"));
         const data = await res.json();
 
@@ -83,7 +81,6 @@ function Sessions() {
 
     fetchSlots();
     console.log("🔥 NEW BUILD LOADED");
-
   }, [t]);
 
   const formatDate = (date) => {
@@ -133,15 +130,12 @@ function Sessions() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ❌ BOT: honeypot filled
     if (company !== "") return;
 
-    // ❌ BOT: zbyt szybkie wypełnienie formularza
     if (Date.now() - formLoadTime.current < 3000) {
       return alert("Zbyt szybkie wysłanie formularza.");
     }
 
-    // ❌ SPAM: klik co chwilę
     if (Date.now() - lastSubmitTime.current < 5000) {
       return alert("Zbyt wiele prób. Odczekaj chwilę.");
     }
@@ -162,7 +156,7 @@ function Sessions() {
     setLoading(true);
 
     try {
-      const res = await fetch("https://api.mahoganyqen.com/book", {
+      const res = await fetch("https://mahoganyqen.onrender.com/book", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -172,7 +166,7 @@ function Sessions() {
           date: formatDate(selectedDate),
           time: selectedSlot.label,
           token,
-          ts: Date.now(), // 🔐 anti-replay hint
+          ts: Date.now(),
         }),
       });
 
@@ -181,7 +175,7 @@ function Sessions() {
         fetchToken();
         return;
       }
-      
+
       if (res.status === 409) {
         alert(t("slotAlreadyBooked"));
         return;
@@ -239,7 +233,6 @@ function Sessions() {
       </div>
 
       <form className="session-form" onSubmit={handleSubmit}>
-        {/* 🔐 HONEYPOT */}
         <input
           type="text"
           value={company}
