@@ -104,19 +104,21 @@ mongoose
 // ===============================
 // NODEMAILER
 // ===============================
-const transporter = nodemailer.createTransport(
-  sgTransport({
-    auth: {
-      api_key: process.env.SENDGRID_API_KEY, // Twój klucz SendGrid
-    },
-  })
-);
+const nodemailer = require("nodemailer");
 
-// sprawdzenie połączenia
+const transporter = nodemailer.createTransport({
+  service: 'SendGrid',
+  auth: {
+    user: 'apikey', // tak musi być dla SendGrid
+    pass: process.env.SENDGRID_API_KEY,
+  },
+});
+
 transporter.verify((error, success) => {
   if (error) console.log("❌ SendGrid ERROR:", error);
-  else console.log("✅ SendGrid server is ready");
+  else console.log("✅ SendGrid ready");
 });
+
 
 // ===============================
 // GOOGLE CALENDAR
