@@ -4,8 +4,8 @@ const bookingSchema = new mongoose.Schema({
   slotId: {
     type: String,
     required: true,
-    unique: true, // 🔐 HARD BLOCK – DB LEVEL
-    index: true,
+    // unique: true,
+    // index: true,
   },
   name: {
     type: String,

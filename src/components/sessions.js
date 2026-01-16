@@ -248,15 +248,27 @@ function Sessions() {
         </button>
 
         <div className="calendar-wrapper" style={{ display: openCalendar ? "block" : "none" }}>
-          <DatePicker
-            key={availableDates.join(",")}
-            selected={selectedDate}
-            onChange={handleDateChange}
-            minDate={new Date()}
-            inline
-            dayClassName={getDayClassName}
-            filterDate={(date) => availableDates.includes(formatDate(date))}
-          />
+      <DatePicker
+  key={availableDates.join(",")}
+  selected={selectedDate}
+  onChange={handleDateChange}
+  minDate={new Date()}
+  inline
+  dayClassName={(date) => {
+    const baseClass = getDayClassName(date);
+    const formatted = formatDate(date);
+    const slot = availableSlots.find((s) => s.date === formatted);
+    return slot ? `${baseClass} day-with-tooltip` : baseClass;
+  }}
+  filterDate={(date) => availableDates.includes(formatDate(date))}
+  renderDayContents={(day, date) => {
+    const formatted = formatDate(date);
+    const slot = availableSlots.find((s) => s.date === formatted);
+    const tooltip = slot ? slot.summary : "";
+    return <span title={tooltip}>{day}</span>;
+  }}
+/>
+
         </div>
 
         {availableHours.length > 0 && (
