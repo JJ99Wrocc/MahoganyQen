@@ -1,30 +1,12 @@
 const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema({
-  slotId: {
-    type: String,
-    required: true,
-    // unique: true,
-    // index: true,
-  },
-  name: {
-    type: String,
-    required: true,
-    minlength: 2,
-    maxlength: 50,
-  },
-  email: {
-    type: String,
-    required: true,
-    lowercase: true,
-    trim: true,
-  },
+  id: { type: String, required: true, unique: true }, // ID slotu z kalendarza
+  name: { type: String, required: true },
+  email: { type: String, required: true },
   date: { type: String, required: true },
   time: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
 });
-
-// 🔐 extra safety (Mongo)
-bookingSchema.index({ slotId: 1 }, { unique: true });
 
 module.exports = mongoose.model("Booking", bookingSchema);
