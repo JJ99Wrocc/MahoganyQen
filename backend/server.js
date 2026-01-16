@@ -13,8 +13,8 @@ const { google } = require("googleapis");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const crypto = require("crypto");
-const sgTransport = require("nodemailer-sendgrid-transport");
-const nodemailer = require("nodemailer");
+// const sgTransport = require("nodemailer-sendgrid-transport");
+// const nodemailer = require("nodemailer");
 const serviceAccount = {
   type: "service_account",
   project_id: process.env.GOOGLE_PROJECT_ID,
@@ -104,20 +104,21 @@ mongoose
 // ===============================
 // NODEMAILER
 // ===============================
-
-
 const transporter = nodemailer.createTransport({
-  service: "SendGrid",
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT),
+  secure: true,
   auth: {
-    user: "apikey",                  // tak, musi być dokładnie "apikey"
-    pass: process.env.SENDGRID_API_KEY, // Twój klucz API w .env
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+  tls: {
+    rejectUnauthorized: false,
   },
 });
-
-// opcjonalne sprawdzenie połączenia
 transporter.verify((error, success) => {
-  if (error) console.log("❌ SendGrid ERROR:", error);
-  else console.log("✅ SendGrid ready");
+  if (error) console.log("❌ SMTP ERROR:", error);
+  else console.log("✅ SMTP server is ready");
 });
 
 // ===============================
@@ -210,13 +211,12 @@ app.post("/book", async (req, res, next) => {
     console.log("🔹 Attempting to send email to:", email);
 
     try {
-    const info = await transporter.sendMail({
-  from: '"Booking" <esangbedojoachim@gmail.com>',
-  to: email,
-  subject: "Potwierdzenie rezerwacji ✅",
-  text: `Cześć ${name},\n\n📅 ${date}\n⏰ ${time}\n\nDo zobaczenia!`,
-});
-
+      const info = await transporter.sendMail({
+        from: `"Booking" <${process.env.SMTP_USER}>`,
+        to: email,
+        subject: "Potwierdzenie rezerwacji ✅",
+        text: `Cześć ${name},\n\n📅 ${date}\n⏰ ${time}\n\nDo zobaczenia!`,
+      });
       console.log("✅ Email sent:", info.response);
     } catch (err) {
       console.error("❌ Email error:", err);

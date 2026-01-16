@@ -49,7 +49,6 @@ function Sessions() {
   // ===============================
   // POBIERANIE SLOTÓW Z KALENDARZA I BOOKINGÓW
   // ===============================
-useEffect(() => {
   const fetchSlots = async () => {
     try {
       const res = await fetch("https://mahoganyqen.onrender.com/events");
@@ -60,6 +59,7 @@ useEffect(() => {
       const booked = await bookedRes.json();
 
       const slots = data
+        .filter((event) => !booked.some((b) => b.slotId === event.id))
         .map((event) => ({
           id: event.id,
           date: event.start.dateTime
@@ -68,15 +68,8 @@ useEffect(() => {
           time: event.start.dateTime
             ? event.start.dateTime.split("T")[1].slice(0, 5)
             : "",
-          summary: event.summary || t("noDescription"),
-        }))
-        // filtrujemy po slotId + date, żeby nie blokować innych godzin
-        .filter(
-          (slot) =>
-            !booked.some(
-              (b) => b.slotId === slot.id && b.date === slot.date
-            )
-        );
+          summary: event.summary || t("noDescription"), // <- TO JEST TYTUŁ Z GOOGLE CALENDAR
+        }));
 
       setAvailableSlots(slots);
     } catch (err) {
@@ -85,10 +78,10 @@ useEffect(() => {
     }
   };
 
-  fetchSlots();
-  console.log("🔥 NEW BUILD LOADED");
-}, [t]);
-
+  useEffect(() => {
+    fetchSlots();
+    console.log("🔥 NEW BUILD LOADED");
+  }, [t]);
 
   const formatDate = (date) => {
     const y = date.getFullYear();
@@ -200,6 +193,9 @@ useEffect(() => {
       setCompany("");
       setToken(null);
       fetchToken();
+
+      // 🔹 ODŚWIEŻ SLOTY, żeby zniknął z dostępnych
+      fetchSlots();
     } catch {
       alert(t("bookingError"));
     } finally {
@@ -255,32 +251,31 @@ useEffect(() => {
         </button>
 
         <div className="calendar-wrapper" style={{ display: openCalendar ? "block" : "none" }}>
-       <DatePicker
-  key={availableDates.join(",")}
-  selected={selectedDate}
-  onChange={handleDateChange}
-  minDate={new Date()}
-  inline
-  dayClassName={(date) => {
-    const baseClass = getDayClassName(date);
-    const formatted = formatDate(date);
-    const slot = availableSlots.find((s) => s.date === formatted);
-    return slot ? `${baseClass} day-with-tooltip` : baseClass;
-  }}
-  filterDate={(date) => availableDates.includes(formatDate(date))}
-  renderDayContents={(day, date) => {
-    const formatted = formatDate(date);
-    const slot = availableSlots.find((s) => s.date === formatted);
-    return slot ? (
-      <span className="day-with-tooltip" data-tooltip={slot.summary}>
-        {day}
-      </span>
-    ) : (
-      <span>{day}</span>
-    );
-  }}
-/>
-
+          <DatePicker
+            key={availableDates.join(",")}
+            selected={selectedDate}
+            onChange={handleDateChange}
+            minDate={new Date()}
+            inline
+            dayClassName={(date) => {
+              const baseClass = getDayClassName(date);
+              const formatted = formatDate(date);
+              const slot = availableSlots.find((s) => s.date === formatted);
+              return slot ? `${baseClass} day-with-tooltip` : baseClass;
+            }}
+            filterDate={(date) => availableDates.includes(formatDate(date))}
+            renderDayContents={(day, date) => {
+              const formatted = formatDate(date);
+              const slot = availableSlots.find((s) => s.date === formatted);
+              return slot ? (
+                <span className="day-with-tooltip" data-tooltip={slot.summary}>
+                  {day}
+                </span>
+              ) : (
+                <span>{day}</span>
+              );
+            }}
+          />
         </div>
 
         {availableHours.length > 0 && (
