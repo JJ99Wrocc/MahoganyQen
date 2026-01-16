@@ -211,7 +211,7 @@ app.post("/book", async (req, res, next) => {
 
     try {
     const info = await transporter.sendMail({
-  from: `"Booking" <${process.env.CLIENT_EMAIL}>`,
+  from: '"Booking" <mahoganyqen@gmail.com>',
   to: email,
   subject: "Potwierdzenie rezerwacji ✅",
   text: `Cześć ${name},\n\n📅 ${date}\n⏰ ${time}\n\nDo zobaczenia!`,
