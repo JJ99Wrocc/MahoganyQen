@@ -107,16 +107,16 @@ mongoose
 const nodemailer = require("nodemailer");
 
 const transporter = nodemailer.createTransport({
-  service: 'SendGrid',
+  host: "smtp.sendgrid.net",
+  port: 587,
+  secure: false,
   auth: {
-    user: 'apikey', // tak musi być dla SendGrid
+    user: "apikey",                
     pass: process.env.SENDGRID_API_KEY,
   },
-});
-
-transporter.verify((error, success) => {
-  if (error) console.log("❌ SendGrid ERROR:", error);
-  else console.log("✅ SendGrid ready");
+  tls: {
+    rejectUnauthorized: false,
+  },
 });
 
 
