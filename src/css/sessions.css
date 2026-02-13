@@ -657,3 +657,9 @@ height: 400px;
   background-color: #8b0000 !important; /* bordowe podświetlenie */
   color: #fff !important;
 }
+
+@media(max-width: 768px) and ( min-width: 300px){
+  .session-booking{
+    margin: auto;
+  }
+}

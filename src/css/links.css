@@ -1,0 +1,57 @@
+/* Kontener główny - czyste, głębokie czarne tło */
+.links-container {
+    background-color: #000000; /* Totalny czarny */
+    padding: 20px 0;           /* Zredukowany margines góra/dół */
+    margin: 0 auto;
+}
+
+/* Kafelki - teraz bardziej zwarte */
+.links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 10px;           /* Mały, elegancki font */
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    padding: 10px 5px;         /* Bardzo małe odstępy wewnętrzne */
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-align: center;
+}
+
+/* Zdjęcia - mniejszy odstęp od tekstu */
+.img-links {
+    width: 50px;               /* Powrót do mniejszego rozmiaru */
+    height: 50px;
+    border-radius: 50%;
+    margin-bottom: 8px;        /* Tylko 8px odstępu od napisu */
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.05);
+    filter: grayscale(100%);   /* Spójny, profesjonalny look */
+    transition: all 0.3s ease;
+}
+
+/* Efekt Hover - tylko subtelne podświetlenie */
+.links:hover {
+    transform: translateY(-3px); /* Minimalny ruch do góry */
+}
+
+.links:hover .img-links {
+    filter: grayscale(0%);     /* Powrót koloru na hover */
+    border-color: rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+/* Zredukowane odstępy między rzędami w Bootstrapie */
+.row {
+    row-gap: 15px;             /* Ciasne ułożenie rzędów */
+}
+
+/* Usuwamy podkreślenia z linków */
+.links a {
+    text-decoration: none;
+    line-height: 0;            /* Usuwa dziwne przerwy pod linkiem */
+}

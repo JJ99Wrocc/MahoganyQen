@@ -1,7 +1,7 @@
 .navbar {
   background: linear-gradient(135deg, #0b0b0b, #1b1b1b);
   transition: all 0.4s ease;
-  box-shadow: 2px 2px 6px #3a0000;
+  box-shadow: 2px 2px 6px #222020;
 color: #f2f2f2;;
   background: rgba(10, 10, 10, 0.1); 
 }
@@ -9,9 +9,9 @@ color: #f2f2f2;;
 
 .navbar-scrolled {
   backdrop-filter: blur(10px);   
-  box-shadow:  2px 2px 6px #3a0000;
+  box-shadow:  2px 2px 6px #222020;
 color: #f2f2f2;;
-  border-bottom: 1px solid #3a0000;
+  border-bottom: 1px solid #222020;
 
 }
 
@@ -76,7 +76,7 @@ color: #f2f2f2;;
 }
 
 .nav-title:hover {
-  text-shadow: 2px 2px 6px #3a0000;
+  text-shadow: 2px 2px 6px #222020;
 color: #f2f2f2;
 }
 
@@ -110,7 +110,7 @@ color: #f2f2f2;
   bottom: -3px;
   width: 0;
   height: 2px;
-  background: #3a0000;
+  background: #222020;
   transition: width 0.3s ease;
   border-radius: 2px;
 }
@@ -123,7 +123,7 @@ color: #f2f2f2;
 }
 .offcanvas.show:not(.hiding), .offcanvas.showing {
   transition: all 0.4s ease;
-  box-shadow: 0 0 25px #3a0000;
+  box-shadow: 0 0 25px #222020;
   border-bottom: 1px solid ;
    transform: none;
      background: rgba(10, 10, 10, 0.1); /* mniej nieprzezroczyste */
@@ -161,8 +161,8 @@ color: #f2f2f2;
 }
 
 .navbar-toggler:hover {
-  border-color: #3a0000;
-  box-shadow: 0 0 10px #3a0000;
+  border-color: #222020;
+  box-shadow: 0 0 10px #222020;
 }
 
 .navbar-toggler-icon {
@@ -188,7 +188,7 @@ color: #f2f2f2;
     );
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    text-shadow: 2px 2px 6px #3a0000;
+    text-shadow: 2px 2px 6px #222020;
 
 }
 
@@ -213,8 +213,8 @@ color: #7a0000  !important;
   transition: 0.3s ease;
 }
 .burger-svg:hover {
-  filter: drop-shadow(0 0 6px #3a0000);
-  color:maroon
+  filter: drop-shadow(0 0 6px #222020);
+  color:#222020
 }
 
 .line {
@@ -384,13 +384,13 @@ font-size: 15px;
 /* TOGGLE */
 .language-switcher .dropdown-toggle {
   background: rgba(0, 0, 0, 0.35);
-  border: 1px solid rgba(122, 0, 0, 0.6);
+  border: 1px solid #222020;
   color: #fff;
   font-size: 16px;
   padding: 6px 10px;
   border-radius: 10px;
   transition: all 0.3s ease;
-  box-shadow: 0 0 8px rgba(122, 0, 0, 0.35);
+  box-shadow: 0 0 8px #222020;
 }
 
 .language-switcher .dropdown-toggle:hover,
@@ -403,11 +403,11 @@ font-size: 15px;
 /* MENU */
 .language-switcher .dropdown-menu {
   background: linear-gradient(135deg, #0b0b0b, #1b1b1b);
-  border: 1px solid rgba(122, 0, 0, 0.7);
+  border: 1px solid #222020;
   border-radius: 14px;
   padding: 6px;
   min-width: 170px;
-  box-shadow: 0 0 25px rgba(122, 0, 0, 0.6);
+  box-shadow: 0 0 25px #222020;
   backdrop-filter: blur(10px);
 }
 

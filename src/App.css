@@ -36,3 +36,71 @@
     transform: rotate(360deg);
   }
 } */
+/* Stylizacja przycisku "Back to Top" dla mahoganyqen.com */
+.scroll-to-top {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  
+  /* Rozmiar i kształt */
+  width: 30px;
+  height: 30px;
+  border-radius: 50%; /* Idealne koło */
+  
+  /* Kolorystyka - nawiązanie do luksusowej czerni/bieli strony */
+  background-color: #ffffff; /* Białe tło */
+  color: #1a1a1a;           /* Czarna strzałka */
+  border: 1px solid #e5e5e5; /* Bardzo delikatna obramówka */
+  
+  /* Flexbox do idealnego wyśrodkowania strzałki */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  cursor: pointer;
+  z-index: 9999;
+  
+  /* Ukrycie początkowe */
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(15px);
+  
+  /* Bardzo płynne przejście (luxury feel) */
+  transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Bardzo miękki cień */
+}
+
+/* Stan aktywny (widoczny) */
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Efekt Hover - profesjonalne odwrócenie kolorów */
+.scroll-to-top:hover {
+  background-color: #1a1a1a; /* Czarny po najechaniu */
+  color: #ffffff;           /* Biała strzałka po najechaniu */
+  border-color: #1a1a1a;
+  transform: translateY(-5px); /* Delikatne uniesienie */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Strzałka (jeśli używasz tekstu ↑) */
+.scroll-to-top::after {
+  content: '↑';
+  font-family: 'Playfair Display', serif; /* Jeśli strona używa szeryfów */
+  font-weight: 300;
+  font-size: 15px;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 55px;
+    right: 45px;
+    width: 35px;
+    height: 35px;
+    font-size: 13px;
+  }
+}

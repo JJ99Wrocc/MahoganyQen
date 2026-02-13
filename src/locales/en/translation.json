@@ -1,4 +1,5 @@
 {
+  "links": "Links",
   "gallery": "Gallery",
   "aboutMe": "About me",
   "session": "Session",
@@ -53,4 +54,5 @@
   "footerCopyright": "Footer copyright",
   "allRightsReserved": "All Rights Reserved",
   "siteTitle": "MahoganyQen"
+
 }

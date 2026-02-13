@@ -12,10 +12,12 @@ function Footer() {
     i18n.changeLanguage(lang);
   };
 
-  // Funkcja scrollująca do sekcji
+  // Funkcja do scrollowania do sekcji w SPA
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
@@ -92,47 +94,47 @@ function Footer() {
               aria-labelledby="explore-title"
             >
               <li role="listitem">
-                <a
-                  href="#about-me"
+                <span
+                  onClick={() => scrollToSection("about-me")}
                   aria-label={t("goToAbout")}
-                  onClick={(e) => { e.preventDefault(); scrollToSection("about-me"); }}
+                  className="footer-link-button"
                 >
                   <i className="fa-regular fa-address-card" aria-hidden="true"></i>{" "}
                   {t("about")}
-                </a>
+                </span>
               </li>
 
               <li role="listitem">
-                <a
-                  href="#gallery"
+                <span
+                  onClick={() => scrollToSection("gallery")}
                   aria-label={t("goToGallery")}
-                  onClick={(e) => { e.preventDefault(); scrollToSection("gallery"); }}
+                  className="footer-link-button"
                 >
                   <i className="fa-solid fa-pepper-hot" aria-hidden="true"></i>{" "}
                   {t("gallery")}
-                </a>
+                </span>
               </li>
 
               <li className="last-item" role="listitem">
-                <a
-                  href="#sessions-booking"
+                <span 
+                  onClick={() => scrollToSection("sessions-booking")}
                   aria-label={t("goToSessions")}
-                  onClick={(e) => { e.preventDefault(); scrollToSection("sessions-booking"); }}
+                  className="footer-link-button"
                 >
                   <i className="fa-regular fa-calendar-days" aria-hidden="true"></i>{" "}
                   {t("sessions")}
-                </a>
+                </span>
               </li>
 
               <li role="listitem">
-                <a
-                  href="#contact-title"
+                <span
+                  onClick={() => scrollToSection("contact-title")}
                   aria-label={t("goToContact")}
-                  onClick={(e) => { e.preventDefault(); scrollToSection("contact-title"); }}
+                  className="footer-link-button"
                 >
                   <i className="fa-solid fa-phone-volume" aria-hidden="true"></i>{" "}
                   {t("contact")}
-                </a>
+                </span>
               </li>
             </ul>
           </nav>
@@ -179,11 +181,11 @@ function Footer() {
               <li role="listitem">
                 <i className="fa-solid fa-envelope" aria-hidden="true"></i>
                 <a
-                  href="mailto:mahoganyqueen@gmail.com"
+                  href="mailto:MahoganyQenContact@gmail.com"
                   className="email-link"
                   aria-label={t("sendEmail")}
                 >
-                  mahoganyqueen@gmail.com
+                  MahoganyQenContact@gmail.com
                 </a>
               </li>
 

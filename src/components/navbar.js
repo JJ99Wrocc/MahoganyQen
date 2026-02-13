@@ -269,6 +269,17 @@ function ColorSchemesExample() {
 >
   {t("session")}
 </Nav.Link>
+<hr className="hr" />
+           <Nav.Link
+  onClick={() => {
+    document
+      .getElementById("linki")
+      .scrollIntoView({ behavior: "smooth" });
+    handleClose(); 
+  }}
+>
+ <i className="fa-solid fa-link nav-icon" aria-hidden="true"></i>  {t("links")}
+</Nav.Link>
 
               <hr className="hr" />
 
