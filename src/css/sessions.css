@@ -507,13 +507,13 @@
 }
 @media (min-width:370px)and  (max-width: 400px)   {
 .react-datepicker__header{
-  width: 120%;
+  width: 100%;
 }
 .react-datepicker__week {
-  gap:  10px;
+  gap:  1px;
 }
 .react-datepicker__day, .react-datepicker__day-name {
-      aspect-ratio:0.68/1;
+      aspect-ratio:0.9/1;
 }
 .react-datepicker {
   padding: 20px 0px 20px 20px;

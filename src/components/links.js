@@ -19,7 +19,7 @@ const links = () => {
                 <a href="https://x.com/LadyMahogany5" target="_blank" rel="noopener noreferrer">
                         <img src={Twitter} alt="Twitter" className="img-links" />
                  </a>
-                 Twitter elo
+                 Twitter
             </div>
            <div className='col-6 col-md-4 col-xl-2 links'>
                 <a href="https://throne.com/MahoganyQen" target="_blank" rel="noopener noreferrer">
