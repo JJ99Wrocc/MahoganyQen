@@ -394,7 +394,7 @@
 
 @media(min-width:700px) and (max-width:768px){
 .react-datepicker__week {
-  gap: 37px;
+  gap: 10px;
 }}
 /* @media(min-width:650px) and (max-width:699px){
 .react-datepicker__week {
@@ -444,38 +444,21 @@
   font-size: 8px;
   padding: 5px 7px;
 }
-}
-@media (min-width:530px) and  (max-width: 576px) {
-.react-datepicker__header{
-  width: 95%;
-}
-.react-datepicker__week {
-  gap: 15px;
-}}
-@media (min-width:500px) and  (max-width: 530px) {
+/* } */
+@media (min-width:300px) and  (max-width: 576px) {
+
 .react-datepicker__header{
   width: 90%;
 }
 .react-datepicker__week {
-  gap: 11px;
+  gap: 1px;
 }
 .react-datepicker {
   padding: 20px 0px 20px 20px;
   height: 330px;
 }
 }
-@media (min-width:300px)and  (max-width: 500px)   {
-.react-datepicker__header{
-  width: 90%;
-}
-.react-datepicker__week {
-  gap: 5px;
-}
-.react-datepicker {
-  padding: 20px 0px 20px 20px;
-  height: 330px;
-}
-} */
+ 
 /* @media (min-width:429px)and  (max-width: 450px)   {
 .react-datepicker__header{
   width: 100%;
