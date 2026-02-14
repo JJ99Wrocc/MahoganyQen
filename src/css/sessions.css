@@ -464,7 +464,7 @@
   height: 330px;
 }
 }
-@media (min-width:470px)and  (max-width: 500px)   {
+@media (min-width:300px)and  (max-width: 500px)   {
 .react-datepicker__header{
   width: 90%;
 }
@@ -476,7 +476,7 @@
   height: 330px;
 }
 }
-@media (min-width:429px)and  (max-width: 450px)   {
+/* @media (min-width:429px)and  (max-width: 450px)   {
 .react-datepicker__header{
   width: 100%;
 }
@@ -504,8 +504,8 @@
 .react-datepicker {
   height: 390px;
 }
-}
-@media (min-width:370px)and  (max-width: 400px)   {
+} */
+/* @media (min-width:370px)and  (max-width: 400px)   {
 .react-datepicker__header{
   width: 100%;
 }
@@ -519,8 +519,8 @@
   padding: 20px 0px 20px 20px;
   height: 415px;
 }
-}
-@media (min-width:340px)and  (max-width: 370px)   {
+} */
+/* @media (min-width:340px)and  (max-width: 370px)   {
 .react-datepicker__header{
   width:100%;
 }
@@ -622,7 +622,7 @@ height: 400px;
   font-size: 8px!important;
 }
 
-}
+} */
 
 
  .react-select__control .react-select__indicator.react-select__dropdown-indicator.css-1xc3v61-indicatorContainer,.css-1jwv1jf-control,.css-hlgwow,.css-1jqq78o-placeholder,.css-1u9des2-indicatorSeparator,.css-1dimb5e-singleValue,.css-1dimb5e-singleValue,.css-1xc3v61-indicatorContainer{
