@@ -13,8 +13,7 @@ const { google } = require("googleapis");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const crypto = require("crypto");
-// const sgTransport = require("nodemailer-sendgrid-transport");
-// const nodemailer = require("nodemailer");
+
 const serviceAccount = {
   type: "service_account",
   project_id: process.env.GOOGLE_PROJECT_ID,
@@ -42,7 +41,7 @@ const CALENDAR_ID =
 // EXPRESS
 // ===============================
 const app = express();
-
+app.set('trust proxy', 1);
 app.get("/", (req, res) => {
   res.status(200).send("API is running");
 });
@@ -55,10 +54,11 @@ app.disable("x-powered-by");
 
 app.use(
   cors({
-    origin: false,
-      process.env.NODE_ENV === "production"
-        ? "https://mahoganyqen.com"
-        : "http://localhost:3000",
+    origin: [
+      "https://mahoganyqen.com",
+      "https://www.mahoganyqen.com",
+      "https://mahoganyqen.onrender.com"
+    ],
     methods: ["GET", "POST"],
     credentials: false,
   })
@@ -103,23 +103,19 @@ mongoose
   .catch((err) => console.error("❌ MongoDB error", err));
 
 // ===============================
-// NODEMAILER
+// NODEMAILER (ZMIANA POD SENDGRID)
 // ===============================
 const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: false,
+  host: "smtp.sendgrid.net",
+  port: 587,
+  secure: false, 
   auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
+    user: "apikey", // Zostawić dokładnie tak
+    pass: process.env.SMTP_PASS, // Tutaj Twój klucz SG....
   },
   tls: {
-    rejectUnauthorized: false,
-  },
-});
-transporter.verify((error, success) => {
-  if (error) console.log("❌ SMTP ERROR:", error);
-  else console.log("✅ SMTP server is ready");
+    rejectUnauthorized: false
+  }
 });
 
 // ===============================
@@ -159,7 +155,7 @@ app.get("/events", async (req, res) => {
 });
 
 // ===============================
-// BOOKINGS (ONLY IDS)
+// BOOKINGS
 app.get("/bookings", async (req, res) => {
   const bookings = await Booking.find({}, { slotId: 1, _id: 0 });
   res.json(bookings);
@@ -167,65 +163,48 @@ app.get("/bookings", async (req, res) => {
 
 // ===============================
 // BOOK SLOT
+// ===============================
 app.post("/book", async (req, res, next) => {
   try {
     const { token, id, name, email, date, time } = req.body;
 
-    // TOKEN CHECK
     if (!tokens.has(token) || tokens.get(token) < Date.now()) {
       return res.status(403).json({ error: "Invalid token" });
     }
     tokens.delete(token);
 
-    // INPUT VALIDATION
     if (typeof name !== "string" || name.length < 2 || name.length > 50) {
       return res.status(400).json({ error: "Invalid name" });
     }
-
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return res.status(400).json({ error: "Invalid email" });
     }
 
-    if (!id || !date || !time) {
-      return res.status(400).json({ error: "Invalid booking data" });
-    }
-
-    // ATOMIC DB LOCK
     try {
-      await Booking.create({
-        slotId: id,
-        name,
-        email,
-        date,
-        time,
-      });
+      await Booking.create({ slotId: id, name, email, date, time });
     } catch (err) {
-      if (err.code === 11000) {
-        return res.status(409).json({ error: "Slot already booked" });
-      }
+      if (err.code === 11000) return res.status(409).json({ error: "Slot already booked" });
       throw err;
     }
 
-    // ===============================
-    // NODEMAILER - LOGI
-    // ===============================
-    console.log("🔹 Attempting to send email to:", email);
+    // 1. Odpowiedz sukcesem od razu
+    res.json({ success: true });
 
-    try {
-      const info = await transporter.sendMail({
-        from: `"Booking" <${process.env.SMTP_USER}>`,
+    // 2. Wyślij maila w tle
+    setImmediate(() => {
+      console.log("🔹 Próba wysyłki maila przez SendGrid...");
+      transporter.sendMail({
+        from: `"Booking" <esangbedojoachim@gmail.com>`, // MUSI być Twój zweryfikowany Gmail
         to: email,
         subject: "Potwierdzenie rezerwacji ✅",
-        text: `Cześć ${name},\n\n📅 ${date}\n⏰ ${time}\n\nDo zobaczenia!`,
-      });
-      console.log("✅ Email sent:", info.response);
-    } catch (err) {
-      console.error("❌ Email error:", err);
-    }
+        text: `Cześć ${name},\n\nTwoja rezerwacja na ${date} o godzinie ${time} została przyjęta!`,
+      })
+      .then(info => console.log("✅ Mail wysłany (SendGrid):", info.response))
+      .catch(mailErr => console.error("❌ Błąd maila SendGrid:", mailErr.message));
+    });
 
-    res.json({ success: true });
   } catch (err) {
-    next(err);
+    if (!res.headersSent) next(err);
   }
 });
 
@@ -233,20 +212,13 @@ app.post("/book", async (req, res, next) => {
 // GLOBAL ERROR HANDLER
 app.use((err, req, res, next) => {
   console.error("🔥 SERVER ERROR:", err);
-  res.status(500).json({ error: "Internal server error" });
+  if (!res.headersSent) res.status(500).json({ error: "Internal server error" });
 });
 
-// ===============================
-// Serwowanie frontendu React
-// ===============================
 app.use(express.static(path.join(__dirname, "my-app/build")));
 
 app.get(/^(?!\/(events|bookings|book|token)).*$/, (req, res) => {
   res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
 });
 
-// ===============================
-// START
-app.listen(PORT, () =>
-  console.log(`🚀 Server running on port ${PORT}`)
-);
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
