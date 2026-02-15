@@ -206,24 +206,25 @@ app.post("/book", async (req, res, next) => {
       throw err;
     }
 
+    // WYSYŁKA SUKCESU DO FRONTENDU (ZANIM MAILEM ZABLOKUJEMY PROCES)
+    res.json({ success: true });
+
     // ===============================
-    // NODEMAILER - LOGI
+    // NODEMAILER - WYSYŁKA W TLE
     // ===============================
     console.log("🔹 Attempting to send email to:", email);
 
-    try {
-      const info = await transporter.sendMail({
-        from: `"Booking" <${process.env.SMTP_USER}>`,
-        to: email,
-        subject: "Potwierdzenie rezerwacji ✅",
-        text: `Cześć ${name},\n\n📅 ${date}\n⏰ ${time}\n\nDo zobaczenia!`,
-      });
+    transporter.sendMail({
+      from: `"Booking" <${process.env.SMTP_USER}>`,
+      to: email,
+      subject: "Potwierdzenie rezerwacji ✅",
+      text: `Cześć ${name},\n\n📅 ${date}\n⏰ ${time}\n\nDo zobaczenia!`,
+    }).then(info => {
       console.log("✅ Email sent:", info.response);
-    } catch (err) {
-      console.error("❌ Email error:", err);
-    }
+    }).catch(err => {
+      console.error("❌ Email error (rezerwacja zapisana):", err.message);
+    });
 
-    res.json({ success: true });
   } catch (err) {
     next(err);
   }
