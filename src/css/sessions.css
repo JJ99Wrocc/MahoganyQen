@@ -446,46 +446,56 @@
 }
 /* } */
 @media (max-width: 768px) and (min-width: 300px) {
-  /* Kontener kalendarza */
+  /* 1. GŁÓWNY KONTENER KALENDARZA - rozciągamy na maxa */
   .react-datepicker {
-    width: 100% !important; /* Musi być 100%, żeby nie wystawał */
-    height: auto !important; /* Usuwamy sztywne 330px, niech rośnie z zawartością */
-    padding: 10px !important; /* Równy padding z każdej strony */
-    display: block !important;
+    width: 100% !important;
+    display: flex !important; /* Zmieniamy z inline-block na flex */
+    flex-direction: column;
+    padding: 10px !important;
+    margin: 0 !important;
     box-sizing: border-box !important;
+    height: auto !important;
   }
 
-  /* Nagłówek - wyśrodkowanie */
+  /* 2. KONTENERY WEWNĘTRZNE - muszą wypełnić rodzica */
+  .react-datepicker__month-container,
+  .react-datepicker__month {
+    width: 100% !important;
+    margin: 0 !important;
+  }
+
   .react-datepicker__header {
-    width: 100% !important; /* Zmienione z 90% na 100% dla symetrii */
-    margin: 0 auto !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 15px 0 !important;
     background: black !important;
   }
 
-  /* KLUCZ DO MIESZCZENIA LICZB: */
+  /* 3. TYGODNIE I DNI - rozciągamy, żeby wypełniły 100% szerokości kontenera */
   .react-datepicker__day-names, 
   .react-datepicker__week {
     display: flex !important;
-    justify-content: space-around !important; /* To zastępuje "gap", rozkładając dni idealnie */
     width: 100% !important;
-    margin: 5px 0 !important;
-    gap: 0 !important; /* Usuwamy gap, bo justify-content robi robotę */
+    justify-content: space-between !important; /* Dni dotykają krawędzi kalendarza */
+    margin: 8px 0 !important;
+    gap: 0 !important;
   }
 
+  /* 4. POJEDYNCZE DNI - niech rosną, by wypełnić przestrzeń */
   .react-datepicker__day, 
   .react-datepicker__day-name {
-    flex: 1 !important; /* Dzień zabiera tyle miejsca, ile mu wolno */
-    max-width: 40px !important; /* Żeby nie był za wielki */
-    aspect-ratio: 1/1 !important; /* Idealne koło */
+    flex: 1 !important; /* Każdy dzień dostaje równy procent szerokości */
+    max-width: 100% !important; /* Usuwamy ograniczenie px, żeby wypełnił flex-a */
+    aspect-ratio: 1/1 !important; 
     display: flex !important;
     align-items: center;
     justify-content: center;
     margin: 0 !important;
-    font-size: 13px !important; /* Rozmiar, który na pewno wejdzie w kółko */
+    font-size: 14px !important;
     padding: 0 !important;
   }
 
-  /* Poprawka dla tooltipów na małym ekranie */
+  /* 5. FIX DLA TOOLTIPÓW - muszą zajmować całą przestrzeń kółka */
   .day-with-tooltip {
     width: 100% !important;
     height: 100% !important;
