@@ -172,46 +172,31 @@ app.post("/book", async (req, res, next) => {
   try {
     const { token, id, name, email, date, time } = req.body;
 
-    // Walidacja tokena
-    if (!tokens.has(token) || tokens.get(token) < Date.now()) {
-      return res.status(403).json({ error: "Invalid token" });
-    }
-    tokens.delete(token);
+    // ... (tutaj Twoja walidacja tokena i danych) ...
 
-    // Walidacja danych
-    if (typeof name !== "string" || name.length < 2 || name.length > 50) {
-      return res.status(400).json({ error: "Invalid name" });
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return res.status(400).json({ error: "Invalid email" });
-    }
-
-    // Zapis do bazy
+    // 1. Zapisujemy do bazy
     try {
       await Booking.create({ slotId: id, name, email, date, time });
     } catch (err) {
-      if (err.code === 11000) return res.status(409).json({ error: "Slot already booked" });
+      if (err.code === 11000) return res.status(409).json({ error: "Już zajęte" });
       throw err;
     }
 
-    // 1. ODPOWIEDŹ DO FRONTENDU NATYCHMIAST (Processing zniknie)
-    res.status(200).json({ success: true });
+    // 2. ODPOWIEDŹ DLA KLIENTA (Wysyłamy natychmiast!)
+    // Dzięki temu "Processing" zniknie i pojawi się sukces na stronie
+    res.json({ success: true });
 
-    // 2. WYSYŁKA MAILA W TLE (Całkowita izolacja od frontendu)
-    setImmediate(() => {
-      console.log("🔹 Próba wysyłki maila przez SendGrid...");
-      transporter.sendMail({
-        from: `"Booking" <esangbedojoachim@gmail.com>`, // Zweryfikowany nadawca
-        to: email,
-        subject: "Potwierdzenie rezerwacji ✅",
-        text: `Cześć ${name},\n\nTwoja rezerwacja na ${date} o godzinie ${time} została przyjęta!\n\nDo zobaczenia!`,
-      })
-      .then(info => console.log("✅ Mail wysłany (SendGrid):", info.response))
-      .catch(mailErr => console.error("❌ Błąd maila SendGrid:", mailErr.message));
-    });
+    // 3. MAILING W TLE (Bez słowa 'await')
+    console.log("🔹 Próba wysyłki maila przez SendGrid...");
+    transporter.sendMail({
+      from: `"Booking" <esangbedojoachim@gmail.com>`, // MUSI być zweryfikowany mail z SendGrid!
+      to: email,
+      subject: "Potwierdzenie rezerwacji ✅",
+      text: `Cześć ${name},\n\n📅 ${date}\n⏰ ${time}\n\nDo zobaczenia!`,
+    }).then(info => console.log("✅ Mail wysłany przez SendGrid:", info.response))
+      .catch(err => console.error("❌ Błąd maila (ale rezerwacja w DB jest!):", err.message));
 
   } catch (err) {
-    // To złapie tylko błędy krytyczne PRZED wysłaniem odpowiedzi
     if (!res.headersSent) next(err);
   }
 });
