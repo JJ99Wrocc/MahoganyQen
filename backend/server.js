@@ -13,7 +13,8 @@ const { google } = require("googleapis");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const crypto = require("crypto");
-
+// const sgTransport = require("nodemailer-sendgrid-transport");
+// const nodemailer = require("nodemailer");
 const serviceAccount = {
   type: "service_account",
   project_id: process.env.GOOGLE_PROJECT_ID,
@@ -41,21 +42,26 @@ const CALENDAR_ID =
 // EXPRESS
 // ===============================
 const app = express();
+
+// Dodano dla poprawnego działania rate-limiter na hostingu (Render/Heroku)
 app.set('trust proxy', 1);
 
+app.get("/", (req, res) => {
+  res.status(200).send("API is running");
+});
+
 // ===============================
-// SECURITY CORE & CORS
+// SECURITY CORE
 // ===============================
 app.use(helmet());
 app.disable("x-powered-by");
 
 app.use(
   cors({
-    origin: [
-      "https://mahoganyqen.com",
-      "https://www.mahoganyqen.com",
-      "https://mahoganyqen.onrender.com"
-    ],
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://mahoganyqen.com"
+        : "http://localhost:3000",
     methods: ["GET", "POST"],
     credentials: false,
   })
@@ -100,19 +106,23 @@ mongoose
   .catch((err) => console.error("❌ MongoDB error", err));
 
 // ===============================
-// NODEMAILER (SENDGRID - KONFIGURACJA SZTYWNA)
+// NODEMAILER
 // ===============================
 const transporter = nodemailer.createTransport({
-  host: "smtp.sendgrid.net", // Wpisane na sztywno, by uniknąć 127.0.0.1
-  port: 587,
-  secure: false, 
+  host: process.env.SMTP_HOST,
+  port: Number(process.env.SMTP_PORT),
+  secure: false,
   auth: {
-    user: "apikey",
-    pass: process.env.SMTP_PASS, // Twój klucz SG... pobierany z Render Environment
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
   },
   tls: {
-    rejectUnauthorized: false
-  }
+    rejectUnauthorized: false,
+  },
+});
+transporter.verify((error, success) => {
+  if (error) console.log("❌ SMTP ERROR:", error);
+  else console.log("✅ SMTP server is ready");
 });
 
 // ===============================
@@ -126,13 +136,8 @@ const auth = new google.auth.GoogleAuth({
 const calendar = google.calendar({ version: "v3", auth });
 
 // ===============================
-// API ROUTES
+// EVENTS
 // ===============================
-
-app.get("/", (req, res) => {
-  res.status(200).send("API is running");
-});
-
 app.get("/events", async (req, res) => {
   try {
     const response = await calendar.events.list({
@@ -156,54 +161,82 @@ app.get("/events", async (req, res) => {
   }
 });
 
+// ===============================
+// BOOKINGS (ONLY IDS)
 app.get("/bookings", async (req, res) => {
-  try {
-    const bookings = await Booking.find({}, { slotId: 1, _id: 0 });
-    res.json(bookings);
-  } catch (err) {
-    res.status(500).json({ error: "DB error" });
-  }
+  const bookings = await Booking.find({}, { slotId: 1, _id: 0 });
+  res.json(bookings);
 });
 
 // ===============================
 // BOOK SLOT
-// ===============================
 app.post("/book", async (req, res, next) => {
   try {
     const { token, id, name, email, date, time } = req.body;
 
-    // ... (tutaj Twoja walidacja tokena i danych) ...
+    // TOKEN CHECK
+    if (!tokens.has(token) || tokens.get(token) < Date.now()) {
+      return res.status(403).json({ error: "Invalid token" });
+    }
+    tokens.delete(token);
 
-    // 1. Zapisujemy do bazy
+    // INPUT VALIDATION
+    if (typeof name !== "string" || name.length < 2 || name.length > 50) {
+      return res.status(400).json({ error: "Invalid name" });
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      return res.status(400).json({ error: "Invalid email" });
+    }
+
+    if (!id || !date || !time) {
+      return res.status(400).json({ error: "Invalid booking data" });
+    }
+
+    // ATOMIC DB LOCK
     try {
-      await Booking.create({ slotId: id, name, email, date, time });
+      await Booking.create({
+        slotId: id,
+        name,
+        email,
+        date,
+        time,
+      });
     } catch (err) {
-      if (err.code === 11000) return res.status(409).json({ error: "Już zajęte" });
+      if (err.code === 11000) {
+        return res.status(409).json({ error: "Slot already booked" });
+      }
       throw err;
     }
 
-    // 2. ODPOWIEDŹ DLA KLIENTA (Wysyłamy natychmiast!)
-    // Dzięki temu "Processing" zniknie i pojawi się sukces na stronie
+    // ===============================
+    // NODEMAILER - LOGI I WYSYŁKA
+    // ===============================
+    console.log("🔹 Attempting to send email to:", email);
+
+    // Wysyłamy odpowiedź sukcesu do klienta, nie czekając na zakończenie wysyłki maila
+    // zapobiega to timeoutom, gdy serwer SMTP wolno odpowiada.
     res.json({ success: true });
 
-    // 3. MAILING W TLE (Bez słowa 'await')
-    console.log("🔹 Próba wysyłki maila przez SendGrid...");
+    // Próba wysyłki maila (asynchronicznie)
     transporter.sendMail({
-      from: `"Booking" <esangbedojoachim@gmail.com>`, // MUSI być zweryfikowany mail z SendGrid!
+      from: `"Booking" <${process.env.SMTP_USER}>`,
       to: email,
       subject: "Potwierdzenie rezerwacji ✅",
       text: `Cześć ${name},\n\n📅 ${date}\n⏰ ${time}\n\nDo zobaczenia!`,
-    }).then(info => console.log("✅ Mail wysłany przez SendGrid:", info.response))
-      .catch(err => console.error("❌ Błąd maila (ale rezerwacja w DB jest!):", err.message));
+    }).then(info => {
+      console.log("✅ Email sent:", info.response);
+    }).catch(err => {
+      console.error("❌ Email error (Booking saved, but email failed):", err);
+    });
 
   } catch (err) {
-    if (!res.headersSent) next(err);
+    next(err);
   }
 });
 
 // ===============================
 // GLOBAL ERROR HANDLER
-// ===============================
 app.use((err, req, res, next) => {
   console.error("🔥 SERVER ERROR:", err);
   if (!res.headersSent) {
@@ -211,11 +244,17 @@ app.use((err, req, res, next) => {
   }
 });
 
-// Serwowanie frontendu
+// ===============================
+// Serwowanie frontendu React
+// ===============================
 app.use(express.static(path.join(__dirname, "my-app/build")));
+
 app.get(/^(?!\/(events|bookings|book|token)).*$/, (req, res) => {
   res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
 });
 
+// ===============================
 // START
-app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
+app.listen(PORT, () =>
+  console.log(`🚀 Server running on port ${PORT}`)
+);
