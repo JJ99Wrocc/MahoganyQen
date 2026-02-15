@@ -263,6 +263,7 @@ function Sessions() {
               const slot = availableSlots.find((s) => s.date === formatted);
               return slot ? `${baseClass} day-with-tooltip` : baseClass;
             }}
+            outsideClickIgnoreClass="react-datepicker__day--outside-month"
             filterDate={(date) => availableDates.includes(formatDate(date))}
             renderDayContents={(day, date) => {
               const formatted = formatDate(date);
