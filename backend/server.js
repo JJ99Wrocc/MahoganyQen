@@ -42,12 +42,9 @@ const CALENDAR_ID =
 // ===============================
 const app = express();
 app.set('trust proxy', 1);
-app.get("/", (req, res) => {
-  res.status(200).send("API is running");
-});
 
 // ===============================
-// SECURITY CORE
+// SECURITY CORE & CORS
 // ===============================
 app.use(helmet());
 app.disable("x-powered-by");
@@ -103,15 +100,15 @@ mongoose
   .catch((err) => console.error("❌ MongoDB error", err));
 
 // ===============================
-// NODEMAILER (ZMIANA POD SENDGRID)
+// NODEMAILER (SENDGRID - KONFIGURACJA SZTYWNA)
 // ===============================
 const transporter = nodemailer.createTransport({
-  host: "smtp.sendgrid.net",
+  host: "smtp.sendgrid.net", // Wpisane na sztywno, by uniknąć 127.0.0.1
   port: 587,
   secure: false, 
   auth: {
-    user: "apikey", // Zostawić dokładnie tak
-    pass: process.env.SMTP_PASS, // Tutaj Twój klucz SG....
+    user: "apikey",
+    pass: process.env.SMTP_PASS, // Twój klucz SG... pobierany z Render Environment
   },
   tls: {
     rejectUnauthorized: false
@@ -129,8 +126,13 @@ const auth = new google.auth.GoogleAuth({
 const calendar = google.calendar({ version: "v3", auth });
 
 // ===============================
-// EVENTS
+// API ROUTES
 // ===============================
+
+app.get("/", (req, res) => {
+  res.status(200).send("API is running");
+});
+
 app.get("/events", async (req, res) => {
   try {
     const response = await calendar.events.list({
@@ -154,11 +156,13 @@ app.get("/events", async (req, res) => {
   }
 });
 
-// ===============================
-// BOOKINGS
 app.get("/bookings", async (req, res) => {
-  const bookings = await Booking.find({}, { slotId: 1, _id: 0 });
-  res.json(bookings);
+  try {
+    const bookings = await Booking.find({}, { slotId: 1, _id: 0 });
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ error: "DB error" });
+  }
 });
 
 // ===============================
@@ -168,11 +172,13 @@ app.post("/book", async (req, res, next) => {
   try {
     const { token, id, name, email, date, time } = req.body;
 
+    // Walidacja tokena
     if (!tokens.has(token) || tokens.get(token) < Date.now()) {
       return res.status(403).json({ error: "Invalid token" });
     }
     tokens.delete(token);
 
+    // Walidacja danych
     if (typeof name !== "string" || name.length < 2 || name.length > 50) {
       return res.status(400).json({ error: "Invalid name" });
     }
@@ -180,6 +186,7 @@ app.post("/book", async (req, res, next) => {
       return res.status(400).json({ error: "Invalid email" });
     }
 
+    // Zapis do bazy
     try {
       await Booking.create({ slotId: id, name, email, date, time });
     } catch (err) {
@@ -187,38 +194,43 @@ app.post("/book", async (req, res, next) => {
       throw err;
     }
 
-    // 1. Odpowiedz sukcesem od razu
-    res.json({ success: true });
+    // 1. ODPOWIEDŹ DO FRONTENDU NATYCHMIAST (Processing zniknie)
+    res.status(200).json({ success: true });
 
-    // 2. Wyślij maila w tle
+    // 2. WYSYŁKA MAILA W TLE (Całkowita izolacja od frontendu)
     setImmediate(() => {
       console.log("🔹 Próba wysyłki maila przez SendGrid...");
       transporter.sendMail({
-        from: `"Booking" <esangbedojoachim@gmail.com>`, // MUSI być Twój zweryfikowany Gmail
+        from: `"Booking" <esangbedojoachim@gmail.com>`, // Zweryfikowany nadawca
         to: email,
         subject: "Potwierdzenie rezerwacji ✅",
-        text: `Cześć ${name},\n\nTwoja rezerwacja na ${date} o godzinie ${time} została przyjęta!`,
+        text: `Cześć ${name},\n\nTwoja rezerwacja na ${date} o godzinie ${time} została przyjęta!\n\nDo zobaczenia!`,
       })
       .then(info => console.log("✅ Mail wysłany (SendGrid):", info.response))
       .catch(mailErr => console.error("❌ Błąd maila SendGrid:", mailErr.message));
     });
 
   } catch (err) {
+    // To złapie tylko błędy krytyczne PRZED wysłaniem odpowiedzi
     if (!res.headersSent) next(err);
   }
 });
 
 // ===============================
 // GLOBAL ERROR HANDLER
+// ===============================
 app.use((err, req, res, next) => {
   console.error("🔥 SERVER ERROR:", err);
-  if (!res.headersSent) res.status(500).json({ error: "Internal server error" });
+  if (!res.headersSent) {
+    res.status(500).json({ error: "Internal server error" });
+  }
 });
 
+// Serwowanie frontendu
 app.use(express.static(path.join(__dirname, "my-app/build")));
-
 app.get(/^(?!\/(events|bookings|book|token)).*$/, (req, res) => {
   res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
 });
 
+// START
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
