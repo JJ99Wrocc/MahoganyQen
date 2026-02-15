@@ -454,6 +454,10 @@
     align-items: center;
     justify-content: center;
   }
+  .session-submit{
+  width: 100%;
+
+  }
 }
  
 
