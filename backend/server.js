@@ -42,6 +42,7 @@ const CALENDAR_ID =
 // EXPRESS
 // ===============================
 const app = express();
+app.set('trust proxy', 1);
 app.get("/", (req, res) => {
   res.status(200).send("API is running");
 });
