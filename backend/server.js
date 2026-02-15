@@ -42,7 +42,7 @@ const CALENDAR_ID =
 // EXPRESS
 // ===============================
 const app = express();
-app.set('trust proxy', 1);
+
 app.get("/", (req, res) => {
   res.status(200).send("API is running");
 });
@@ -55,7 +55,7 @@ app.disable("x-powered-by");
 
 app.use(
   cors({
-    origin:
+    origin: false,
       process.env.NODE_ENV === "production"
         ? "https://mahoganyqen.com"
         : "http://localhost:3000",
@@ -206,25 +206,24 @@ app.post("/book", async (req, res, next) => {
       throw err;
     }
 
-    // WYSYŁKA SUKCESU DO FRONTENDU (ZANIM MAILEM ZABLOKUJEMY PROCES)
-    res.json({ success: true });
-
     // ===============================
-    // NODEMAILER - WYSYŁKA W TLE
+    // NODEMAILER - LOGI
     // ===============================
     console.log("🔹 Attempting to send email to:", email);
 
-    transporter.sendMail({
-      from: `"Booking" <${process.env.SMTP_USER}>`,
-      to: email,
-      subject: "Potwierdzenie rezerwacji ✅",
-      text: `Cześć ${name},\n\n📅 ${date}\n⏰ ${time}\n\nDo zobaczenia!`,
-    }).then(info => {
+    try {
+      const info = await transporter.sendMail({
+        from: `"Booking" <${process.env.SMTP_USER}>`,
+        to: email,
+        subject: "Potwierdzenie rezerwacji ✅",
+        text: `Cześć ${name},\n\n📅 ${date}\n⏰ ${time}\n\nDo zobaczenia!`,
+      });
       console.log("✅ Email sent:", info.response);
-    }).catch(err => {
-      console.error("❌ Email error (rezerwacja zapisana):", err.message);
-    });
+    } catch (err) {
+      console.error("❌ Email error:", err);
+    }
 
+    res.json({ success: true });
   } catch (err) {
     next(err);
   }
