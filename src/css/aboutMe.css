@@ -13,10 +13,8 @@
     overflow: hidden;
     object-fit: cover;
     
-  transform: scale(1.1); 
-  
-  animation: liveBackground 10s ease-in-out infinite;
-  will-change: transform;
+transform: scale(1.1); 
+    animation: liveBackground 12s ease-in-out infinite;
 }
 
 /* === DOLNY CIEŃ === */
@@ -233,17 +231,23 @@
       background-position:-390px;
     }
 }
+/* Zmieniamy transform na background-position */
 @keyframes liveBackground {
   0% {
-    transform: scale(1.1) translate(0, 0);
+    transform: scale(1.1);
+    background-position: center; /* Lub Twoja domyślna pozycja */
   }
   33% {
-    transform: scale(1.12) translate(5px, -2px);
+    transform: scale(1.12);
+    background-position: calc(50% + 5px) calc(50% - 2px);
   }
   66% {
-    transform: scale(1.11) translate(-5px, 2px);
+    transform: scale(1.11);
+    background-position: calc(50% - 5px) calc(50% + 2px);
   }
   100% {
-    transform: scale(1.1) translate(0, 0);
+    transform: scale(1.1);
+    background-position: center;
   }
 }
+
