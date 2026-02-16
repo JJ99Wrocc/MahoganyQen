@@ -112,7 +112,7 @@ function Sessions() {
     }
   };
 
-  const handleOpenCalendar = () => setOpenCalendar(true);
+  const handleOpenCalendar = () => setOpenCalendar(prev => !prev);
 
   const handleDateChange = (date) => {
     setSelectedDate(date);

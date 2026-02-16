@@ -29,6 +29,7 @@
     "jws": "^4.0.1",
     "mongoose": "^9.1.2",
     "nodemailer": "^7.0.12",
+    "nodemailer-sendgrid": "^1.0.3",
     "pem-jwk": "^2.0.0"
   },
   "engines": {
