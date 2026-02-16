@@ -9,6 +9,8 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
+// DODANO: Transport przez API SendGrid
+const sendGridTransport = require("nodemailer-sendgrid");
 const { google } = require("googleapis");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
@@ -106,23 +108,17 @@ mongoose
   .catch((err) => console.error("❌ MongoDB error", err));
 
 // ===============================
-// NODEMAILER
+// NODEMAILER (ZMIANA NA SENDGRID API)
 // ===============================
-const transporter = nodemailer.createTransport({
-  host: process.env.SMTP_HOST,
-  port: Number(process.env.SMTP_PORT),
-  secure: false,
-  auth: {
-    user: process.env.SMTP_USER,
-    pass: process.env.SMTP_PASS,
-  },
-  tls: {
-    rejectUnauthorized: false,
-  },
-});
+const transporter = nodemailer.createTransport(
+  sendGridTransport({
+    apiKey: process.env.SMTP_PASS
+  })
+);
+
 transporter.verify((error, success) => {
-  if (error) console.log("❌ SMTP ERROR:", error);
-  else console.log("✅ SMTP server is ready");
+  if (error) console.log("❌ SMTP ERROR (API Mode):", error);
+  else console.log("✅ SendGrid API Transport ready");
 });
 
 // ===============================
@@ -212,20 +208,20 @@ app.post("/book", async (req, res, next) => {
     // ===============================
     // NODEMAILER - LOGI I WYSYŁKA
     // ===============================
-    console.log("🔹 Attempting to send email to:", email);
+    console.log("🔹 Attempting to send email via API to:", email);
 
     // Wysyłamy odpowiedź sukcesu do klienta, nie czekając na zakończenie wysyłki maila
     // zapobiega to timeoutom, gdy serwer SMTP wolno odpowiada.
     res.json({ success: true });
 
-    // Próba wysyłki maila (asynchronicznie)
+    // Próba wysyłki maila (asynchronicznie przez API)
     transporter.sendMail({
-      from: `"Booking" <${process.env.SMTP_USER}>`,
+      from: 'esangbedojoachim@gmail.com',
       to: email,
       subject: "Potwierdzenie rezerwacji ✅",
       text: `Cześć ${name},\n\n📅 ${date}\n⏰ ${time}\n\nDo zobaczenia!`,
     }).then(info => {
-      console.log("✅ Email sent:", info.response);
+      console.log("✅ Email sent SUCCESS:", info);
     }).catch(err => {
       console.error("❌ Email error (Booking saved, but email failed):", err);
     });
