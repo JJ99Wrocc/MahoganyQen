@@ -12,7 +12,7 @@ const { google } = require("googleapis");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const crypto = require("crypto");
-const sgMail = require('@sendgrid/mail');
+const { Resend } = require('resend'); // Zmiana na Resend
 
 const serviceAccount = {
   type: "service_account",
@@ -37,12 +37,14 @@ const CALENDAR_ID =
   process.env.CALENDAR_ID ||
   "8b61c25a0e56dfc35848864ed7cf55fe06376af0f65f32690f30f8315a14d7e0@group.calendar.google.com";
 
+// Inicjalizacja Resend (używamy Twojej zmiennej z Rendera)
+const resend = new Resend(process.env.SMTP_PASS);
+
 // ===============================
 // EXPRESS
 // ===============================
 const app = express();
 
-// Konfiguracja trust proxy musi być PRZED limiterem
 app.set('trust proxy', 1);
 
 app.get("/", (req, res) => {
@@ -88,7 +90,6 @@ app.get("/token", (req, res) => {
   res.json({ token });
 });
 
-// cleanup RAM
 setInterval(() => {
   const now = Date.now();
   for (const [token, exp] of tokens.entries()) {
@@ -104,11 +105,7 @@ mongoose
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB error", err));
 
-// ===============================
-// SENDGRID API INITIALIZATION
-// ===============================
-sgMail.setApiKey(process.env.SMTP_PASS);
-console.log("✅ SendGrid API Mode initialized");
+console.log("✅ Resend Email API initialized");
 
 // ===============================
 // GOOGLE CALENDAR
@@ -146,8 +143,6 @@ app.get("/events", async (req, res) => {
   }
 });
 
-// ===============================
-// BOOKINGS (ONLY IDS)
 app.get("/bookings", async (req, res) => {
   const bookings = await Booking.find({}, { slotId: 1, _id: 0 });
   res.json(bookings);
@@ -155,17 +150,16 @@ app.get("/bookings", async (req, res) => {
 
 // ===============================
 // BOOK SLOT
+// ===============================
 app.post("/book", async (req, res, next) => {
   try {
     const { token, id, name, email, date, time } = req.body;
 
-    // TOKEN CHECK
     if (!tokens.has(token) || tokens.get(token) < Date.now()) {
       return res.status(403).json({ error: "Invalid token" });
     }
     tokens.delete(token);
 
-    // INPUT VALIDATION
     if (typeof name !== "string" || name.length < 2 || name.length > 50) {
       return res.status(400).json({ error: "Invalid name" });
     }
@@ -178,7 +172,7 @@ app.post("/book", async (req, res, next) => {
       return res.status(400).json({ error: "Invalid booking data" });
     }
 
-    // ATOMIC DB LOCK
+    // Zapis do bazy
     try {
       await Booking.create({
         slotId: id,
@@ -194,29 +188,32 @@ app.post("/book", async (req, res, next) => {
       throw err;
     }
 
-    // ===============================
-    // SENDGRID API - WYSYŁKA
-    // ===============================
-    console.log("🔹 Sending email via SendGrid API to:", email);
-
-    // Wysyłamy odpowiedź do klienta natychmiast (zapobiega timeoutom)
+    // Odpowiedź dla klienta
     res.json({ success: true });
 
-    const msg = {
-      to: email, 
-      from: 'esangbedojoachim@gmail.com', // Upewnij się, że ten mail jest zweryfikowany w SendGrid
-      subject: "Potwierdzenie rezerwacji ✅",
-      text: `Cześć ${name},\n\nTwoja rezerwacja na ${date} o godzinie ${time} została potwierdzona.\n\nDo zobaczenia!`,
-    };
+    // ===============================
+    // RESEND EMAIL SENDING
+    // ===============================
+    console.log("🔹 Sending email via Resend to:", email);
 
-    // Wysyłka asynchroniczna przez HTTP API (omija blokady SMTP)
-    sgMail.send(msg)
-      .then(() => console.log("✅ Email sent SUCCESS"))
-      .catch((error) => {
-        console.error("❌ SendGrid Error:");
-        if (error.response) console.error(error.response.body);
-        else console.error(error);
-      });
+    resend.emails.send({
+      from: 'onboarding@resend.dev', // Standardowy nadawca Resend
+      to: email,
+      subject: "Potwierdzenie rezerwacji ✅",
+      html: `
+        <div style="font-family: sans-serif; line-height: 1.5;">
+          <h2>Cześć ${name}!</h2>
+          <p>Twoja rezerwacja została potwierdzona.</p>
+          <ul>
+            <li><strong>Data:</strong> ${date}</li>
+            <li><strong>Godzina:</strong> ${time}</li>
+          </ul>
+          <p>Do zobaczenia!</p>
+        </div>
+      `
+    })
+    .then(() => console.log("✅ Email sent SUCCESS via Resend"))
+    .catch((error) => console.error("❌ Resend Error:", error));
 
   } catch (err) {
     next(err);
@@ -224,7 +221,8 @@ app.post("/book", async (req, res, next) => {
 });
 
 // ===============================
-// GLOBAL ERROR HANDLER
+// ERROR HANDLER & STATIC FILES
+// ===============================
 app.use((err, req, res, next) => {
   console.error("🔥 SERVER ERROR:", err);
   if (!res.headersSent) {
@@ -232,17 +230,12 @@ app.use((err, req, res, next) => {
   }
 });
 
-// ===============================
-// Serwowanie frontendu React
-// ===============================
 app.use(express.static(path.join(__dirname, "my-app/build")));
 
 app.get(/^(?!\/(events|bookings|book|token)).*$/, (req, res) => {
   res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
 });
 
-// ===============================
-// START
 app.listen(PORT, () =>
   console.log(`🚀 Server running on port ${PORT}`)
 );
