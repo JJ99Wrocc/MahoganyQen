@@ -8,15 +8,12 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const nodemailer = require("nodemailer");
-// DODANO: Transport przez API SendGrid
-const sendGridTransport = require("nodemailer-sendgrid");
 const { google } = require("googleapis");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const crypto = require("crypto");
-const sgTransport = require("nodemailer-sendgrid-transport");
-const nodemailer = require("nodemailer");
+const sgMail = require('@sendgrid/mail');
+
 const serviceAccount = {
   type: "service_account",
   project_id: process.env.GOOGLE_PROJECT_ID,
@@ -45,7 +42,7 @@ const CALENDAR_ID =
 // ===============================
 const app = express();
 
-// Dodano dla poprawnego działania rate-limiter na hostingu (Render/Heroku)
+// Konfiguracja trust proxy musi być PRZED limiterem
 app.set('trust proxy', 1);
 
 app.get("/", (req, res) => {
@@ -108,18 +105,10 @@ mongoose
   .catch((err) => console.error("❌ MongoDB error", err));
 
 // ===============================
-// NODEMAILER (ZMIANA NA SENDGRID API)
+// SENDGRID API INITIALIZATION
 // ===============================
-const transporter = nodemailer.createTransport(
-  sendGridTransport({
-    apiKey: process.env.SMTP_PASS
-  })
-);
-
-transporter.verify((error, success) => {
-  if (error) console.log("❌ SMTP ERROR (API Mode):", error);
-  else console.log("✅ SendGrid API Transport ready");
-});
+sgMail.setApiKey(process.env.SMTP_PASS);
+console.log("✅ SendGrid API Mode initialized");
 
 // ===============================
 // GOOGLE CALENDAR
@@ -206,25 +195,28 @@ app.post("/book", async (req, res, next) => {
     }
 
     // ===============================
-    // NODEMAILER - LOGI I WYSYŁKA
+    // SENDGRID API - WYSYŁKA
     // ===============================
-    console.log("🔹 Attempting to send email via API to:", email);
+    console.log("🔹 Sending email via SendGrid API to:", email);
 
-    // Wysyłamy odpowiedź sukcesu do klienta, nie czekając na zakończenie wysyłki maila
-    // zapobiega to timeoutom, gdy serwer SMTP wolno odpowiada.
+    // Wysyłamy odpowiedź do klienta natychmiast (zapobiega timeoutom)
     res.json({ success: true });
 
-    // Próba wysyłki maila (asynchronicznie przez API)
-    transporter.sendMail({
-      from: 'esangbedojoachim@gmail.com',
-      to: email,
+    const msg = {
+      to: email, 
+      from: 'esangbedojoachim@gmail.com', // Upewnij się, że ten mail jest zweryfikowany w SendGrid
       subject: "Potwierdzenie rezerwacji ✅",
-      text: `Cześć ${name},\n\n📅 ${date}\n⏰ ${time}\n\nDo zobaczenia!`,
-    }).then(info => {
-      console.log("✅ Email sent SUCCESS:", info);
-    }).catch(err => {
-      console.error("❌ Email error (Booking saved, but email failed):", err);
-    });
+      text: `Cześć ${name},\n\nTwoja rezerwacja na ${date} o godzinie ${time} została potwierdzona.\n\nDo zobaczenia!`,
+    };
+
+    // Wysyłka asynchroniczna przez HTTP API (omija blokady SMTP)
+    sgMail.send(msg)
+      .then(() => console.log("✅ Email sent SUCCESS"))
+      .catch((error) => {
+        console.error("❌ SendGrid Error:");
+        if (error.response) console.error(error.response.body);
+        else console.error(error);
+      });
 
   } catch (err) {
     next(err);
