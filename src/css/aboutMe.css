@@ -12,6 +12,9 @@
     background-repeat: no-repeat;
     overflow: hidden;
     object-fit: cover;
+    
+transform: scale(1.1); 
+    animation: liveBackground 12s ease-in-out infinite;
 }
 
 /* === DOLNY CIEŃ === */
@@ -228,3 +231,4 @@
       background-position:-390px;
     }
 }
+/* Zmieniamy transform na background-position */

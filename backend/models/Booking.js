@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema({
-  id: { type: String, required: true, unique: true }, // ID slotu z kalendarza
+  slotId: { type: String, required: true, unique: true },
   name: { type: String, required: true },
   email: { type: String, required: true },
   date: { type: String, required: true },
