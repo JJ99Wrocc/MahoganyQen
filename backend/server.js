@@ -200,8 +200,9 @@ app.post("/book", async (req, res, next) => {
     // ===============================
     console.log("🔹 Sending email via Resend to:", email);
 
-    resend.emails.send({
-      from: 'rezerwacje@mahoganyqen.com', // Standardowy nadawca Resend
+    // Dodajemy await na początku, żeby serwer faktycznie poczekał na Resend
+    await resend.emails.send({
+      from: 'rezerwacje@mahoganyqen.com',
       to: email,
       subject: "Potwierdzenie rezerwacji ✅",
       html: `
@@ -216,17 +217,24 @@ app.post("/book", async (req, res, next) => {
         </div>
       `
     })
-    .then(() => console.log("✅ Email sent SUCCESS via Resend"))
+    .then((data) => {
+      console.log("✅ Email sent SUCCESS via Resend:", data);
+      // Wysyłamy odpowiedź do przeglądarki, żeby przestała kręcić kółkiem
+      res.status(200).json({ message: "Rezerwacja i email wysłane!" });
+    })
     .catch((error) => {
-    console.error("--- BŁĄD RESEND ---");
-    console.error("Status:", error.status); // pokaże 403
-    console.error("Treść:", error.message); // pokaże konkretny powód
-    if (error.response) {
-        console.error("Szczegóły z API:", JSON.stringify(error.response.data, null, 2));
-    }
-});
+      console.error("--- BŁĄD RESEND ---");
+      console.error("Status:", error.status); 
+      console.error("Treść:", error.message); 
+      if (error.response) {
+          console.error("Szczegóły z API:", JSON.stringify(error.response.data, null, 2));
+      }
+      // Wysyłamy błąd do przeglądarki
+      res.status(error.status || 500).json({ error: error.message });
+    });
 
   } catch (err) {
+    console.error("Błąd ogólny serwera:", err);
     next(err);
   }
 });
