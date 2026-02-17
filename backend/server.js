@@ -217,7 +217,14 @@ app.post("/book", async (req, res, next) => {
       `
     })
     .then(() => console.log("✅ Email sent SUCCESS via Resend"))
-    .catch((error) => console.error("❌ Resend Error:", error));
+    .catch((error) => {
+    console.error("--- BŁĄD RESEND ---");
+    console.error("Status:", error.status); // pokaże 403
+    console.error("Treść:", error.message); // pokaże konkretny powód
+    if (error.response) {
+        console.error("Szczegóły z API:", JSON.stringify(error.response.data, null, 2));
+    }
+});
 
   } catch (err) {
     next(err);
