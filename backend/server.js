@@ -38,11 +38,7 @@ const CALENDAR_ID =
   "8b61c25a0e56dfc35848864ed7cf55fe06376af0f65f32690f30f8315a14d7e0@group.calendar.google.com";
 
 // Inicjalizacja Resend (używamy Twojej zmiennej z Rendera)
-const resend = new Resend(process.env.SMTP_PASS, {
-  headers: {
-    'X-Resend-Region': 'eu-west-1'
-  }
-});
+const resend = new Resend(process.env.SMTP_PASS);
 
 // ===============================
 // EXPRESS
