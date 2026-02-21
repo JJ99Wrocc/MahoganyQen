@@ -35,9 +35,7 @@
 }
 
 /* Efekt Hover - tylko subtelne podświetlenie */
-.links:hover {
-    transform: translateY(-3px); /* Minimalny ruch do góry */
-}
+
 
 .links:hover .img-links {
     filter: grayscale(0%);     /* Powrót koloru na hover */
@@ -54,4 +52,126 @@
 .links a {
     text-decoration: none;
     line-height: 0;            /* Usuwa dziwne przerwy pod linkiem */
+}
+
+
+/* --- LINKS PRO PANEL - BOTTOM GLOW EDITION --- */
+
+.links-container {
+    background: rgba(5, 5, 5, 0.75) !important; 
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    
+    /* Ciemna obramówka antracytowa */
+    border: 2px solid #222020 !important; 
+    border-radius: 12px;
+    
+    padding: 60px 40px !important;
+    max-width: 1200px;
+    /* 120px przerwy od footera, żeby było widać tło */
+    margin: 80px auto 120px auto; 
+    position: relative;
+    z-index: 10;
+
+    /* ELEGANCKA POŚWIATA TYLKO NA DOLE */
+
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+/* Efekt lewitacji - poświata na dole staje się nieco wyraźniejsza przy hoverze */
+.links-container:hover {
+   
+    border-color: #333131 !important;
+    box-shadow: 
+        0 4px 5px rgba(0, 0, 0, 1), 
+        0 5px 4px -5px rgba(34, 32, 32, 0.6);      /* Delikatnie mocniejszy dół na hover */
+}
+
+/* --- NAGŁÓWEK "MY LINKS" - ANTHRACITE GLOW --- */
+.links-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.links-header h2 {
+    font-family: 'Cinzel', serif;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    margin: 0;
+    
+    /* Metaliczny gradient */
+    background: linear-gradient(to bottom, #ffffff 30%, #444141 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* Poświata napisu dopasowana do #222020 */
+    filter: drop-shadow(0 5px 10px rgba(0, 0, 0, 0.8))
+            drop-shadow(0 0 5px rgba(34, 32, 32, 0.5));
+}
+
+/* Dekoracyjna linia pod napisem */
+.links-header::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: #222020;
+    margin: 15px auto 0;
+    box-shadow: 0 0 8px #222020;
+    transition: width 0.5s ease;
+}
+
+.links-container:hover .links-header::after {
+    width: 150px;
+}
+
+/* --- KAFELKI --- */
+.links {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    border: 1px solid transparent;
+}
+
+.links:hover {
+    background: rgba(34, 32, 32, 0.2); 
+    border: 1px solid rgba(34, 32, 32, 0.3);
+}
+
+.img-links {
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    margin-bottom: 12px;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    filter: grayscale(100%);
+    transition: all 0.4s ease;
+}
+
+.links:hover .img-links {
+    filter: grayscale(0%);
+    border-color: #444141;
+}
+
+.link-label {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: #fff;
+    opacity: 0.8;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+    .links-header h2 {
+        font-size: 26px;
+        letter-spacing: 5px;
+    }
+    .links-container {
+        margin-bottom: 60px;
+        padding: 40px 20px !important;
+    }
 }

@@ -11,9 +11,11 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./firebaseAuth.js";
 import './App.css';
+
 function App() {
   const { user } = useAuth();
   const [scrollToTop, setScrollToTop] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
       setScrollToTop(window.scrollY > 300);
@@ -23,9 +25,11 @@ function App() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   const scrollTo = () => {
     window.scrollTo({ top:0, behavior: "smooth" });
   };
+
   return (
     <BrowserRouter>
       <ColorSchemesExample />
@@ -41,8 +45,16 @@ function App() {
               <AboutMe />
               <SwipperGallery />
               <Sessions />
-              <Links />
-              <Footer />
+              
+              {/* WSPÓLNY WRAPPER DLA LINKS I FOOTER */}
+              <div className="shared-bottom-section">
+                <div className="shared-bg-img" aria-hidden="true"></div>
+                <div className="shared-bg-overlay" aria-hidden="true"></div>
+                <div className="shared-bg-shadow-top" aria-hidden="true"></div>
+                
+                <Links />
+                <Footer />
+              </div>
             </>
           }
         />
@@ -53,8 +65,12 @@ function App() {
           element={user ? <AdminPanel /> : <Navigate to="/" replace />}
         />
       </Routes>
-      <button onClick={scrollTo} className={`scroll-to-top ${scrollToTop ? "visible" : ""}`} aria-label="Scroll to top">
 
+      <button 
+        onClick={scrollTo} 
+        className={`scroll-to-top ${scrollToTop ? "visible" : ""}`} 
+        aria-label="Scroll to top"
+      >
       </button>
     </BrowserRouter>
   );

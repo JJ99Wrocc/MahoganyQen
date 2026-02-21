@@ -12,7 +12,6 @@ function Footer() {
     i18n.changeLanguage(lang);
   };
 
-  // Funkcja do scrollowania do sekcji w SPA
   const scrollToSection = (id) => {
     const el = document.getElementById(id);
     if (el) {
@@ -21,190 +20,205 @@ function Footer() {
   };
 
   return (
-    <footer
-      id="contact-title"
-      className="gold-footer"
-      role="contentinfo"
-      aria-label={t("siteFooter")}
-    >
-      <div
-        className="footer-container container"
-        aria-label={t("footerSections")}
+    <div className="footer-page-wrapper">
+      {/* 🚀 TWOJE NOWE TŁO - KOCUR */}
+      <div className="footer-bg-img" aria-hidden="true"></div>
+      <div className="footer-bg-overlay" aria-hidden="true"></div>
+      <div className="footer-bg-shadow-top" aria-hidden="true"></div>
+
+      <footer
+        id="contact-title"
+        className="gold-footer"
+        role="contentinfo"
+        aria-label={t("siteFooter")}
       >
-        {/* LEFT */}
         <div
-          className="footer-left"
-          aria-labelledby="footer-logo"
+          className="footer-container container"
+          aria-label={t("footerSections")}
         >
-          <h2
-            id="footer-logo"
-            className="footer-logo"
-          >
-            {t("footerBrand")}
-          </h2>
-
-          <p className="footer-desc">
-            {t("footerTagline")}
-          </p>
-        </div>
-
-        {/* WRAPPER DLA EXPLORE + CONTACT */}
-        <div
-          className="footer-links-contact-wrapper"
-          aria-label={t("footerNavigationContact")}
-        >
-          {/* EXPLORE */}
-          <nav
-            className="footer-links"
-            role="navigation"
-            aria-labelledby="explore-title"
-            aria-label={t("footerNavigation")}
-          >
-            {/* MOBILE */}
-            <h3
-              id="explore-title"
-              className="footer-title mobile-only"
-              role="button"
-              tabIndex={0}
-              aria-expanded={openExplore}
-              aria-controls="explore-list"
-              onClick={() => setOpenExplore(!openExplore)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  setOpenExplore(!openExplore);
-                }
-              }}
-            >
-              {t("explore")}{" "}
-              <i className="fa-solid fa-arrow-down" aria-hidden="true"></i>
-            </h3>
-
-            {/* DESKTOP */}
-            <h3
-              className="desktop-only"
-              id="explore-title-desktop"
-            >
-              {t("explore")}
-            </h3>
-
-            <ul
-              id="explore-list"
-              className={`explore-list ${openExplore ? "open" : ""}`}
-              role="list"
-              aria-labelledby="explore-title"
-            >
-              <li role="listitem">
-                <span
-                  onClick={() => scrollToSection("about-me")}
-                  aria-label={t("goToAbout")}
-                  className="footer-link-button"
-                >
-                  <i className="fa-regular fa-address-card" aria-hidden="true"></i>{" "}
-                  {t("about")}
-                </span>
-              </li>
-
-              <li role="listitem">
-                <span
-                  onClick={() => scrollToSection("gallery")}
-                  aria-label={t("goToGallery")}
-                  className="footer-link-button"
-                >
-                  <i className="fa-solid fa-pepper-hot" aria-hidden="true"></i>{" "}
-                  {t("gallery")}
-                </span>
-              </li>
-
-              <li className="last-item" role="listitem">
-                <span 
-                  onClick={() => scrollToSection("sessions-booking")}
-                  aria-label={t("goToSessions")}
-                  className="footer-link-button"
-                >
-                  <i className="fa-regular fa-calendar-days" aria-hidden="true"></i>{" "}
-                  {t("sessions")}
-                </span>
-              </li>
-
-              <li role="listitem">
-                <span
-                  onClick={() => scrollToSection("contact-title")}
-                  aria-label={t("goToContact")}
-                  className="footer-link-button"
-                >
-                  <i className="fa-solid fa-phone-volume" aria-hidden="true"></i>{" "}
-                  {t("contact")}
-                </span>
-              </li>
-            </ul>
-          </nav>
-
-          {/* CONTACT */}
+          {/* LEFT */}
           <div
-            className="footer-contact"
-            aria-labelledby="contact-title"
-            aria-label={t("contactInformation")}
+            className="footer-left"
+            aria-labelledby="footer-logo"
           >
-            {/* MOBILE */}
-            <h3
-              id="contact"
-              className="footer-title mobile-only"
-              role="button"
-              tabIndex={0}
-              aria-expanded={openContact}
-              aria-controls="contact-list"
-              onClick={() => setOpenContact(!openContact)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  setOpenContact(!openContact);
-                }
-              }}
+            <h2
+              id="footer-logo"
+              className="footer-logo"
             >
-              {t("contact")}{" "}
-              <i className="fa-solid fa-arrow-down" aria-hidden="true"></i>
-            </h3>
+              {t("footerBrand")}
+            </h2>
 
-            {/* DESKTOP */}
-            <h3
-              className="desktop-only"
-              id="contact-title-desktop"
+            <p className="footer-desc">
+              {t("footerTagline")}
+            </p>
+          </div>
+
+          {/* WRAPPER DLA EXPLORE + CONTACT */}
+          <div
+            className="footer-links-contact-wrapper"
+            aria-label={t("footerNavigationContact")}
+          >
+            {/* EXPLORE */}
+            <nav
+              className="footer-links"
+              role="navigation"
+              aria-labelledby="explore-title"
+              aria-label={t("footerNavigation")}
             >
-              {t("contact")}
-            </h3>
+              {/* MOBILE */}
+              <h3
+                id="explore-title"
+                className="footer-title mobile-only"
+                role="button"
+                tabIndex={0}
+                aria-expanded={openExplore}
+                aria-controls="explore-list"
+                onClick={() => setOpenExplore(!openExplore)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    setOpenExplore(!openExplore);
+                  }
+                }}
+              >
+                {t("explore")}{" "}
+                <i className="fa-solid fa-arrow-down" aria-hidden="true"></i>
+              </h3>
 
-            <ul
-              id="contact-list"
-              className={`contact-list ${openContact ? "open" : ""}`}
-              role="list"
+              {/* DESKTOP */}
+              <h3
+                className="desktop-only"
+                id="explore-title-desktop"
+              >
+                {t("explore")}
+              </h3>
+
+              <ul
+                id="explore-list"
+                className={`explore-list ${openExplore ? "open" : ""}`}
+                role="list"
+                aria-labelledby="explore-title"
+              >
+                <li role="listitem">
+                  <span
+                    onClick={() => scrollToSection("about-me")}
+                    aria-label={t("goToAbout")}
+                    className="footer-link-button"
+                  >
+                    <i className="fa-regular fa-address-card" aria-hidden="true"></i>{" "}
+                    {t("about")}
+                  </span>
+                </li>
+
+                <li role="listitem">
+                  <span
+                    onClick={() => scrollToSection("gallery")}
+                    aria-label={t("goToGallery")}
+                    className="footer-link-button"
+                  >
+                    <i className="fa-solid fa-pepper-hot" aria-hidden="true"></i>{" "}
+                    {t("gallery")}
+                  </span>
+                </li>
+
+                <li className="last-item" role="listitem">
+                  <span 
+                    onClick={() => scrollToSection("sessions-booking")}
+                    aria-label={t("goToSessions")}
+                    className="footer-link-button"
+                  >
+                    <i className="fa-regular fa-calendar-days" aria-hidden="true"></i>{" "}
+                    {t("sessions")}
+                  </span>
+                </li>
+                <li role="listitem">
+                  <span
+                  onClick={() => scrollToSection("linki")}
+                  aria-label={t("goToLinks")}
+                  className="footer-link-button"
+                  >
+                    <i className="fa-solid fa-link" aria-hidden="true"></i>{" "}
+                    {t("links")}
+                  </span>
+                </li>
+                <li role="listitem">
+                  <span
+                    onClick={() => scrollToSection("contact-title")}
+                    aria-label={t("goToContact")}
+                    className="footer-link-button"
+                  >
+                    <i className="fa-solid fa-phone-volume" aria-hidden="true"></i>{" "}
+                    {t("contact")}
+                  </span>
+                </li>
+              </ul>
+            </nav>
+
+            {/* CONTACT */}
+            <div
+              className="footer-contact"
               aria-labelledby="contact-title"
+              aria-label={t("contactInformation")}
             >
-              <li role="listitem">
-                <i className="fa-solid fa-envelope" aria-hidden="true"></i>
-                <a
-                  href="mailto:MahoganyQenContact@gmail.com"
-                  className="email-link"
-                  aria-label={t("sendEmail")}
-                >
-                  MahoganyQenContact@gmail.com
-                </a>
-              </li>
+              {/* MOBILE */}
+              <h3
+                id="contact"
+                className="footer-title mobile-only"
+                role="button"
+                tabIndex={0}
+                aria-expanded={openContact}
+                aria-controls="contact-list"
+                onClick={() => setOpenContact(!openContact)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    setOpenContact(!openContact);
+                  }
+                }}
+              >
+                {t("contact")}{" "}
+                <i className="fa-solid fa-arrow-down" aria-hidden="true"></i>
+              </h3>
 
-              <li className="last-item" role="listitem">
-                <i className="fa-solid fa-location-dot" aria-hidden="true"></i>
-                <span aria-label={t("location")}>
-                  {t("locationText")}
-                </span>
-              </li>
-            </ul>
+              {/* DESKTOP */}
+              <h3
+                className="desktop-only"
+                id="contact-title-desktop"
+              >
+                {t("contact")}
+              </h3>
+
+              <ul
+                id="contact-list"
+                className={`contact-list ${openContact ? "open" : ""}`}
+                role="list"
+                aria-labelledby="contact-title"
+              >
+                <li role="listitem">
+                  <i className="fa-solid fa-envelope" aria-hidden="true"></i>
+                  <a
+                    href="mailto:MahoganyQenContact@gmail.com"
+                    className="email-link"
+                    aria-label={t("sendEmail")}
+                  >
+                    MahoganyQenContact@gmail.com
+                  </a>
+                </li>
+
+                <li className="last-item" role="listitem">
+                  <i className="fa-solid fa-location-dot" aria-hidden="true"></i>
+                  <span aria-label={t("location")}>
+                    {t("locationText")}
+                  </span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
-        {/* KONIEC WRAPPERA */}
-      </div>
 
-      <div className="footer-bottom" aria-label={t("footerCopyright")}>
-        <p>© 2025 MAHOGANY QUEEN — {t("allRightsReserved")}</p>
-      </div>
-    </footer>
+        <div className="footer-bottom" aria-label={t("footerCopyright")}>
+          <p>© 2025 MAHOGANY QUEEN — {t("allRightsReserved")}</p>
+        </div>
+      </footer>
+    </div>
   );
 }
 

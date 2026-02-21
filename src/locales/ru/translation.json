@@ -53,5 +53,8 @@
   "footerCopyright": "Авторские права футера",
   "allRightsReserved": "Все права защищены",
   "siteTitle": "MahoganyQen",
-  "links": "Ссылки"
+  "links": "Ссылки",
+    "message": "Сообщение", 
+  "Tell me more about your vision...": "Расскажи мне больше о твоём видении...",
+  "Submit": "Отправить" 
 }

@@ -76,12 +76,37 @@
   list-style: none;
   padding: 0;
 }
-
 .footer-links li {
-  margin: 10px 0;
+  margin: 12px 0;
   font-size: 17px;
   cursor: pointer;
+  list-style: none;
+  position: relative;
+  padding-left: 0; /* Miejsce na animowany wskaźnik */
+  transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+  display: flex;
+  align-items: center;
 }
+
+/* Tworzymy ukryty wskaźnik (kropkę lub kreskę) */
+.footer-links li::before {
+  content: "";
+  position: absolute;
+  left: -15px; /* Zaczyna poza widokiem */
+  width: 6px;
+  height: 6px;
+  background: #8b0000; /* Twoja firmowa czerwień */
+  border-radius: 50%;
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+.footer-links li:hover {
+  transform: translateX(15px); /* Cały wiersz przesuwa się w prawo */
+}
+
+
+
 
 .footer-links a {
   color: #fff;

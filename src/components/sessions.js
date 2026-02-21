@@ -17,14 +17,12 @@ function Sessions() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
 
-  // 🔐 token anty-bot
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(false);
-
-  // 🔐 DODANE: honeypot (bot trap)
+  const [message, setMessage] = useState("");
+  
   const [company, setCompany] = useState("");
 
-  // 🔐 DODANE: anti-spam timing
   const formLoadTime = useRef(Date.now());
   const lastSubmitTime = useRef(0);
 
@@ -68,6 +66,7 @@ function Sessions() {
           time: event.start.dateTime
             ? event.start.dateTime.split("T")[1].slice(0, 5)
             : "",
+          calendarDesc: event.description || "",
           summary: event.summary || t("noDescription"), // <- TO JEST TYTUŁ Z GOOGLE CALENDAR
         }));
 
@@ -163,6 +162,7 @@ function Sessions() {
           id: selectedSlot.value,
           name,
           email,
+          message,
           date: formatDate(selectedDate),
           time: selectedSlot.label,
           token,
@@ -190,11 +190,9 @@ function Sessions() {
       setAvailableHours([]);
       setName("");
       setEmail("");
-      setCompany("");
+      setMessage("");
       setToken(null);
       fetchToken();
-
-      // 🔹 ODŚWIEŻ SLOTY, żeby zniknął z dostępnych
       fetchSlots();
     } catch {
       alert(t("bookingError"));
@@ -222,90 +220,117 @@ function Sessions() {
   const slotOptions = availableHours.map((slot) => ({
     value: slot.id,
     label: `${slot.time} - ${slot.summary}`,
+    calendarDesc: slot.calendarDesc,
   }));
 
   return (
-    <section
-      id="sessions-booking"
-      className="session-booking"
-      aria-label={t("bookingSession")}
-    >
-      <div className="session-header">
-        <h2 id="session-title">{t("bookSession")}</h2>
-        <p id="session-desc">{t("chooseDateTime")}</p>
-      </div>
+    <div className="session-page-container">
+      {/* Tło pasujące do Home.js */}
+      <div className="session-bg-img" aria-hidden="true"></div>
+      <div className="session-bg-overlay" aria-hidden="true"></div>
+      <div className="session-bg-shadow-bottom" aria-hidden="true"></div>
 
-      <form className="session-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
-          style={{ display: "none" }}
-          tabIndex="-1"
-          autoComplete="off"
-        />
-
-        <label>{t("chooseDate")}:</label>
-        <button type="button" className="date-open-btn" onClick={handleOpenCalendar}>
-          {t("chooseDate")}
-        </button>
-
-        <div className="calendar-wrapper" style={{ display: openCalendar ? "block" : "none" }}>
-          <DatePicker
-            key={availableDates.join(",")}
-            selected={selectedDate}
-            onChange={handleDateChange}
-            minDate={new Date()}
-            inline
-            dayClassName={(date) => {
-              const baseClass = getDayClassName(date);
-              const formatted = formatDate(date);
-              const slot = availableSlots.find((s) => s.date === formatted);
-              return slot ? `${baseClass} day-with-tooltip` : baseClass;
-            }}
-            outsideClickIgnoreClass="react-datepicker__day--outside-month"
-            filterDate={(date) => availableDates.includes(formatDate(date))}
-            renderDayContents={(day, date) => {
-              const formatted = formatDate(date);
-              const slot = availableSlots.find((s) => s.date === formatted);
-              return slot ? (
-                <span className="day-with-tooltip" data-tooltip={slot.summary}>
-                  {day}
-                </span>
-              ) : (
-                <span>{day}</span>
-              );
-            }}
-          />
+      <section
+        id="sessions-booking"
+        className="session-booking"
+        aria-label={t("bookingSession")}
+      >
+        <div className="session-header">
+          <h2 id="session-title">{t("bookSession")}</h2>
+          <p id="session-desc">{t("chooseDateTime")}</p>
         </div>
 
-        {availableHours.length > 0 && (
-          <Select
-            value={selectedSlot}
-            onChange={setSelectedSlot}
-            options={slotOptions}
-            styles={selectStyles}
-            placeholder={t("chooseHour")}
+        <form className="session-form" onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={company}
+            onChange={(e) => setCompany(e.target.value)}
+            style={{ display: "none" }}
+            tabIndex="-1"
+            autoComplete="off"
           />
-        )}
 
-        <label>{t("name")}:</label>
-        <input value={name} onChange={(e) => setName(e.target.value)} required />
+          <label>{t("chooseDate")}:</label>
+          <button type="button" className="date-open-btn" onClick={handleOpenCalendar}>
+            {t("chooseDate")}
+          </button>
 
-        <label>E-mail:</label>
-        <input value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <div className="calendar-wrapper" style={{ display: openCalendar ? "block" : "none" }}>
+            <DatePicker
+              key={availableDates.join(",")}
+              selected={selectedDate}
+              onChange={handleDateChange}
+              minDate={new Date()}
+              inline
+              dayClassName={(date) => {
+                const baseClass = getDayClassName(date);
+                const formatted = formatDate(date);
+                const slot = availableSlots.find((s) => s.date === formatted);
+                return slot ? `${baseClass} day-with-tooltip` : baseClass;
+              }}
+              outsideClickIgnoreClass="react-datepicker__day--outside-month"
+              filterDate={(date) => availableDates.includes(formatDate(date))}
+              renderDayContents={(day, date) => {
+                const formatted = formatDate(date);
+                const slot = availableSlots.find((s) => s.date === formatted);
+                return slot ? (
+                  <span className="day-with-tooltip" data-tooltip={slot.summary}>
+                    {day}
+                  </span>
+                ) : (
+                  <span>{day}</span>
+                );
+              }}
+            />
+          </div>
 
-        <button
-          type="submit"
-          className="session-submit"
-          disabled={loading || !token}
-        >
-          {loading ? t("processing") : t("bookSession")}
-        </button>
-      </form>
-    </section>
+          {availableHours.length > 0 && (
+            <>
+              <Select
+                value={selectedSlot}
+                onChange={setSelectedSlot}
+                options={slotOptions}
+                styles={selectStyles}
+                placeholder={t("chooseHour")}
+              />
+
+              {/* Wyświetlanie opisu z Google Calendar pod Selectem */}
+              {selectedSlot && selectedSlot.calendarDesc && (
+                <div className="slot-description-box">
+                  <p className="slot-description-text">
+                    {selectedSlot.calendarDesc}
+                  </p>
+                </div>
+              )}
+            </>
+          )}
+
+          <label>{t("name")}:</label>
+          <input value={name} onChange={(e) => setName(e.target.value)} required />
+
+          <label>E-mail:</label>
+          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+
+          <label>{t("message") || "Additional Details"}:</label>
+          <textarea 
+            className="session-textarea" 
+            value={message} 
+            onChange={(e) => setMessage(e.target.value)} 
+            placeholder={t("") || "Tell me more about your vision"}
+            rows="4"
+          />
+
+          <button
+            type="submit"
+            className="session-submit"
+            disabled={loading || !token}
+          >
+            {loading ? t("processing") : t("bookSession")}
+          </button>
+        </form>
+      </section>
+    </div>
   );
 }
 
 export default Sessions;
-  

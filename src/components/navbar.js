@@ -220,21 +220,6 @@ function ColorSchemesExample() {
             >
               <hr className="hr" />
 
-          <Nav.Link
-  role="menuitem"
-  tabIndex={0}
-  onClick={() => {
-    const section = document.getElementById("gallery");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-    handleClose();
-  }}
->
-  <img src={Icon} alt="" aria-hidden="true" className="red" />
-  {t("gallery")}
-</Nav.Link>
-
               <hr className="hr" />
 
        <Nav.Link
@@ -256,6 +241,22 @@ function ColorSchemesExample() {
   ></i>
   {t("aboutMe")}
 </Nav.Link>
+          <Nav.Link
+  role="menuitem"
+  tabIndex={0}
+  onClick={() => {
+    const section = document.getElementById("gallery");
+    if (section) {
+      section.scrollIntoView({ behavior: "smooth" });
+    }
+    handleClose();
+  }}
+>
+  <img src={Icon} alt="" aria-hidden="true" className="red" />
+  {t("gallery")}
+</Nav.Link>
+
+
 
               <hr className="hr" />
 
@@ -267,7 +268,7 @@ function ColorSchemesExample() {
     handleClose(); 
   }}
 >
-  {t("session")}
+ <i class="fa-regular fa-calendar nav-icon"></i> {t("session")}
 </Nav.Link>
 <hr className="hr" />
            <Nav.Link

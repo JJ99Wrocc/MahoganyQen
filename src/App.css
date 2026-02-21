@@ -93,7 +93,57 @@
   font-weight: 300;
   font-size: 15px;
 }
+/* Styl dla połączonego tła Links + Footer */
+.shared-bottom-section {
+  position: relative;
+  width: 100%;
+  background-color: #000;
+  overflow: hidden;
+}
 
+.shared-bg-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url('./photo/Caruzel7.jpeg'); /* Podmień na swoje zdjęcie */
+  background-size: cover;
+  background-position: center;
+  z-index: 1;
+  transform: scale(1.05);
+  animation: professionalKenBurns 40s ease-in-out infinite; /* Jedna długa animacja dla obu sekcji */
+  filter: brightness(0.25);
+}
+
+.shared-bg-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.85) 100%);
+  z-index: 2;
+}
+
+.shared-bg-shadow-top {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: linear-gradient(to bottom, #000 0%, transparent 100%);
+  z-index: 3;
+}
+
+/* Żeby komponenty w środku nie miały własnych teł */
+.shared-bottom-section #linki, 
+.shared-bottom-section .gold-footer {
+  position: relative;
+  z-index: 10;
+  background: transparent !important;
+  border: none !important;
+} 
 /* Responsywność */
 @media (max-width: 768px) {
   .scroll-to-top {
