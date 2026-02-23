@@ -483,7 +483,7 @@
 }
 
 
-@media (max-width: 768px) and (min-width: 300px) {
+@media (max-width: 1902px) and (min-width: 300px) {
   /* 1. GŁÓWNY KONTENER KALENDARZA - rozciągamy na maxa */
   .react-datepicker {
     width: 100% !important;
@@ -706,7 +706,28 @@
   overflow: hidden;
   padding: 100px 20px; /* Miejsce na form i odstęp od góry */
 }
+/* --- GÓRNE ZACIEMNIENIE (ZAGUBIENIE LINII) --- */
+.session-page-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 200px; /* Wysokość cienia */
+  background: linear-gradient(to bottom, 
+    rgba(0,0,0,1) 0%, 
+    rgba(0,0,0,0.7) 40%, 
+    transparent 100%
+  );
+  z-index: 5; /* Nad tłem, pod formularzem */
+  pointer-events: none;
+}
 
+/* --- DODAJ TO DO KONTENERA, ŻEBY Cień DZIAŁAŁ --- */
+.session-page-container {
+  position: relative; /* Ważne! */
+  padding-top: 100px; /* Żeby formularz nie był za blisko cienia */
+}
 /* 2. Obraz tła z Twoją animacją professionalKenBurns */
 .session-bg-img {
   position: absolute;

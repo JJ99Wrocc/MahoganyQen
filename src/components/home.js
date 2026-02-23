@@ -1,30 +1,26 @@
 import React from "react";
 import '../css/home.css';
 import { useTranslation } from "react-i18next";
-import i18n from '../i18n.js';
+
 function Home() {
   const { t } = useTranslation();
-const handleLanguageChange = (lang) => {
-  i18n.changeLanguage(lang);
-};
+
   return (
-    <div
-      id="home"
-      className="home-background-img"
-      role="banner"               /* główny baner strony */
-      aria-label="Home section with hero image and title"
-    >
-
-      <div className="home-img" aria-hidden="true"></div> {/* dekoracyjne zdjęcie, nie dla screen readerów */}
-
-      <div className="home-content">
-        <h1 className="home-title">{t("siteTitle")}</h1>
-        {/* <p className="home-subtitle">Your text here...</p> */}
-      </div>
-
-      {/* Cień MUSI być tutaj */}
-      <div className="home-img-shadow" aria-hidden="true"></div> {/* dekoracyjny cień */}
+    <div id="home" className="home-hero-viewport" role="banner">
+      {/* 1. Warstwa obrazu - Ken Burns */}
+      <div className="home-img-layer" aria-hidden="true"></div>
       
+      {/* 2. Warstwy mroku i głębi */}
+      <div className="home-vignette"></div>
+      <div className="home-bottom-shadow"></div>
+
+      {/* 3. Kontent z animacją wejścia */}
+      <div className="home-content-wrapper">
+        <h1 className="home-title-pro">
+          <span className="title-glow">{t("siteTitle")}</span>
+        </h1>
+        <div className="title-underline"></div>
+      </div>
     </div>
   );
 }

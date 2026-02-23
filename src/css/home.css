@@ -1,108 +1,168 @@
-.home-background-img {
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  /* Obrazek tła usuwamy stąd i przenosimy do .home-img, 
-     aby tylko on był animowany bez ruszania kontenerem */
-  background-color: #000; 
-  overflow: hidden;
-  margin-top: -80px;
+/* --- KONTENER GŁÓWNY --- */
+.home-hero-viewport {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+    overflow: hidden;
+    margin-top: -80px; /* Zostawiamy Twój margines pod navbar */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-/* --- DOLNY CIEŃ (Z-INDEX 5) --- */
-.home-background-img::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 40%;
-  background: linear-gradient(
-    to top,
-    rgba(0,0,0,0.99) 0%,   
-    rgba(0,0,0,0.0) 100%   
-  );
-  z-index: 5;
-  pointer-events: none;
+/* --- WARSTWA OBRAZU (KEN BURNS) --- */
+.home-img-layer {
+    position: absolute;
+    top: -5%; left: -5%; width: 110%; height: 110%; /* Zapas pod ruch */
+    background-image: url('../photo/Evon-hero-img.jpeg');
+    background-size: cover;
+    background-position: center;
+    z-index: 1;
+    filter: brightness(0.6);
+    animation: luxuryKenBurns 30s ease-in-out infinite alternate;
+    will-change: transform;
 }
 
-/* --- FILMOWE ZDJĘCIE (ANIMOWANE) --- */
-.home-img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: url('../photo/Evon-hero-img.jpeg');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  
-  /* Profesjonalne ustawienia Ken Burns */
-  transform: scale(1.05); 
-  animation: professionalKenBurns 25s ease-in-out infinite;
-  will-change: transform;
-  z-index: 1;
+@keyframes luxuryKenBurns {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.1) translate(-2%, -1%); }
 }
 
-/* --- NAPIS (Z-INDEX 10) --- */
-.home-title {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-family: 'Bebas Neue', sans-serif;
-  font-weight: 400;
-  font-size: 4rem;
-  color: #f5f5f5;
-  text-shadow: 6px 6px 6px rgba(0,0,0,0.7);     
-  z-index: 10;
-  text-align: center;
-  width: 90%;
+/* --- EFEKTY ŚWIETLNE --- */
+.home-vignette {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle, transparent 20%, rgba(0,0,0,0.8) 100%);
+    z-index: 2;
+    pointer-events: none;
 }
 
-/* --- NOWA PROFESJONALNA ANIMACJA --- */
-@keyframes professionalKenBurns {
-  0% {
-    transform: scale(1.05) translate(0, 0);
-  }
-  50% {
-    /* Delikatny najazd i minimalne przesunięcie */
-    transform: scale(1.15) translate(-1%, 0.5%);
-  }
-  100% {
-    transform: scale(1.05) translate(0, 0);
-  }
+.home-bottom-shadow {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%; height: 45%;
+    background: linear-gradient(to top, #000 0%, transparent 100%);
+    z-index: 3;
+    pointer-events: none;
+}
+
+/* --- TYPOGRAFIA PRO --- */
+.home-content-wrapper {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    perspective: 1000px;
+}
+
+.home-title-pro {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3rem, 8vw, 7rem); /* Płynne skalowanie */
+    text-transform: uppercase;
+    letter-spacing: 15px;
+    margin: 0;
+    padding: 0 20px;
+    color: #fff;
+    
+    /* Animacja wejścia i ciągłego ruchu */
+    opacity: 0;
+    filter: blur(15px);
+    transform: translateZ(50px) scale(0.9);
+    animation: 
+        titleEntrance 2s cubic-bezier(0.2, 1, 0.3, 1) forwards,
+        titleFloating 6s ease-in-out infinite 2s; /* Zaczyna pływać po wejściu */
+}
+
+/* Tekst z efektem poświaty */
+.title-glow {
+  font-size: 30px;
+    background: linear-gradient(to bottom, #ffffff 40%, #aaaaaa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+}
+
+/* Linia pod napisem */
+.title-underline {
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #fff, transparent);
+    margin: 20px auto 0;
+    opacity: 0.6;
+    animation: lineGrow 1.5s ease-out forwards 1s;
+}
+
+/* --- ANIMACJE --- */
+
+@keyframes titleEntrance {
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateZ(0) scale(1);
+    }
+}
+
+/* Ten ruch sprawia, że napis "żyje" razem z tłem */
+@keyframes titleFloating {
+    0%, 100% { transform: translateY(0) rotateX(0); }
+    50% { transform: translateY(-15px) rotateX(2deg); }
+}
+
+@keyframes lineGrow {
+    to { width: 300px; }
 }
 
 /* --- RESPONSYWNOŚĆ --- */
+@media (max-width: 768px) {
+    .home-title-pro {
+        letter-spacing: 6px;
+        font-size: 3.5rem;
+    }
+    .lineGrow {
+        to { width: 150px; }
+    }
+    .home-img-layer {
+        background-position: 35% center; /* Twoje ustawienie na mobile */
+    }
+}
 @media( min-width: 992px ) and (max-width: 1199px) {
-  .home-title {
-    font-size: 3.5rem;
+  .title-glow {
+    font-size: 28px;
+  }
+    .title-underline{
+    margin: 7px auto;
   }
 }
 
 @media( min-width: 768px ) and (max-width: 991px) {
-  .home-title {
-    font-size: 3rem;
+  .title-glow {
+    font-size: 22px;
+  }
+   .title-underline{
+    margin: 4px auto;
   }
 }
 
 @media( min-width: 577px ) and (max-width: 767px) {
-  .home-title {
-    font-size: 3rem;
+  .title-glow {
+    font-size: 20px;
+  }
+  .title-underline{
+    margin: 5px auto;
   }
   /* Animujemy zdjęcie, więc background-position zmieniamy na samej warstwie obrazu */
-  .home-img {
+  .home-img-layer {
     background-position: -120px center; 
   }
 }
 
 @media( min-width: 300px ) and (max-width: 576px) {
-  .home-title {
-    font-size: 2rem;
+  .title-glow {
+    font-size: 17px;
   }
-  .home-img {
+    .title-underline{
+    margin: 4px auto;
+  }
+  .home-img-layer {
     background-position: 30% center; 
   }
 }
