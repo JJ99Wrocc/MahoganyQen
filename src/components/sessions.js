@@ -30,9 +30,6 @@ function Sessions() {
     i18n.changeLanguage(lang);
   };
 
-  // ===============================
-  // 🔐 POBRANIE TOKENA (ANTI-BOT)
-  // ===============================
   const fetchToken = () => {
     fetch("https://mahoganyqen.onrender.com/token")
       .then((res) => res.json())
@@ -44,9 +41,6 @@ function Sessions() {
     fetchToken();
   }, []);
 
-  // ===============================
-  // POBIERANIE SLOTÓW Z KALENDARZA I BOOKINGÓW
-  // ===============================
   const fetchSlots = async () => {
     try {
       const res = await fetch("https://mahoganyqen.onrender.com/events");
@@ -67,7 +61,7 @@ function Sessions() {
             ? event.start.dateTime.split("T")[1].slice(0, 5)
             : "",
           calendarDesc: event.description || "",
-          summary: event.summary || t("noDescription"), // <- TO JEST TYTUŁ Z GOOGLE CALENDAR
+          summary: event.summary || t("noDescription"),
         }));
 
       setAvailableSlots(slots);
@@ -79,7 +73,6 @@ function Sessions() {
 
   useEffect(() => {
     fetchSlots();
-    console.log("🔥 NEW BUILD LOADED");
   }, [t]);
 
   const formatDate = (date) => {
@@ -100,14 +93,10 @@ function Sessions() {
     if (!slot) return "";
 
     switch (normalizeCity(slot.summary)) {
-      case "warszawa":
-        return "available-day warszawa";
-      case "londyn":
-        return "available-day londyn";
-      case "wroclaw":
-        return "available-day wroclaw";
-      default:
-        return "available-day";
+      case "warszawa": return "available-day warszawa";
+      case "londyn": return "available-day londyn";
+      case "wroclaw": return "available-day wroclaw";
+      default: return "available-day";
     }
   };
 
@@ -123,50 +112,28 @@ function Sessions() {
     setAvailableHours(hours);
   };
 
-  // ===============================
-  // 🔐 HANDLE SUBMIT (FULL HARDENED)
-  // ===============================
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (company !== "") return;
-
-    if (Date.now() - formLoadTime.current < 3000) {
-      return alert("Zbyt szybkie wysłanie formularza.");
-    }
-
-    if (Date.now() - lastSubmitTime.current < 5000) {
-      return alert("Zbyt wiele prób. Odczekaj chwilę.");
-    }
+    if (Date.now() - formLoadTime.current < 3000) return alert("Zbyt szybkie wysłanie formularza.");
+    if (Date.now() - lastSubmitTime.current < 5000) return alert("Zbyt wiele prób. Odczekaj chwilę.");
     lastSubmitTime.current = Date.now();
 
-    if (!selectedSlot || !name || !email || !token) {
-      return alert(t("fillAllFields"));
-    }
-
-    if (name.length < 2 || name.length > 50) {
-      return alert(t("invalidName"));
-    }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return alert(t("invalidEmail"));
-    }
+    if (!selectedSlot || !name || !email || !token) return alert(t("fillAllFields"));
+    if (name.length < 2 || name.length > 50) return alert(t("invalidName"));
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return alert(t("invalidEmail"));
 
     setLoading(true);
-
     try {
       const res = await fetch("https://mahoganyqen.onrender.com/book", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           id: selectedSlot.value,
-          name,
-          email,
-          message,
+          name, email, message,
           date: formatDate(selectedDate),
           time: selectedSlot.label,
-          token,
-          ts: Date.now(),
+          token, ts: Date.now(),
         }),
       });
 
@@ -175,16 +142,13 @@ function Sessions() {
         fetchToken();
         return;
       }
-
       if (res.status === 409) {
         alert(t("slotAlreadyBooked"));
         return;
       }
-
       if (!res.ok) throw new Error();
 
       alert(t("slotBooked"));
-
       setSelectedDate(null);
       setSelectedSlot(null);
       setAvailableHours([]);
@@ -202,19 +166,9 @@ function Sessions() {
   };
 
   const selectStyles = {
-    control: (provided) => ({
-      ...provided,
-      minHeight: "40px",
-      height: "40px",
-    }),
-    menu: (provided) => ({
-      ...provided,
-      maxHeight: "150px",
-    }),
-    menuList: (provided) => ({
-      ...provided,
-      maxHeight: "150px",
-    }),
+    control: (provided) => ({ ...provided, minHeight: "40px", height: "40px", }),
+    menu: (provided) => ({ ...provided, maxHeight: "150px", }),
+    menuList: (provided) => ({ ...provided, maxHeight: "150px", }),
   };
 
   const slotOptions = availableHours.map((slot) => ({
@@ -225,36 +179,40 @@ function Sessions() {
 
   return (
     <div className="session-page-container">
-      {/* Tło pasujące do Home.js */}
+      {/* BACKGROUND ELEMENTS */}
       <div className="session-bg-img" aria-hidden="true"></div>
       <div className="session-bg-overlay" aria-hidden="true"></div>
       <div className="session-bg-shadow-bottom" aria-hidden="true"></div>
 
-      <section
-        id="sessions-booking"
-        className="session-booking"
-        aria-label={t("bookingSession")}
-      >
+      {/* 1. TYTUŁ NAD FORMULARZEM (VERTICAL STACK) */}
+      <div className="booking-pre-header">
+          <div className="booking-ornament">
+              <span className="line"></span>
+              <span className="diamond"></span>
+              <span className="line"></span>
+          </div>
+          <p className="booking-status">System Online Concierge</p>
+          <h1 className="booking-main-title">Reservation Protocol</h1>
+      </div>
+
+      {/* 2. FORMULARZ SEKRETY */}
+      <section id="sessions-booking" className="session-booking" aria-label={t("bookingSession")}>
         <div className="session-header">
           <h2 id="session-title">{t("bookSession")}</h2>
           <p id="session-desc">{t("chooseDateTime")}</p>
         </div>
 
         <form className="session-form" onSubmit={handleSubmit}>
-          <input
-            type="text"
-            value={company}
-            onChange={(e) => setCompany(e.target.value)}
-            style={{ display: "none" }}
-            tabIndex="-1"
-            autoComplete="off"
-          />
+          <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} style={{ display: "none" }} tabIndex="-1" autoComplete="off" />
 
-          <label>{t("chooseDate")}:</label>
-          <button type="button" className="date-open-btn" onClick={handleOpenCalendar}>
-            {t("chooseDate")}
-          </button>
+          <div className="form-group">
+            <label>{t("chooseDate")}:</label>
+            <button type="button" className="date-open-btn" onClick={handleOpenCalendar}>
+              {selectedDate ? formatDate(selectedDate) : t("chooseDate")}
+            </button>
+          </div>
 
+          {/* CALENDAR BLOCK */}
           <div className="calendar-wrapper" style={{ display: openCalendar ? "block" : "none" }}>
             <DatePicker
               key={availableDates.join(",")}
@@ -268,15 +226,12 @@ function Sessions() {
                 const slot = availableSlots.find((s) => s.date === formatted);
                 return slot ? `${baseClass} day-with-tooltip` : baseClass;
               }}
-              outsideClickIgnoreClass="react-datepicker__day--outside-month"
               filterDate={(date) => availableDates.includes(formatDate(date))}
               renderDayContents={(day, date) => {
                 const formatted = formatDate(date);
                 const slot = availableSlots.find((s) => s.date === formatted);
                 return slot ? (
-                  <span className="day-with-tooltip" data-tooltip={slot.summary}>
-                    {day}
-                  </span>
+                  <span className="day-with-tooltip" data-tooltip={slot.summary}>{day}</span>
                 ) : (
                   <span>{day}</span>
                 );
@@ -285,7 +240,8 @@ function Sessions() {
           </div>
 
           {availableHours.length > 0 && (
-            <>
+            <div className="form-group">
+              <label>{t("chooseHour")}:</label>
               <Select
                 value={selectedSlot}
                 onChange={setSelectedSlot}
@@ -293,38 +249,36 @@ function Sessions() {
                 styles={selectStyles}
                 placeholder={t("chooseHour")}
               />
-
-              {/* Wyświetlanie opisu z Google Calendar pod Selectem */}
               {selectedSlot && selectedSlot.calendarDesc && (
                 <div className="slot-description-box">
-                  <p className="slot-description-text">
-                    {selectedSlot.calendarDesc}
-                  </p>
+                  <p className="slot-description-text">{selectedSlot.calendarDesc}</p>
                 </div>
               )}
-            </>
+            </div>
           )}
 
-          <label>{t("name")}:</label>
-          <input value={name} onChange={(e) => setName(e.target.value)} required />
+          <div className="form-group">
+            <label>{t("name")}:</label>
+            <input value={name} onChange={(e) => setName(e.target.value)} required placeholder="Identities" />
+          </div>
 
-          <label>E-mail:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <div className="form-group">
+            <label>E-mail:</label>
+            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="Secure Contact" />
+          </div>
 
-          <label>{t("message") || "Additional Details"}:</label>
-          <textarea 
-            className="session-textarea" 
-            value={message} 
-            onChange={(e) => setMessage(e.target.value)} 
-            placeholder={t("") || "Tell me more about your vision"}
-            rows="4"
-          />
+          <div className="form-group">
+            <label>{t("message") || "Additional Details"}:</label>
+            <textarea 
+              className="session-textarea" 
+              value={message} 
+              onChange={(e) => setMessage(e.target.value)} 
+              placeholder="Tell me more about your vision..."
+              rows="4"
+            />
+          </div>
 
-          <button
-            type="submit"
-            className="session-submit"
-            disabled={loading || !token}
-          >
+          <button type="submit" className="session-submit" disabled={loading || !token}>
             {loading ? t("processing") : t("bookSession")}
           </button>
         </form>

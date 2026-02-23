@@ -3,6 +3,7 @@ import { Carousel } from "react-bootstrap";
 import "../css/swipperGallery.css";
 import { useTranslation } from "react-i18next";
 
+// Import zdjęć
 import Caruzel1 from '../photo/Caruzel 1.jpeg'; 
 import Caruzel2 from '../photo/Caruzel 2.jpeg';
 import Caruzel3 from '../photo/Caruzel 3.jpeg'; 
@@ -21,16 +22,14 @@ import Caruzel15 from '../photo/Caruzel15.jpeg';
 import Caruzel16 from '../photo/Caruzel16.jpeg';
 import Caruzel17 from '../photo/Caruzel17.jpeg';
 import Caruzel18 from '../photo/Caruzel18.jpeg';
-import i18n from '../i18n.js';
+
 const images = [
   Caruzel1, Caruzel2, Caruzel3, Caruzel4, Caruzel5,
   Caruzel6, Caruzel7, Caruzel8, Caruzel9, Caruzel10,
   Caruzel11, Caruzel12, Caruzel13, Caruzel14, Caruzel15,
   Caruzel16, Caruzel17, Caruzel18
 ];
-const handleLanguageChange = (lang) => {
-  i18n.changeLanguage(lang);
-};
+
 function SwipperGallery() {
   const { t } = useTranslation();
 
@@ -38,47 +37,64 @@ function SwipperGallery() {
   const getNextIndex = (i) => (i === images.length - 1 ? 0 : i + 1);
 
   return (
-    <div 
-      id='gallery' 
-      className='caruzel-box' 
-      role="region" 
-      aria-label={t("gallerySection")}
-    >
-      <Carousel 
-        indicators={true} 
-        role="group" 
-        aria-roledescription="carousel" 
-        aria-label={t("gallerySection")} 
-        interval={3000}
+    <>
+      {/* --- PRO LUXURY DIVIDER (Oddzielenie od góry) --- */}
+      <div className="gallery-preface">
+        <div className="preface-line"></div>
+        <div className="preface-content">
+          <span className="preface-subtitle">Exhibition</span>
+          <h2 className="preface-title">Visual Experience</h2>
+          <div className="preface-diamond"></div>
+        </div>
+        <div className="preface-line"></div>
+      </div>
+
+      {/* --- WŁAŚCIWA GALERIA --- */}
+      <div 
+        id='gallery' 
+        className='caruzel-box' 
+        role="region" 
+        aria-label={t("gallerySection")}
       >
-        {images.map((img, i) => (
-          <Carousel.Item key={i}>
-            <div className="slide-wrapper">
-              {/* poprzednie zdjęcie */}
-              <img 
-                className="slide-blur Caruzel-img" 
-                src={images[getPrevIndex(i)]} 
-                alt={`${t("galleryBlurLeft")} ${i + 1}`} 
-              />
-              
-              {/* środkowe zdjęcie */}
-              <img 
-                className="slide-main Caruzel-img" 
-                src={img} 
-                alt={`${t("galleryMain")} ${i + 1}`} 
-              />
-              
-              {/* następne zdjęcie */}
-              <img 
-                className="slide-blur Caruzel-img" 
-                src={images[getNextIndex(i)]} 
-                alt={`${t("galleryBlurRight")} ${i + 1}`} 
-              />
-            </div>
-          </Carousel.Item>
-        ))}
-      </Carousel>
-    </div>
+        <Carousel 
+          indicators={true} 
+          role="group" 
+          aria-roledescription="carousel" 
+          aria-label={t("gallerySection")} 
+          interval={3000}
+          pause="hover"
+        >
+          {images.map((img, i) => (
+            <Carousel.Item key={i}>
+              <div className="slide-wrapper">
+                {/* poprzednie zdjęcie (blur) */}
+                <img 
+                  className="slide-blur" 
+                  src={images[getPrevIndex(i)]} 
+                  alt="" 
+                  aria-hidden="true"
+                />
+                
+                {/* środkowe zdjęcie (główne) */}
+                <img 
+                  className="slide-main" 
+                  src={img} 
+                  alt={`${t("galleryMain")} ${i + 1}`} 
+                />
+                
+                {/* następne zdjęcie (blur) */}
+                <img 
+                  className="slide-blur" 
+                  src={images[getNextIndex(i)]} 
+                  alt="" 
+                  aria-hidden="true"
+                />
+              </div>
+            </Carousel.Item>
+          ))}
+        </Carousel>
+      </div>
+    </>
   );
 }
 

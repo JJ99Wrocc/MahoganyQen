@@ -166,3 +166,31 @@
     background-position: 30% center; 
   }
 }
+/* 1. Ustawiamy startową niewidoczność dla napisu */
+.title-glow {
+    opacity: 0;
+    transform: translateY(20px);
+    filter: blur(10px);
+    /* Animacja: nazwa | czas | opóźnienie | styl | zachowanie po końcowe */
+    animation: mahogEntrance 1.8s ease-out 0.8s forwards;
+}
+
+/* 2. Definiujemy animację wejścia */
+@keyframes mahogEntrance {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.95);
+        filter: blur(10px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
+}
+
+/* 3. Poprawka dla linii pod napisem, żeby pojawiała się razem z nim */
+/* .title-underline {
+    opacity: 0;
+    animation: lineGrow 1.5s ease-out 1.5s forwards;
+} */

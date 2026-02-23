@@ -66,52 +66,64 @@
   border-bottom-color: #8b0000;
 }
 
-
+/* 1. Reset i bazowy styl - identyczny jak date-open-btn */
 .session-submit {
-  background: #8b0000;
-  border: none;
-  padding: 12px 0;
-  font-size: 14px !important;
-  font-weight: 700;
-  width: 50%;
-  margin: 0 auto;
-  color: #fff;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-  border-radius: 12px;
-  cursor: pointer;
-  display: block; /* Zapewnia poprawne działanie marginesu auto */
-  outline: none;
+    position: relative;
+    background: transparent !important; /* Musi być transparent, żeby widzieć efekt hover */
+    border: 1px solid #8b0000 !important;
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+    overflow: hidden;
+    z-index: 1;
+    margin-top: 30px !important;
+    width: 100%; /* Jeśli chcesz, żeby na mobilkach był szeroki jak w media queries */
+    transition: 
+        background 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
+        border-radius 0.4s ease, 
+        transform 0.3s ease, 
+        box-shadow 0.3s ease,
+        letter-spacing 0.3s ease !important;
+}
 
-  /* Zaawansowane przejścia dla efektu premium */
-  transition: 
-    background 0.4s cubic-bezier(0.25, 0.8, 0.25, 1), 
-    border-radius 0.4s ease, 
-    transform 0.3s ease, 
-    box-shadow 0.3s ease,
-    letter-spacing 0.3s ease;
-    
-  /* Subtelny cień na start, żeby przycisk nie był płaski */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* 2. Efekt przesuwającego się błysku */
+.session-submit::before {
+    content: "";
+    position: absolute;
+    top: 0; 
+    left: -100%;
+    width: 100%; 
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.4), transparent);
+    transition: 0.5s;
+    z-index: -1;
+}
+
+/* 3. Stan Hover */
+.session-submit:hover::before {
+    left: 100%;
 }
 
 .session-submit:hover {
-  background: #a30000;
- 
-  border-radius: 30px; 
-  transform: translateY(-4px); 
-  letter-spacing: 2px; 
-
-  box-shadow: 0 12px 24px rgba(139, 0, 0, 0.35);
+    background: #8b0000 !important; /* Dopiero przy hover wypełniamy kolorem */
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.6) !important;
+    letter-spacing: 4px !important;
+    transform: translateY(-2px);
 }
 
-.session-submit:active {
-
-  transform: translateY(-1px);
-  box-shadow: 0 5px 10px rgba(139, 0, 0, 0.5);
-  transition: 0.1s;
+/* 4. Stan Disabled (gdy loading lub brak tokena) */
+.session-submit:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    border-color: #333 !important;
+    letter-spacing: 0.5px !important;
 }
-
 
 .session-form input:hover,
 .session-form select:hover {
@@ -172,20 +184,32 @@
   overflow: hidden;
 }
 
-.date-open-btn:hover {
-  background: #a50000; /* Jaśniejsza, żywsza czerwień */
-  border-radius: 25px; /* Mocne zaokrąglenie, o które prosiłeś */
-  transform: translateY(-3px); /* Przycisk "wyskakuje" do góry */
-  letter-spacing: 1.5px; /* Tekst elegancko "oddycha" */
-  
-  /* Efekt cienia, który nadaje głębi (elevated design) */
-  box-shadow: 0 10px 20px rgba(139, 0, 0, 0.3);
+.date-open-btn {
+    position: relative;
+    background: transparent !important;
+    border: 1px solid #8b0000 !important;
+    overflow: hidden;
+    z-index: 1;
 }
 
-.date-open-btn:active {
-  /* Efekt kliknięcia - przycisk wraca na dół */
-  transform: translateY(-1px);
-  box-shadow: 0 5px 10px rgba(139, 0, 0, 0.4);
+.date-open-btn::before {
+    content: "";
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(139, 0, 0, 0.4), transparent);
+    transition: 0.5s;
+    z-index: -1;
+}
+
+.date-open-btn:hover::before {
+    left: 100%;
+}
+
+.date-open-btn:hover {
+    background: #8b0000 !important;
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.6);
+    letter-spacing: 4px;
 }
 /* --- Kalendarz ultra clean pod sesję --- */
 .react-datepicker {
@@ -816,4 +840,349 @@
     /* Na mobilkach przesuwamy tło, żeby lepiej wyglądało pod formem */
     background-position: 30% center; 
   }
+}
+
+
+
+/* ==========================================================
+   THE "DOMINA" ELITE TYPOGRAPHY & FORM DESIGN
+   ========================================================== */
+
+/* 1. TYTUŁ: EFEKT ROZMYTEGO ŚWIATŁA */
+.session-header h2 {
+    font-family: 'Cinzel', serif;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 15px; /* Ekstremalne światło */
+    color: #fff;
+    text-align: center;
+    position: relative;
+    
+    /* Animacja: Wyłanianie z nicości + pulsowanie światła */
+    opacity: 0;
+    animation: eliteTitleReveal 2.5s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+    text-shadow: 0 0 30px rgba(139, 0, 0, 0);
+}
+
+@keyframes eliteTitleReveal {
+    0% {
+        opacity: 0;
+        letter-spacing: 25px;
+        filter: blur(20px);
+        transform: scale(1.1);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(139, 0, 0, 0.8); /* Błysk bordowej aury */
+    }
+    100% {
+        opacity: 1;
+        letter-spacing: 15px;
+        filter: blur(0);
+        transform: scale(1);
+        text-shadow: 0 0 10px rgba(139, 0, 0, 0.2);
+    }
+}
+
+/* 2. PODTYTUŁ: MINIMALIZM I ELEGANCJA */
+.session-header p {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 15px;
+    opacity: 0;
+    animation: fadeInSimple 2s ease-out forwards;
+    animation-delay: 1.5s;
+}
+
+/* 3. INPUTY: "THE GLASS LINE" */
+.session-form input,
+.session-form select,
+.session-textarea {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: none !important;
+    border-left: 1px solid rgba(139, 0, 0, 0.3) !important; /* Cienka pionowa linia zamiast dolnej */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    padding: 15px 20px !important;
+    font-family: 'Inter', sans-serif;
+    color: #fff;
+    font-size: 13px;
+    letter-spacing: 1px;
+    transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.session-form input:focus,
+.session-textarea:focus {
+    background: rgba(139, 0, 0, 0.08) !important;
+    border-left: 1px solid #8b0000 !important;
+    padding-left: 30px !important; /* Tekst "odsuwa się" od linii przy pisaniu */
+    box-shadow: -10px 0 20px rgba(139, 0, 0, 0.1);
+}
+
+/* 4. LABELE: MAŁE, ALE WYRAŹNE */
+.session-form label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    color: #8b0000;
+    font-weight: 700;
+    margin-bottom: 5px;
+    display: block;
+    transform: translateX(-5px);
+    opacity: 0;
+    animation: labelSlide 0.8s ease-out forwards;
+}
+
+/* Sekwencja dla pól formularza */
+.session-form > div:nth-child(1) label { animation-delay: 1.8s; }
+.session-form > div:nth-child(2) label { animation-delay: 2.0s; }
+.session-form > div:nth-child(3) label { animation-delay: 2.2s; }
+
+@keyframes labelSlide {
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* 5. PRZYCISK: "THE PULSING CORE" */
+
+
+/* --- FIXES --- */
+@keyframes fadeInSimple { to { opacity: 1; } }
+
+@media (max-width: 768px) {
+    .session-header h2 { letter-spacing: 8px; font-size: 22px; }
+    .session-form input { padding: 12px 15px !important; }
+}
+
+/* --- GŁÓWNY KONTENER UKŁADU --- */
+.session-page-container {
+    display: flex;
+    flex-direction: column; /* To gwarantuje, że header jest NAD formularzem */
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 100px;
+    min-height: 100vh;
+}
+
+/* --- PRE-HEADER (NAD FORMULARZEM) --- */
+.booking-pre-header {
+    text-align: center;
+    margin-bottom: 40px; /* Odstęp od formularza */
+    z-index: 10;
+    width: 100%;
+}
+
+.booking-ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 15px;
+}
+
+.booking-ornament .line {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #8b0000, transparent);
+}
+
+.booking-ornament .diamond {
+    width: 8px;
+    height: 8px;
+    border: 1px solid #8b0000;
+    transform: rotate(45deg);
+    box-shadow: 0 0 10px rgba(139, 0, 0, 0.8);
+    background: #000;
+}
+
+.booking-status {
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #8b0000;
+    font-weight: 700;
+    margin-bottom: 5px;
+    animation: proPulse 2s infinite ease-in-out; /* Dyskretne pulsowanie */
+}
+
+@keyframes proPulse {
+    0% { opacity: 0.5; }
+    50% { opacity: 1; }
+    100% { opacity: 0.5; }
+}
+
+.booking-main-title {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(24px, 6vw, 42px);
+    letter-spacing: 12px;
+    text-transform: uppercase;
+    color: #fff;
+    margin: 0;
+    font-weight: 400;
+}
+
+/* --- FORMULARZ (TUNING GRUP) --- */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+}
+
+.session-form label {
+    font-size: 11px !important;
+    color: #8b0000 !important;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    font-weight: 700;
+    margin-bottom: 5px;
+    margin-top: 15px;
+}
+
+/* Inputy w stylu "Glass & Line" */
+.session-form input:not([type="text"][style*="display: none"]),
+.session-textarea {
+    background: rgba(255, 255, 255, 0.02) !important;
+    border: none !important;
+    border-left: 1px solid rgba(139, 0, 0, 0.3) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+    padding: 15px !important;
+    color: #fff !important;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
+.session-form input:focus,
+.session-textarea:focus {
+    border-left: 1px solid #8b0000 !important;
+    background: rgba(139, 0, 0, 0.08) !important;
+    padding-left: 25px !important; /* Efekt przesunięcia przy pisaniu */
+    box-shadow: -10px 0 20px rgba(139, 0, 0, 0.05);
+}
+
+/* Przycisk submit pro */
+.session-submit {
+    margin-top: 30px !important;
+    background: #8b0000 !important;
+    transition: all 0.5s !important;
+}
+
+.session-submit:hover {
+    letter-spacing: 4px !important;
+    box-shadow: 0 0 30px rgba(139, 0, 0, 0.4) !important;
+}
+
+
+
+
+
+
+@media(max-width:1200px){
+ .booking-main-title{
+    font-size: 26px;
+    letter-spacing: 10px;
+  }
+  .booking-status,.session-header p{
+    font-size: 13px;
+  }
+  .session-header h2{
+    font-size: 24px;
+  }
+   .date-open-btn,.session-submit{
+    font-size: 12px;
+    letter-spacing: 0.7px;
+   }
+  
+   .session-form input,.form-group label,.session-textarea{
+    font-size: 10px;
+   }
+}
+
+@media(max-width:992px){
+ .booking-main-title{
+    font-size: 25px;
+    letter-spacing: 10px;
+  }
+  .booking-status,.session-header p{
+    font-size: 10px;
+  }
+  .session-header h2{
+    font-size: 23px;
+  }
+   .date-open-btn,.session-submit{
+    font-size: 11px;
+    letter-spacing: 0.6px;
+   }
+  
+   .session-form input,.form-group label,.session-textarea{
+    font-size: 9px;
+   }
+}
+@media(max-width:768px){
+ .booking-main-title{
+    font-size: 23px;
+    letter-spacing: 8px;
+  }
+  .booking-status,.session-header p{
+    font-size: 9px;
+  }
+  .session-header h2{
+    font-size: 21px;
+  }
+   .date-open-btn,.session-submit{
+    font-size: 10px;
+    letter-spacing: 0.8px;
+   }
+  
+   .session-form input,.form-group label,.session-textarea{
+    font-size: 8px;
+    letter-spacing: 0.8px;
+   }
+}
+@media(max-width:576px){
+ .booking-main-title,.session-header h2{
+    font-size: 19px;
+   
+  }
+  .booking-status,.session-header p{
+    font-size: 7px;
+  }
+   .date-open-btn,.session-submit{
+    font-size: 9px;
+  
+   }
+  
+   .session-form input,.form-group label,.session-textarea{
+    font-size: 7px;
+    letter-spacing: 0.8px;
+   }
+   .form-group label,.session-submit{
+    margin-top: 3px;
+   }
+}
+@media(max-width:400px){
+ .booking-main-title,.session-header h2{
+    font-size: 16px;
+    letter-spacing: 0.5px;
+   
+  }
+  .booking-status,.session-header p{
+    font-size: 7px;
+    letter-spacing: 0.5px;
+  }
+   .date-open-btn,.session-submit{
+    font-size: 7px;
+
+   }
+  
+  
+   .session-form input,.form-group label,.session-textarea{
+    font-size: 6px;
+    letter-spacing: 0.5px;
+   }
+   .form-group label,.session-submit{
+    margin-top: 0px;
+   }
+   .form-group label{
+    font-weight: 300;
+   }
 }

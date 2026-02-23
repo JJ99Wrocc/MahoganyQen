@@ -27,7 +27,7 @@
 
 .about-me-viewport::before {
     top: 0;
-    background: linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,0.8) 20%, transparent 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0.1) 0%, rgba(0,0,0,0.8) 20%, transparent 100%);
 }
 
 .about-me-viewport::after {
@@ -136,57 +136,97 @@
 }
 @media (min-width: 1200px) {
     .about-me-viewport { 
-        /* Zmieniamy z center na flex-start, by karta uciekła do lewej */
         justify-content: flex-start; 
         padding-left: 10%; 
     }
 
     .about-me-glass-card { 
         margin: 0; 
-        /* Przywracamy design boczny (linia z lewej) */
         border-top: none; 
         border-left: 2px solid #222020; 
         border-radius: 0 20px 20px 0; 
-        text-align: left; 
-    }
-
-    .about-me-accent-line { 
-      text-align: center;
-        margin: 10px auto; 
+        text-align: left; /* Wyrównanie tekstu do lewej */
+        max-width: 550px; /* Nieco węższa karta wygląda lepiej przy lewej krawędzi */
     }
 
     .about-me-h2 { 
-        text-align: center;
-        font-size: 30px; 
-        letter-spacing: 5px; 
+        text-align: left; /* Nagłówek do lewej */
+        font-size: 38px; 
+        letter-spacing: 6px; 
+    }
+
+    .about-me-accent-line { 
+        margin: 10px 0 20px 0; /* Usuwamy 'auto' (które centruje) i dajemy 0 z prawej/lewej */
     }
 
     .about-me-text { 
-        font-size: 16px; 
+        font-size: 18px; 
         line-height: 1.8; 
+        text-align: justify; /* Utrzymujemy wyjustowanie dla elegancji */
     }
 }
 @media (max-width: 1200px) {
-    .about-me-viewport { justify-content: flex-start; padding-left: 5%; }
+    .about-me-viewport { justify-content: flex-start; padding-left: 5%; max-height: 700px; }
     .about-me-glass-card { margin: 0 20px; border-left: none; border-top: 2px solid #222020; border-radius: 20px; text-align: center; }
     .about-me-accent-line { margin: 15px auto; }
-     .about-me-h2 { font-size: 30px; letter-spacing: 3px; }
-    .about-me-text { font-size: 16px; line-height: 1.6; }
+     .about-me-h2 { font-size: 25px;  }
+    .about-me-text { font-size: 15px;  }
+
 }
 @media (max-width: 992px) {
-    .about-me-viewport { justify-content: center; padding-left: 0; }
+    .about-me-viewport { justify-content: flex-start; padding-left: 6%; min-height: 700px; max-height: 700px; }
     .about-me-glass-card { margin: 0 20px; border-left: none; border-top: 2px solid #222020; border-radius: 20px; text-align: center; }
     .about-me-accent-line { margin: 15px auto; }
-     .about-me-h2 { font-size: 30px; letter-spacing: 3px; }
-    .about-me-text { font-size: 16px; line-height: 1.6; }
+     .about-me-h2 { font-size: 23px;  }
+    .about-me-text { font-size: 15x;  }
+    .about-me-viewport::before {
+    top: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0.1) 0%, rgba(0,0,0,0.5) 20%, transparent 100%);
+}
+
+.about-me-viewport::after {
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.5) 20%, transparent 100%);
+}
 }
 @media(max-width: 768px) {
-    .about-me-viewport { padding-top: 120px; padding-bottom: 120px; }
-     .about-me-h2 { font-size: 26px; letter-spacing: 2px; }
-    .about-me-text { font-size: 14px; line-height: 1.5; }           
+    .about-me-viewport {justify-content: center; padding-left: 0; padding-top: 120px; padding-bottom: 120px; min-height: 600px; max-height: 600px;}
+     .about-me-h2 { font-size: 21px;  }
+    .about-me-text { font-size: 13px;  }         
+    .about-me-viewport::before {
+    top: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0.1) 0%, rgba(0,0,0,0.3) 20%, transparent 100%);
+}
+
+.about-me-viewport::after {
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.3) 20%, transparent 100%);
+}  
 }
 @media (max-width: 576px) {
-    .about-me-viewport { padding-top: 100px; padding-bottom: 100px; }
-    .about-me-h2 { font-size: 24px; letter-spacing: 3px; }
-    .about-me-text { font-size: 12px; line-height: 1.6; }
+    .about-me-viewport { padding-top: 100px; padding-bottom: 100px; min-height: 550px; max-height: 550px;}
+    .about-me-h2 { font-size: 18px;  }
+    .about-me-text { font-size: 11px;  }
+    .about-me-viewport::before {
+    top: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0.1) 0%, rgba(0,0,0,0.2) 20%, transparent 100%);
 }
+
+.about-me-viewport::after {
+    bottom: 0;
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.2) 20%, transparent 100%);
+}
+}
+
+@media (max-width: 460px) {
+.about-me-viewport {  max-height:650px;}
+}
+@media (max-width: 370px) {
+.about-me-viewport {  min-height: 750px;}
+}
+@media (max-width: 330px) {
+.about-me-viewport {  min-height: 800px;}
+}
+
+
+
