@@ -212,18 +212,120 @@
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
 }
 
-/* ==========================================================
-   RESPONSYWNOŚĆ
-   ========================================================== */
+.gallery-preface {
+    background: #000;
+    padding: 100px 20px 40px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.preface-content {
+    position: relative;
+    margin: 20px 0;
+
+}
+
+.preface-subtitle {
+    display: block;
+    font-family: 'Cinzel', serif;
+    color: #f9f90b; /* Akcent złota/żółci, który masz na stronie */
+    text-transform: uppercase;
+    letter-spacing: 12px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    opacity: 0.8;
+}
+
+.preface-title {
+    font-family: 'Cinzel', serif;
+    color: #fff;
+    font-size: clamp(30px, 5vw, 50px);
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: 400;
+    margin: 0;
+    background: linear-gradient(to right, #444, #fff, #444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.preface-line {
+    width: 1px;
+    height: 80px;
+    background: linear-gradient(to bottom, transparent, #222020, transparent);
+}
+
+.preface-diamond {
+    width: 6px;
+    height: 6px;
+    background: #222020;
+    transform: rotate(45deg);
+    margin: 25px auto 0;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* --- DELIKATNE POŁĄCZENIE Z GALERIĄ --- */
+.caruzel-box {
+    margin-top: 0 !important; /* Usuwamy dziurę, bo preface robi robotę */
+    padding-top: 20px !important;
+}
+
+
+
+
+.gallery-preface {
+    opacity: 0;
+    animation: fadeInContainer 1s ease-out forwards;
+}
+
+.preface-line {
+    width: 1px;
+    height: 0; 
+    background: linear-gradient(to bottom, transparent, #222020, transparent);
+    animation: expandLine 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+
+.preface-line:first-of-type {
+    animation-delay: 0.2s;
+}
+
+
+.preface-line:last-of-type {
+    animation-delay: 1.2s;
+}
+
+.preface-content {
+    opacity: 0;
+    transform: translateY(10px);
+    animation: proTextReveal 2s cubic-bezier(0.2, 1, 0.3, 1) forwards;
+    animation-delay: 0.6s;
+}
+
+.preface-title {
+  
+    background-size: 200% auto;
+    animation: shineEffect 5s linear infinite;
+}
+
+.preface-diamond {
+    opacity: 0;
+    transform: rotate(45deg) scale(0);
+    animation: diamondPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    animation-delay: 1.8s;
+}
+
 
 @media (max-width: 992px) {
     .slide-wrapper { height: 500px; }
     .slide-main { max-width: 80%; }
     .slide-blur { width: 25%; }
+    
 }
-/* ==========================================================
-   RESPONSYWNOŚĆ - PRZYWRACAMY DUCHY NA MOBILE
-   ========================================================== */
+
 
 @media (max-width: 768px) {
     .slide-wrapper { 
@@ -272,144 +374,45 @@
     /* Zmniejszamy indicators, żeby nie pływały po całym ekranie */
     .carousel-indicators {
         bottom: -35px !important;
-        gap: 4px;
+        gap: 1px;
     }
     .carousel-indicators button {
-        width: 15px !important;
+        width:  10px !important;
     }
     .carousel-indicators .active {
         width: 30px !important;
     }
+    
+
+.carousel-indicators{
+    margin-left: 0;margin-right: 0;
 }
 
-/* Jeszcze mniejsze ekrany (np. iPhone SE) */
-@media (max-width: 480px) {
-    .slide-wrapper { height: 350px; }
-    .slide-main { max-width: 80%; }
-    .slide-blur { filter: blur(1px) brightness(0.7) grayscale(0.5); } /* Większy blur w tle */
-}
 
-/* --- LUXURY PREFACE DIVIDER --- */
-.gallery-preface {
-    background: #000;
-    padding: 100px 20px 40px 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-}
 
-.preface-content {
-    position: relative;
-    margin: 30px 0;
-}
-
-.preface-subtitle {
-    display: block;
-    font-family: 'Cinzel', serif;
-    color: #f9f90b; /* Akcent złota/żółci, który masz na stronie */
-    text-transform: uppercase;
-    letter-spacing: 12px;
-    font-size: 14px;
-    margin-bottom: 15px;
-    opacity: 0.8;
-}
-
-.preface-title {
-    font-family: 'Cinzel', serif;
-    color: #fff;
-    font-size: clamp(30px, 5vw, 50px);
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    font-weight: 400;
-    margin: 0;
-    background: linear-gradient(to right, #444, #fff, #444);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.preface-line {
-    width: 1px;
-    height: 80px;
-    background: linear-gradient(to bottom, transparent, #222020, transparent);
-}
-
-.preface-diamond {
-    width: 6px;
-    height: 6px;
-    background: #222020;
-    transform: rotate(45deg);
-    margin: 25px auto 0;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-/* --- DELIKATNE POŁĄCZENIE Z GALERIĄ --- */
-.caruzel-box {
-    margin-top: 0 !important; /* Usuwamy dziurę, bo preface robi robotę */
-    padding-top: 20px !important;
-}
-
-/* Responsywność dla Preface */
-@media (max-width: 768px) {
-    .gallery-preface { padding: 60px 20px 20px 20px; }
+        .gallery-preface { padding: 60px 20px 20px 20px; }
     .preface-line { height: 50px; }
     .preface-subtitle { letter-spacing: 6px; font-size: 11px; }
     .preface-title { font-size: 24px; }
+        @keyframes expandLine {
+        from { height: 0; }
+        to { height: 50px; }
+    }
+          .caruzel-box{
+                margin-bottom: 2px;
+            }
 }
-
-
-
-/* --- ANIMACJE DLA PREFACE --- */
-
-/* Cały kontener */
-.gallery-preface {
-    opacity: 0;
-    animation: fadeInContainer 1s ease-out forwards;
+@media (max-width: 480px) {
+    .slide-wrapper { height: 350px; }
+    .slide-main { max-width: 80%; }
+    .slide-blur { filter: blur(1px) brightness(0.7) grayscale(0.5); }
+    .preface-content{
+        margin: 15px 0;
+            }
+      .carousel-indicators{
+        margin-left: 0 !important;margin-right: 0 !important;
+      }
 }
-
-/* Pionowe linie - efekt wydłużania */
-.preface-line {
-    width: 1px;
-    height: 0; /* Startujemy od zera */
-    background: linear-gradient(to bottom, transparent, #222020, transparent);
-    animation: expandLine 1.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
-}
-
-/* Pierwsza linia startuje od razu */
-.preface-line:first-of-type {
-    animation-delay: 0.2s;
-}
-
-/* Druga linia (pod tekstem) startuje z opóźnieniem */
-.preface-line:last-of-type {
-    animation-delay: 1.2s;
-}
-
-/* Tekst - delikatne wyłanianie i rozszerzanie liter */
-.preface-content {
-    opacity: 0;
-    transform: translateY(10px);
-    animation: proTextReveal 2s cubic-bezier(0.2, 1, 0.3, 1) forwards;
-    animation-delay: 0.6s;
-}
-
-.preface-title {
-    /* Dodatkowy efekt płynnego przejścia gradientu */
-    background-size: 200% auto;
-    animation: shineEffect 5s linear infinite;
-}
-
-/* Mały diament na samym dole */
-.preface-diamond {
-    opacity: 0;
-    transform: rotate(45deg) scale(0);
-    animation: diamondPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-    animation-delay: 1.8s;
-}
-
-/* --- KEYFRAMES --- */
-
 @keyframes fadeInContainer {
     to { opacity: 1; }
 }
@@ -443,10 +446,3 @@
     }
 }
 
-/* Optymalizacja dla mobile - krótsze linie */
-@media (max-width: 768px) {
-    @keyframes expandLine {
-        from { height: 0; }
-        to { height: 50px; }
-    }
-}

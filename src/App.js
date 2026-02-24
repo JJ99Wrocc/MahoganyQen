@@ -41,7 +41,7 @@ function App() {
           element={
             <>
               <Home />
-              <Belt />
+              <Belt />  
               <AboutMe />
               <SwipperGallery />
               <Sessions />
