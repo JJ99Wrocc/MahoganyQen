@@ -32,44 +32,49 @@ function App() {
 
   return (
     <BrowserRouter>
-      <ColorSchemesExample />
+      {/* Nagłówek strony - rola banner informuje, że to nawigacja górna */}
+      <header role="banner">
+        <ColorSchemesExample />
+      </header>
 
-      <Routes>
-        {/* Strona główna */}
-        <Route
-          path="/"
-          element={
-            <>
-              <Home />
-              <Belt />  
-              <AboutMe />
-              <SwipperGallery />
-              <Sessions />
-              
-              {/* WSPÓLNY WRAPPER DLA LINKS I FOOTER */}
-              <div className="shared-bottom-section">
-                <div className="shared-bg-img" aria-hidden="true"></div>
-                <div className="shared-bg-overlay" aria-hidden="true"></div>
-                <div className="shared-bg-shadow-top" aria-hidden="true"></div>
-                
-                <Links />
-                <Footer />
-              </div>
-            </>
-          }
-        />
+      <main role="main">
+        <Routes>
+         
+          <Route
+            path="/"
+            element={
+              <>
+                <Home />
+                <Belt />  
+                <AboutMe />
+                <SwipperGallery />
+                <Sessions />
+     
+                <div className="shared-bottom-section" role="group" aria-label="Links and Footer section">
+          
+                  <div className="shared-bg-img" aria-hidden="true"></div>
+                  <div className="shared-bg-overlay" aria-hidden="true"></div>
+                  <div className="shared-bg-shadow-top" aria-hidden="true"></div>
+                  
+                  <Links />
+                  <Footer />
+                </div>
+              </>
+            }
+          />
 
-        {/* Panel admina */}
-        <Route
-          path="/admin"
-          element={user ? <AdminPanel /> : <Navigate to="/" replace />}
-        />
-      </Routes>
+          <Route
+            path="/admin"
+            element={user ? <AdminPanel /> : <Navigate to="/" replace />}
+          />
+        </Routes>
+      </main>
 
       <button 
         onClick={scrollTo} 
         className={`scroll-to-top ${scrollToTop ? "visible" : ""}`} 
-        aria-label="Scroll to top"
+        aria-label="Scroll back to top of the page"
+        title="Scroll to top"
       >
       </button>
     </BrowserRouter>

@@ -21,24 +21,26 @@ function Footer() {
 
   return (
     <div className="footer-page-wrapper">
-      {/* 🚀 TWOJE NOWE TŁO - KOCUR */}
+      {/* BACKGROUND ELEMENTS - Ukryte dla czytników, bo to tylko dekoracja */}
       <div className="footer-bg-img" aria-hidden="true"></div>
       <div className="footer-bg-overlay" aria-hidden="true"></div>
       <div className="footer-bg-shadow-top" aria-hidden="true"></div>
 
       <footer
-        id="contact-title"
+        id="contact-title-main"
         className="gold-footer"
         role="contentinfo"
         aria-label={t("siteFooter")}
       >
         <div
           className="footer-container container"
+          role="group"
           aria-label={t("footerSections")}
         >
-          {/* LEFT */}
+          {/* LEFT SECTION */}
           <div
             className="footer-left"
+            role="region"
             aria-labelledby="footer-logo"
           >
             <h2
@@ -56,16 +58,16 @@ function Footer() {
           {/* WRAPPER DLA EXPLORE + CONTACT */}
           <div
             className="footer-links-contact-wrapper"
+            role="group"
             aria-label={t("footerNavigationContact")}
           >
-            {/* EXPLORE */}
+            {/* EXPLORE NAVIGATION */}
             <nav
               className="footer-links"
               role="navigation"
-              aria-labelledby="explore-title"
-              aria-label={t("footerNavigation")}
+              aria-labelledby="explore-title-desktop"
             >
-              {/* MOBILE */}
+              {/* MOBILE BUTTON */}
               <h3
                 id="explore-title"
                 className="footer-title mobile-only"
@@ -76,18 +78,20 @@ function Footer() {
                 onClick={() => setOpenExplore(!openExplore)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
                     setOpenExplore(!openExplore);
                   }
                 }}
               >
                 {t("explore")}{" "}
-                <i className="fa-solid fa-arrow-down" aria-hidden="true"></i>
+                <i className={`fa-solid ${openExplore ? 'fa-arrow-up' : 'fa-arrow-down'}`} aria-hidden="true"></i>
               </h3>
 
-              {/* DESKTOP */}
+              {/* DESKTOP TITLE */}
               <h3
                 className="desktop-only"
                 id="explore-title-desktop"
+                aria-hidden="true"
               >
                 {t("explore")}
               </h3>
@@ -96,11 +100,13 @@ function Footer() {
                 id="explore-list"
                 className={`explore-list ${openExplore ? "open" : ""}`}
                 role="list"
-                aria-labelledby="explore-title"
               >
                 <li role="listitem">
                   <span
+                    role="button"
+                    tabIndex={0}
                     onClick={() => scrollToSection("about-me")}
+                    onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && scrollToSection("about-me")}
                     aria-label={t("goToAbout")}
                     className="footer-link-button"
                   >
@@ -111,7 +117,10 @@ function Footer() {
 
                 <li role="listitem">
                   <span
+                    role="button"
+                    tabIndex={0}
                     onClick={() => scrollToSection("gallery")}
+                    onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && scrollToSection("gallery")}
                     aria-label={t("goToGallery")}
                     className="footer-link-button"
                   >
@@ -122,7 +131,10 @@ function Footer() {
 
                 <li className="last-item" role="listitem">
                   <span 
+                    role="button"
+                    tabIndex={0}
                     onClick={() => scrollToSection("sessions-booking")}
+                    onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && scrollToSection("sessions-booking")}
                     aria-label={t("goToSessions")}
                     className="footer-link-button"
                   >
@@ -130,19 +142,27 @@ function Footer() {
                     {t("sessions")}
                   </span>
                 </li>
+                
                 <li role="listitem">
                   <span
-                  onClick={() => scrollToSection("linki")}
-                  aria-label={t("goToLinks")}
-                  className="footer-link-button"
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => scrollToSection("linki")}
+                    onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && scrollToSection("linki")}
+                    aria-label={t("goToLinks")}
+                    className="footer-link-button"
                   >
                     <i className="fa-solid fa-link" aria-hidden="true"></i>{" "}
                     {t("links")}
                   </span>
                 </li>
+
                 <li role="listitem">
                   <span
-                    onClick={() => scrollToSection("contact-title")}
+                    role="button"
+                    tabIndex={0}
+                    onClick={() => scrollToSection("contact-title-main")}
+                    onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && scrollToSection("contact-title-main")}
                     aria-label={t("goToContact")}
                     className="footer-link-button"
                   >
@@ -153,15 +173,15 @@ function Footer() {
               </ul>
             </nav>
 
-            {/* CONTACT */}
+            {/* CONTACT SECTION */}
             <div
               className="footer-contact"
-              aria-labelledby="contact-title"
-              aria-label={t("contactInformation")}
+              role="region"
+              aria-labelledby="contact-title-desktop"
             >
-              {/* MOBILE */}
+              {/* MOBILE BUTTON */}
               <h3
-                id="contact"
+                id="contact-mobile-trigger"
                 className="footer-title mobile-only"
                 role="button"
                 tabIndex={0}
@@ -170,15 +190,16 @@ function Footer() {
                 onClick={() => setOpenContact(!openContact)}
                 onKeyDown={(e) => {
                   if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
                     setOpenContact(!openContact);
                   }
                 }}
               >
                 {t("contact")}{" "}
-                <i className="fa-solid fa-arrow-down" aria-hidden="true"></i>
+                <i className={`fa-solid ${openContact ? 'fa-arrow-up' : 'fa-arrow-down'}`} aria-hidden="true"></i>
               </h3>
 
-              {/* DESKTOP */}
+              {/* DESKTOP TITLE */}
               <h3
                 className="desktop-only"
                 id="contact-title-desktop"
@@ -190,14 +211,13 @@ function Footer() {
                 id="contact-list"
                 className={`contact-list ${openContact ? "open" : ""}`}
                 role="list"
-                aria-labelledby="contact-title"
               >
                 <li role="listitem">
                   <i className="fa-solid fa-envelope" aria-hidden="true"></i>
                   <a
                     href="mailto:MahoganyQenContact@gmail.com"
                     className="email-link"
-                    aria-label={t("sendEmail")}
+                    aria-label={`${t("sendEmail")} MahoganyQenContact@gmail.com`}
                   >
                     MahoganyQenContact@gmail.com
                   </a>
@@ -205,16 +225,21 @@ function Footer() {
 
                 <li className="last-item" role="listitem">
                   <i className="fa-solid fa-location-dot" aria-hidden="true"></i>
-                  <span aria-label={t("location")}>
+                  <address style={{ display: "inline", fontStyle: "normal" }} aria-label={t("location")}>
                     {t("locationText")}
-                  </span>
+                  </address>
                 </li>
               </ul>
             </div>
           </div>
         </div>
 
-        <div className="footer-bottom" aria-label={t("footerCopyright")}>
+        {/* BOTTOM COPYRIGHT */}
+        <div 
+          className="footer-bottom" 
+          role="contentinfo" 
+          aria-label={t("footerCopyright")}
+        >
           <p>© 2025 MAHOGANY QUEEN — {t("allRightsReserved")}</p>
         </div>
       </footer>

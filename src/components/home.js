@@ -8,7 +8,7 @@ function Home() {
   return (
     <div id="home" className="home-hero-viewport" role="banner">
       {/* 1. Warstwa obrazu - Ken Burns */}
-      <div className="home-img-layer" aria-hidden="true"></div>
+      <div className="home-img-layer" aria-hidden="true" loading="eager" fetchpriority="high"></div>
       
       {/* 2. Warstwy mroku i głębi */}
       <div className="home-vignette"></div>

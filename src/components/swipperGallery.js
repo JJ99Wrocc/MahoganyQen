@@ -3,7 +3,7 @@ import { Carousel } from "react-bootstrap";
 import "../css/swipperGallery.css";
 import { useTranslation } from "react-i18next";
 
-// Import zdjęć
+// Import zdjęć w formacie WebP
 import Caruzel1 from '../photo/Caruzel 1.webp'; 
 import Caruzel2 from '../photo/Caruzel 2.webp';
 import Caruzel3 from '../photo/Caruzel 3.webp'; 
@@ -38,7 +38,7 @@ function SwipperGallery() {
 
   return (
     <>
-      {/* --- PRO LUXURY DIVIDER (Oddzielenie od góry) --- */}
+      {/* --- PRO LUXURY DIVIDER --- */}
       <div className="gallery-preface">
         <div className="preface-line"></div>
         <div className="preface-content">
@@ -67,28 +67,36 @@ function SwipperGallery() {
           {images.map((img, i) => (
             <Carousel.Item key={i}>
               <div className="slide-wrapper">
-                {/* poprzednie zdjęcie (blur) */}
+                
+                {/* Zdjęcie lewe (blur) - zawsze ładowane leniwie */}
                 <img 
                   className="slide-blur" 
                   src={images[getPrevIndex(i)]} 
                   alt="" 
                   aria-hidden="true"
+                  loading="lazy"
                 />
                 
-                {/* środkowe zdjęcie (główne) */}
+                {/* GŁÓWNE ZDJĘCIE (środek) */}
                 <img 
                   className="slide-main" 
                   src={img} 
                   alt={`${t("galleryMain")} ${i + 1}`} 
+                  // Jeśli to pierwszy slajd, ładuj od razu (eager), reszta później (lazy)
+                  loading={i === 0 ? "eager" : "lazy"}
+                  // Priorytet pobierania dla pierwszego zdjęcia (optymalizacja LCP)
+                  {...(i === 0 ? { fetchpriority: "high" } : {})}
                 />
                 
-                {/* następne zdjęcie (blur) */}
+                {/* Zdjęcie prawe (blur) - zawsze ładowane leniwie */}
                 <img 
                   className="slide-blur" 
                   src={images[getNextIndex(i)]} 
                   alt="" 
                   aria-hidden="true"
+                  loading="lazy"
                 />
+                
               </div>
             </Carousel.Item>
           ))}

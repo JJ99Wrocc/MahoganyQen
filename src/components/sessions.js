@@ -184,36 +184,50 @@ function Sessions() {
       <div className="session-bg-overlay" aria-hidden="true"></div>
       <div className="session-bg-shadow-bottom" aria-hidden="true"></div>
 
-      {/* 1. TYTUŁ NAD FORMULARZEM (VERTICAL STACK) */}
-      <div className="booking-pre-header">
-          <div className="booking-ornament">
+      {/* 1. TYTUŁ NAD FORMULARZEM */}
+      <header className="booking-pre-header">
+          <div className="booking-ornament" aria-hidden="true">
               <span className="line"></span>
               <span className="diamond"></span>
               <span className="line"></span>
           </div>
           <p className="booking-status">System Online Concierge</p>
           <h1 className="booking-main-title">Reservation Protocol</h1>
-      </div>
+      </header>
 
-      {/* 2. FORMULARZ SEKRETY */}
-      <section id="sessions-booking" className="session-booking" aria-label={t("bookingSession")}>
+      {/* 2. FORMULARZ */}
+      <section id="sessions-booking" className="session-booking" aria-labelledby="session-title">
         <div className="session-header">
           <h2 id="session-title">{t("bookSession")}</h2>
           <p id="session-desc">{t("chooseDateTime")}</p>
         </div>
 
-        <form className="session-form" onSubmit={handleSubmit}>
-          <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} style={{ display: "none" }} tabIndex="-1" autoComplete="off" />
+        <form className="session-form" onSubmit={handleSubmit} noValidate>
+          {/* Honeypot for bots */}
+          <div style={{ display: "none" }} aria-hidden="true">
+            <input type="text" value={company} onChange={(e) => setCompany(e.target.value)} tabIndex="-1" autoComplete="off" />
+          </div>
 
           <div className="form-group">
-            <label>{t("chooseDate")}:</label>
-            <button type="button" className="date-open-btn" onClick={handleOpenCalendar}>
+            <label id="label-date">{t("chooseDate")}:</label>
+            <button 
+              type="button" 
+              className="date-open-btn" 
+              onClick={handleOpenCalendar}
+              aria-expanded={openCalendar}
+              aria-haspopup="grid"
+              aria-labelledby="label-date"
+            >
               {selectedDate ? formatDate(selectedDate) : t("chooseDate")}
             </button>
           </div>
 
           {/* CALENDAR BLOCK */}
-          <div className="calendar-wrapper" style={{ display: openCalendar ? "block" : "none" }}>
+          <div 
+            className="calendar-wrapper" 
+            style={{ display: openCalendar ? "block" : "none" }}
+            aria-hidden={!openCalendar}
+          >
             <DatePicker
               key={availableDates.join(",")}
               selected={selectedDate}
@@ -240,17 +254,19 @@ function Sessions() {
           </div>
 
           {availableHours.length > 0 && (
-            <div className="form-group">
-              <label>{t("chooseHour")}:</label>
+            <div className="form-group" aria-live="polite">
+              <label htmlFor="hour-select">{t("chooseHour")}:</label>
               <Select
+                id="hour-select"
                 value={selectedSlot}
                 onChange={setSelectedSlot}
                 options={slotOptions}
                 styles={selectStyles}
                 placeholder={t("chooseHour")}
+                aria-label={t("chooseHour")}
               />
               {selectedSlot && selectedSlot.calendarDesc && (
-                <div className="slot-description-box">
+                <div className="slot-description-box" role="note">
                   <p className="slot-description-text">{selectedSlot.calendarDesc}</p>
                 </div>
               )}
@@ -258,18 +274,34 @@ function Sessions() {
           )}
 
           <div className="form-group">
-            <label>{t("name")}:</label>
-            <input value={name} onChange={(e) => setName(e.target.value)} required placeholder="Identities" />
+            <label htmlFor="user-name">{t("name")}:</label>
+            <input 
+              id="user-name"
+              value={name} 
+              onChange={(e) => setName(e.target.value)} 
+              required 
+              placeholder="Identities" 
+              aria-required="true"
+            />
           </div>
 
           <div className="form-group">
-            <label>E-mail:</label>
-            <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required placeholder="Secure Contact" />
+            <label htmlFor="user-email">E-mail:</label>
+            <input 
+              id="user-email"
+              type="email" 
+              value={email} 
+              onChange={(e) => setEmail(e.target.value)} 
+              required 
+              placeholder="Secure Contact" 
+              aria-required="true"
+            />
           </div>
 
           <div className="form-group">
-            <label>{t("message") || "Additional Details"}:</label>
+            <label htmlFor="user-message">{t("message") || "Additional Details"}:</label>
             <textarea 
+              id="user-message"
               className="session-textarea" 
               value={message} 
               onChange={(e) => setMessage(e.target.value)} 
@@ -278,7 +310,12 @@ function Sessions() {
             />
           </div>
 
-          <button type="submit" className="session-submit" disabled={loading || !token}>
+          <button 
+            type="submit" 
+            className="session-submit" 
+            disabled={loading || !token}
+            aria-busy={loading}
+          >
             {loading ? t("processing") : t("bookSession")}
           </button>
         </form>
