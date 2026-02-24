@@ -4,24 +4,24 @@ import "../css/swipperGallery.css";
 import { useTranslation } from "react-i18next";
 
 // Import zdjęć
-import Caruzel1 from '../photo/Caruzel 1.jpeg'; 
-import Caruzel2 from '../photo/Caruzel 2.jpeg';
-import Caruzel3 from '../photo/Caruzel 3.jpeg'; 
-import Caruzel4 from '../photo/Caruzel4.jpeg';
-import Caruzel5 from '../photo/Caruzel5.jpeg';
-import Caruzel6 from '../photo/Caruzel6.jpeg';
-import Caruzel7 from '../photo/Caruzel7.jpeg'; 
-import Caruzel8 from '../photo/Caruzel8.jpeg';
-import Caruzel9 from '../photo/Caruzel9.jpeg';
-import Caruzel10 from '../photo/Caruzel10.jpeg';
-import Caruzel11 from '../photo/Caruzel11.jpeg';   
-import Caruzel12 from '../photo/Caruzel12.jpeg';
-import Caruzel13 from '../photo/Caruzel13.jpeg';
-import Caruzel14 from '../photo/Caruzel14.jpeg';
-import Caruzel15 from '../photo/Caruzel15.jpeg';
-import Caruzel16 from '../photo/Caruzel16.jpeg';
-import Caruzel17 from '../photo/Caruzel17.jpeg';
-import Caruzel18 from '../photo/Caruzel18.jpeg';
+import Caruzel1 from '../photo/Caruzel 1.webp'; 
+import Caruzel2 from '../photo/Caruzel 2.webp';
+import Caruzel3 from '../photo/Caruzel 3.webp'; 
+import Caruzel4 from '../photo/Caruzel4.webp';
+import Caruzel5 from '../photo/Caruzel5.webp';
+import Caruzel6 from '../photo/Caruzel6.webp';
+import Caruzel7 from '../photo/Caruzel7.webp'; 
+import Caruzel8 from '../photo/Caruzel8.webp';
+import Caruzel9 from '../photo/Caruzel9.webp';
+import Caruzel10 from '../photo/Caruzel10 (1).webp';
+import Caruzel11 from '../photo/Caruzel11.webp';   
+import Caruzel12 from '../photo/Caruzel12.webp';
+import Caruzel13 from '../photo/Caruzel13.webp';
+import Caruzel14 from '../photo/Caruzel14.webp';
+import Caruzel15 from '../photo/Caruzel15.webp';
+import Caruzel16 from '../photo/Caruzel16.webp';
+import Caruzel17 from '../photo/Caruzel17.webp';
+import Caruzel18 from '../photo/Caruzel18.webp';
 
 const images = [
   Caruzel1, Caruzel2, Caruzel3, Caruzel4, Caruzel5,

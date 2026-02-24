@@ -15,7 +15,7 @@
 .home-img-layer {
     position: absolute;
     top: -5%; left: -5%; width: 110%; height: 110%; /* Zapas pod ruch */
-    background-image: url('../photo/Evon-hero-img.jpeg');
+    background-image: url('../photo/Caruzel6.webp');
     background-size: cover;
     background-position: center;
     z-index: 1;

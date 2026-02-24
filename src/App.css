@@ -107,7 +107,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('./photo/Caruzel7.jpeg'); /* Podmień na swoje zdjęcie */
+  background-image: url('./photo/Caruzel7.webp'); /* Podmień na swoje zdjęcie */
   background-size: cover;
   background-position: center;
   z-index: 1;
