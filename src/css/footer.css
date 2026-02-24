@@ -1,6 +1,3 @@
-/* ——————————————————————————
-      FOOTER — BLACK LABEL 2025
-——————————————————————————— */
 .gold-footer {
   border-top: 1px solid #1a1a1a;
   background: #000;
@@ -11,14 +8,11 @@
   font-family: 'Cinzel', serif;
 }
 
-/* Usunięty glow — czysty minimalizm */
+
 .gold-footer::before {
   display: none;
 }
 
-/* ——————————————————————————
-      FOOTER GRID
-——————————————————————————— */
 .footer-container {
   display: flex;
   justify-content: space-around;
@@ -31,9 +25,7 @@
   gap: 60px;
 }
 
-/* ——————————————————————————
-      LOGO — MATOWA BIEL
-——————————————————————————— */
+
 .footer-logo {
   font-size: 40px;
   letter-spacing: 4px;
@@ -51,9 +43,7 @@
   font-style: italic;
 }
 
-/* ——————————————————————————
-      SECTION HEADERS
-——————————————————————————— */
+
 .footer-links h3,
 .footer-contact h3 {
   margin-bottom: 16px;
@@ -82,32 +72,26 @@
   cursor: pointer;
   list-style: none;
   position: relative;
-  padding-left: 0; /* Miejsce na animowany wskaźnik */
+  padding-left: 0; 
   transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
   display: flex;
   align-items: center;
 }
 
-/* Tworzymy ukryty wskaźnik (kropkę lub kreskę) */
 .footer-links li::before {
   content: "";
   position: absolute;
-  left: -15px; /* Zaczyna poza widokiem */
+  left: -15px;
   width: 6px;
   height: 6px;
-  background: #8b0000; /* Twoja firmowa czerwień */
+  background: #8b0000; 
   border-radius: 50%;
   opacity: 0;
   transition: all 0.3s ease;
 }
-
 .footer-links li:hover {
-  transform: translateX(15px); /* Cały wiersz przesuwa się w prawo */
+  transform: translateX(15px);
 }
-
-
-
-
 .footer-links a {
   color: #fff;
   text-decoration: none;
@@ -115,7 +99,6 @@
   position: relative;
   transition: 0.25s ease;
 }
-
 .footer-links a::after {
   content: "";
   position: absolute;
@@ -134,39 +117,25 @@
 .footer-links a:hover::after {
   width: 100%;
 }
-
-/* ——————————————————————————
-      ICONS
-——————————————————————————— */
 .footer-contact i,
 .footer-links i {
   margin-right: 10px;
   font-size: 16px;
   color: #ffffff;
 }
-
-/* ——————————————————————————
-      CONTACT
-——————————————————————————— */
 .footer-contact p {
   margin: 8px 0;
   color: #e0e0e0;
   font-size: 16px;
 }
-
 .email-link {
   color: #fff;
   text-decoration: none;
   transition: 0.25s ease;
 }
-
 .email-link:hover {
   opacity: 0.7;
 }
-
-/* ——————————————————————————
-      BOTTOM BAR
-——————————————————————————— */
 .footer-bottom {
   margin-top: 50px;
   padding-top: 20px;
@@ -176,19 +145,14 @@
   color: #bdbdbd;
   letter-spacing: 1px;
 }
-
-/* VISIBILITY */
 .mobile-only { display: none; }
 .desktop-only { display: block; }
-
-/* LISTS */
 .contact-list,
 .explore-list {
   list-style: none;
   padding: 0;
   margin: 0;
 }
-
 .contact-list li,
 .explore-list li {
   display: flex;
@@ -196,10 +160,6 @@
   gap: 0.5rem;
   margin-bottom: 0.5rem;
 }
-
-/* ——————————————————————————
-   MOBILE — BASE (ACCORDION)
-——————————————————————————— */
 @media (max-width: 768px) {
   .mobile-only {
     display: block;
@@ -215,19 +175,17 @@
   }
   .footer-logo{
     margin-top: -50px;
-    font-size: 30px;
+    font-size: 28px;
   }
   .footer-desc{
-    font-size: 16px;
+    font-size: 13px;
     margin-bottom: 10px;
   }
   .contact-list,
   .explore-list {
     display: none;
-    text-align: center; /* wyśrodkowanie tekstu */
-
-  }
-  
+    text-align: center;
+  }  
   .contact-list.open,
   .explore-list.open {
     display: block;
@@ -235,16 +193,16 @@
 
   .contact-list li,
   .explore-list li {
-    justify-content: center; /* wyśrodkowanie flex itemów */
+    justify-content: center;
     margin-bottom: 10px;
-    font-size: 14px ;
+    font-size: 13px ;
       margin-right:8px;
   }
 .contact-list li:last-child,
 .explore-list li:last-child {
   
   margin-bottom: 30px !important;
-  font-size: 14px;
+  font-size: 13px;
 }
 
 
@@ -267,8 +225,6 @@
   .footer-contact {
     width: 100%;
   }
-
-  /* Wrapper nie zmienia nic na mobile */
   .footer-links-contact-wrapper {
     width: 100%;
   }
@@ -279,12 +235,13 @@
     margin-bottom: 15px;
   }
   .footer-links h3,.footer-contact h3{
-    font-size: 16px;
+    font-size: 14px;
   }
   .fa-solid.fa-arrow-down{
     margin-left: 8px;
     font-size: 14px;
   }
+  
 }
 @media (max-width: 576px) {
 
@@ -293,7 +250,7 @@
     font-size: 9px;
   }
   .footer-logo{
-    font-size: 27px;
+    font-size: 23px;
   }
   .footer-desc{
     font-size: 15px;
@@ -321,8 +278,6 @@
   .fa-solid.fa-arrow-down{
     font-size: 13px;
   }
-}
-@media (min-width:300px) and ( max-width: 576px)  {
 
   .footer-bottom{
     margin-top: 2px;
@@ -357,39 +312,4 @@
   }
 }
 
-/* ——————————————————————————
-   DESKTOP — NORMAL (769px+)
-——————————————————————————— */
-@media (min-width: 768px) {
 
-  .footer-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-
-  .footer-links-contact-wrapper {
-    display: flex;
-    justify-content: center;
-    gap: 100px;              /* kontrolowana przestrzeń */
-    width: 100%;
-    max-width: 600px;
-  }
-
-  .footer-links,
-  .footer-contact {
-    width: 260px;            /* stabilna szerokość kolumn */
-    text-align: center;
-  }
-
-
-  .contact-list li,
-  .explore-list li {
-    justify-content: center;   /* ← NAJWAŻNIEJSZA LINIA */
-  }
-
-  .contact-list,
-  .explore-list {
-    display: block !important;
-  }
-}

@@ -220,7 +220,10 @@
         font-size: 22px;
         letter-spacing: 5px;
     }
-  
+      .img-links {
+        width: 20px;
+        height: 20px;   
+    }
     .link-label {
-        font-size: 8px;}
+        font-size: 7px;}
 }
