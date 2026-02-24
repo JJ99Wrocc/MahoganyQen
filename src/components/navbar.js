@@ -3,7 +3,7 @@ import { Container, Nav, Navbar, Offcanvas, Dropdown } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 
 import "../css/navbar.css";
-import Mletter from "../photo/Mletter.png";
+import Mletter from "../photo/Mletter.webp";
 import Icon from "../photo/Icon.svg";
 import i18n from '../i18n.js';
 import 'flag-icons/css/flag-icons.min.css';

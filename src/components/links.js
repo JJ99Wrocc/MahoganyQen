@@ -1,14 +1,14 @@
 import React from 'react';
 import '../css/links.css';
-import OnlyFans from '../photo/OnlyFans Logo.svg';
-import Clips from '../photo/Clips4U.png';
-import IWant from '../photo/iWantsClips.png';
-import LoyalFans from '../photo/LoyalFans Logo.jpg';
-import FanSly from '../photo/FanSly Logo.svg';
-import ManyVids from '../photo/ManyVids Logo.jpg';
-import PornHub from '../photo/PornHub Logo.png';
-import Twitter from '../photo/Twitter Logo.png';
-import ThroneGifts from '../photo/Thore Gifts Logo.jpg';
+import OnlyFans from '../photo/OnlyFans Logo.webp';
+import Clips from '../photo/Clips4U.webp';
+import IWant from '../photo/iWantsClips.webp';
+import LoyalFans from '../photo/LoyalFans Logo.webp';
+import FanSly from '../photo/FanSly Logo.webp';
+import ManyVids from '../photo/ManyVids Logo.webp';
+import PornHub from '../photo/PornHub Logo.webp';
+import Twitter from '../photo/Twitter Logo.webp';
+import ThroneGifts from '../photo/Thore Gifts Logo.webp';
 
 const Links = () => {
     return (
