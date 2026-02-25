@@ -209,7 +209,7 @@
     opacity: 1;
     background-color: #fff !important;
     width: 70px !important; /* Aktywna kreska się wydłuża */
-    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+    box-shadow: 0 0 15px white;
 }
 
 .gallery-preface {

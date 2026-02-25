@@ -21,6 +21,17 @@ function ColorSchemesExample() {
     i18n.changeLanguage(lang);
   };
 
+  // Funkcja pomocnicza do płynnego przewijania, która działa z Offcanvas
+  const handleNavLinkClick = (id) => {
+    handleClose(); // Najpierw zamykamy menu
+    setTimeout(() => {
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    }, 350); // Czekamy chwilę, aż animacja zamykania menu się skończy
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 50) {
@@ -38,6 +49,7 @@ function ColorSchemesExample() {
     <Navbar
       key={expand}
       expand={expand}
+      style={{ position: 'fixed', top: 0, zIndex: 1050 , width: '100%'}}
       className={`navbar sticky-top ${scrolled ? "navbar-scrolled" : ""}`}
       role="navigation"
       aria-label="Main Navigation"
@@ -45,18 +57,19 @@ function ColorSchemesExample() {
       <Container>
 
         {/* LOGO */}
-       <Navbar.Brand
-  onClick={(e) => {
-    e.preventDefault(); // zatrzymuje domyślne skokowe przewijanie
-    const section = document.getElementById("home");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-  }}
-  aria-label="Mahogany Queen Home"
-  tabIndex={0}
-  className="d-flex align-items-center"
->
+        <Navbar.Brand
+          onClick={(e) => {
+            e.preventDefault();
+            const section = document.getElementById("home");
+            if (section) {
+              section.scrollIntoView({ behavior: "smooth" });
+            }
+          }}
+          aria-label="Mahogany Queen Home"
+          tabIndex={0}
+          className="d-flex align-items-center"
+          style={{ cursor: 'pointer' }}
+        >
           <img
             src={Mletter}
             alt="Mahogany Queen logo"
@@ -220,84 +233,57 @@ function ColorSchemesExample() {
             >
               <hr className="hr" />
 
-              <hr className="hr" />
+              <Nav.Link
+                role="menuitem"
+                tabIndex={0}
+                onClick={() => handleNavLinkClick("about-me")}
+              >
+                <i
+                  className="fa-regular fa-address-card nav-icon"
+                  aria-hidden="true"
+                ></i>
+                {t("aboutMe")}
+              </Nav.Link>
 
-       <Nav.Link
-  role="menuitem"
-  tabIndex={0}
-  onClick={() => {
-    // Smooth scroll do sekcji
-    const section = document.getElementById("about-me");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-    // Zamknięcie burger menu
-    handleClose();
-  }}
->
-  <i
-    className="fa-regular fa-address-card nav-icon"
-    aria-hidden="true"
-  ></i>
-  {t("aboutMe")}
-</Nav.Link>
-          <Nav.Link
-  role="menuitem"
-  tabIndex={0}
-  onClick={() => {
-    const section = document.getElementById("gallery");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-    handleClose();
-  }}
->
-  <img src={Icon} alt="" aria-hidden="true" className="red" />
-  {t("gallery")}
-</Nav.Link>
-
-
+              <Nav.Link
+                role="menuitem"
+                tabIndex={0}
+                onClick={() => handleNavLinkClick("gallery")}
+              >
+                <img src={Icon} alt="" aria-hidden="true" className="red" />
+                {t("gallery")}
+              </Nav.Link>
 
               <hr className="hr" />
 
-           <Nav.Link
-  onClick={() => {
-    document
-      .getElementById("sessions-booking")
-      .scrollIntoView({ behavior: "smooth" });
-    handleClose(); 
-  }}
->
- <i class="fa-regular fa-calendar nav-icon"></i> {t("session")}
-</Nav.Link>
-<hr className="hr" />
-           <Nav.Link
-  onClick={() => {
-    document
-      .getElementById("linki")
-      .scrollIntoView({ behavior: "smooth" });
-    handleClose(); 
-  }}
->
- <i className="fa-solid fa-link nav-icon" aria-hidden="true"></i>  {t("links")}
-</Nav.Link>
+              <Nav.Link
+                role="menuitem"
+                tabIndex={0}
+                onClick={() => handleNavLinkClick("sessions-booking")}
+              >
+                <i className="fa-regular fa-calendar nav-icon"></i> {t("session")}
+              </Nav.Link>
 
               <hr className="hr" />
 
-  <Nav.Link
-  role="menuitem"
-  tabIndex={0}
-  onClick={() => {
-    const section = document.getElementById("contact-title");
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-    handleClose();
-  }}
->
-  <i className="fa-solid fa-phone-volume nav-icon" aria-hidden="true"></i>
-  {t("contact")}
-</Nav.Link>
+              <Nav.Link
+                role="menuitem"
+                tabIndex={0}
+                onClick={() => handleNavLinkClick("linki")}
+              >
+                <i className="fa-solid fa-link nav-icon" aria-hidden="true"></i>  {t("links")}
+              </Nav.Link>
+
+              <hr className="hr" />
+
+              <Nav.Link
+                role="menuitem"
+                tabIndex={0}
+                onClick={() => handleNavLinkClick("contact-title")}
+              >
+                <i className="fa-solid fa-phone-volume nav-icon" aria-hidden="true"></i>
+                {t("contact")}
+              </Nav.Link>
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>
