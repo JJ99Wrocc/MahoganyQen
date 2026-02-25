@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.290848d2.css",
-    "main.js": "/static/js/main.fb1309f3.js",
+    "main.css": "/static/css/main.c72edb5a.css",
+    "main.js": "/static/js/main.01b4d17e.js",
     "static/js/453.b76acbaa.chunk.js": "/static/js/453.b76acbaa.chunk.js",
     "static/media/Caruzel 2.webp": "/static/media/Caruzel 2.44c84406dfba7cafcbce.webp",
     "static/media/Caruzel 3.webp": "/static/media/Caruzel 3.33334efdf3e2594581c2.webp",
@@ -305,12 +305,12 @@
     "static/media/bd.svg": "/static/media/bd.0ad8c443ef4d47ea0497.svg",
     "static/media/pe.svg": "/static/media/pe.d64e9732fcaa8f765994.svg",
     "static/media/id.svg": "/static/media/id.f624e2c8444a7794b357.svg",
-    "main.290848d2.css.map": "/static/css/main.290848d2.css.map",
-    "main.fb1309f3.js.map": "/static/js/main.fb1309f3.js.map",
+    "main.c72edb5a.css.map": "/static/css/main.c72edb5a.css.map",
+    "main.01b4d17e.js.map": "/static/js/main.01b4d17e.js.map",
     "453.b76acbaa.chunk.js.map": "/static/js/453.b76acbaa.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.290848d2.css",
-    "static/js/main.fb1309f3.js"
+    "static/css/main.c72edb5a.css",
+    "static/js/main.01b4d17e.js"
   ]
 }
