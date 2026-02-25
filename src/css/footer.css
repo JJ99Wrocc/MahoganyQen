@@ -404,19 +404,11 @@
 /* 2. NOWY ŁĄCZNIK - To naprawia Twój problem */
 @media (max-width: 1200px) and (min-width: 993px) {
   .footer-container {
-    gap: 30px; /* Zmniejszamy lukę, żeby elementy się nie wypychały */
+    gap: 30px; 
     padding: 0 40px;
   }
 
-  
-  .footer-links h3, .footer-contact h3 {
-    font-size: 10px !important;
-    letter-spacing: 5px !important;
-  }
 
-  .footer-links li {
-    font-size: 13px !important;
-  }
 }
 
 /* 3. TWOJA LOGIKA MOBILE (992px i mniej) - NIERUSZONA */
