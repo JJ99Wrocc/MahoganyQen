@@ -1,11 +1,10 @@
 {
   "files": {
     "main.css": "/static/css/main.c72edb5a.css",
-    "main.js": "/static/js/main.01b4d17e.js",
+    "main.js": "/static/js/main.6c13d058.js",
     "static/js/453.b76acbaa.chunk.js": "/static/js/453.b76acbaa.chunk.js",
     "static/media/Caruzel 2.webp": "/static/media/Caruzel 2.44c84406dfba7cafcbce.webp",
     "static/media/Caruzel 3.webp": "/static/media/Caruzel 3.33334efdf3e2594581c2.webp",
-    "static/media/Caruzel4.webp": "/static/media/Caruzel4.33334efdf3e2594581c2.webp",
     "static/media/Caruzel8.webp": "/static/media/Caruzel8.71671f2aebc36d2466a0.webp",
     "static/media/Caruzel 1.webp": "/static/media/Caruzel 1.c8d4c3ed68ad667f85ce.webp",
     "static/media/Caruzel5.webp": "/static/media/Caruzel5.c8d4c3ed68ad667f85ce.webp",
@@ -306,11 +305,11 @@
     "static/media/pe.svg": "/static/media/pe.d64e9732fcaa8f765994.svg",
     "static/media/id.svg": "/static/media/id.f624e2c8444a7794b357.svg",
     "main.c72edb5a.css.map": "/static/css/main.c72edb5a.css.map",
-    "main.01b4d17e.js.map": "/static/js/main.01b4d17e.js.map",
+    "main.6c13d058.js.map": "/static/js/main.6c13d058.js.map",
     "453.b76acbaa.chunk.js.map": "/static/js/453.b76acbaa.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.c72edb5a.css",
-    "static/js/main.01b4d17e.js"
+    "static/js/main.6c13d058.js"
   ]
 }
