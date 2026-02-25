@@ -242,12 +242,13 @@
     font-size: 9px;
   }
       .footer-contact h3, .footer-links h3{
-        font-size: 13px;
+        font-size: 15px !important;
         letter-spacing: 4px !important;
       }
       .footer-contact h3:hover, .footer-links h3:hover{
         letter-spacing:5px !important;
       }
+      
 }
 @media (max-width: 992px) {
   .mobile-only {
