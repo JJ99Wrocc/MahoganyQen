@@ -157,19 +157,7 @@ function Footer() {
                   </span>
                 </li>
 
-                <li role="listitem">
-                  <span
-                    role="button"
-                    tabIndex={0}
-                    onClick={() => scrollToSection("contact-title-main")}
-                    onKeyDown={(e) => (e.key === "Enter" || e.key === " ") && scrollToSection("contact-title-main")}
-                    aria-label={t("goToContact")}
-                    className="footer-link-button"
-                  >
-                    <i className="fa-solid fa-phone-volume" aria-hidden="true"></i>{" "}
-                    {t("contact")}
-                  </span>
-                </li>
+              
               </ul>
             </nav>
 
@@ -240,7 +228,7 @@ function Footer() {
           role="contentinfo" 
           aria-label={t("footerCopyright")}
         >
-          <p>© 2025 MAHOGANY QUEEN — {t("allRightsReserved")}</p>
+          <p>© 2025 MAHOGANYQEN — {t("allRightsReserved")}</p>
         </div>
       </footer>
     </div>
