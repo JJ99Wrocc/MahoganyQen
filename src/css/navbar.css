@@ -10,7 +10,7 @@ color: #f2f2f2;;
 }
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 50px;
+  scroll-padding-top: 60px;
   overflow-x: hidden;
   overflow-y: visible !important;
 }
