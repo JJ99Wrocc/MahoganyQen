@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import Caruzel1 from '../photo/Caruzel 1.webp'; 
 import Caruzel2 from '../photo/Caruzel 2.webp';
 import Caruzel3 from '../photo/Caruzel 3.webp'; 
-import Caruzel4 from '../photo/Caruzel4.webp';
+
 import Caruzel5 from '../photo/Caruzel5.webp';
 import Caruzel6 from '../photo/Caruzel6.webp';
 import Caruzel7 from '../photo/Caruzel7.webp'; 
@@ -24,7 +24,7 @@ import Caruzel17 from '../photo/Caruzel17.webp';
 import Caruzel18 from '../photo/Caruzel18.webp';
 
 const images = [
-  Caruzel1, Caruzel2, Caruzel3, Caruzel4, Caruzel5,
+  Caruzel1, Caruzel2, Caruzel3,  Caruzel5,
   Caruzel6, Caruzel7, Caruzel8, Caruzel9, Caruzel10,
   Caruzel11, Caruzel12, Caruzel13, Caruzel14, Caruzel15,
   Caruzel16, Caruzel17, Caruzel18
@@ -63,18 +63,19 @@ function SwipperGallery() {
           aria-label={t("gallerySection")} 
           interval={3000}
           pause="hover"
+          fade={false} // Ustawienie na false zapewnia płynniejsze przejście przy wielu zdjęciach
         >
           {images.map((img, i) => (
             <Carousel.Item key={i}>
               <div className="slide-wrapper">
                 
-                {/* Zdjęcie lewe (blur) - zawsze ładowane leniwie */}
+                {/* Zdjęcie lewe (blur) */}
                 <img 
                   className="slide-blur" 
                   src={images[getPrevIndex(i)]} 
                   alt="" 
                   aria-hidden="true"
-                  loading="lazy"
+                  loading={i < 2 ? "eager" : "lazy"} // Pierwsze blury też ładujemy szybciej
                 />
                 
                 {/* GŁÓWNE ZDJĘCIE (środek) */}
@@ -82,19 +83,19 @@ function SwipperGallery() {
                   className="slide-main" 
                   src={img} 
                   alt={`${t("galleryMain")} ${i + 1}`} 
-                  // Jeśli to pierwszy slajd, ładuj od razu (eager), reszta później (lazy)
-                  loading={i === 0 ? "eager" : "lazy"}
-                  // Priorytet pobierania dla pierwszego zdjęcia (optymalizacja LCP)
+                  // ZMIANA: Ładujemy pierwsze 3 zdjęcia natychmiast, resztę leniwie
+                  loading={i < 3 ? "eager" : "lazy"}
+                  // ZMIANA: Dodajemy priorytet dla pierwszego widoku
                   {...(i === 0 ? { fetchpriority: "high" } : {})}
                 />
                 
-                {/* Zdjęcie prawe (blur) - zawsze ładowane leniwie */}
+                {/* Zdjęcie prawe (blur) */}
                 <img 
                   className="slide-blur" 
                   src={images[getNextIndex(i)]} 
                   alt="" 
                   aria-hidden="true"
-                  loading="lazy"
+                  loading={i < 2 ? "eager" : "lazy"}
                 />
                 
               </div>
