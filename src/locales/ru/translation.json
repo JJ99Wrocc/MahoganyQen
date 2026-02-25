@@ -56,5 +56,10 @@
   "links": "Ссылки",
     "message": "Сообщение", 
   "Tell me more about your vision...": "Расскажи мне больше о твоём видении...",
-  "Submit": "Отправить" 
+  "Submit": "Отправить" ,
+  "exhibition": "Экшбиционизм",
+  "Reservation Protocol": "Протокол бронирования",
+  "System Online Concierge": "Система онлайн-консьержа",
+  "visualExperience": "Визуальное восприятие"  ,
+  "My Links": "Мои ссылки"
 }

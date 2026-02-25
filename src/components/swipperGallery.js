@@ -38,16 +38,16 @@ function SwipperGallery() {
 
   return (
     <>
-      {/* --- PRO LUXURY DIVIDER --- */}
-      <div className="gallery-preface">
-        <div className="preface-line"></div>
-        <div className="preface-content">
-          <span className="preface-subtitle">Exhibition</span>
-          <h2 className="preface-title">Visual Experience</h2>
-          <div className="preface-diamond"></div>
-        </div>
-        <div className="preface-line"></div>
-      </div>
+ <div className="gallery-preface">
+  <div className="preface-line"></div>
+  <div className="preface-content">
+ 
+    <span className="preface-subtitle">{t("exhibition")}</span>
+    <h2 className="preface-title">{t("visualExperience")}</h2>
+    <div className="preface-diamond"></div>
+  </div>
+  <div className="preface-line"></div>
+</div>
 
       {/* --- WŁAŚCIWA GALERIA --- */}
       <div 

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../css/links.css';
+import { useTranslation } from "react-i18next";
 
-// Importy obrazów (pamiętaj, aby fizycznie zmniejszyć te pliki do ok. 100x100px!)
 import OnlyFans from '../photo/OnlyFans Logo.webp';
 import Clips from '../photo/Clips4U.webp';
 import IWant from '../photo/iWantsClips.webp';
@@ -13,7 +13,8 @@ import Twitter from '../photo/Twitter Logo.webp';
 import ThroneGifts from '../photo/Thore Gifts Logo.webp';
 
 const Links = () => {
-    // Profesjonalne zarządzanie danymi w tablicy
+   const { t } = useTranslation();
+
     const socialLinks = [
         { id: 1, name: "Twitter", url: "https://x.com/LadyMahogany5", img: Twitter },
         { id: 2, name: "Throne Gifts", url: "https://throne.com/MahoganyQen", img: ThroneGifts },
@@ -38,7 +39,7 @@ const Links = () => {
 
             <div id="linki" className="container links-container">
                 <header className="links-header">
-                    <h2 id="links-section-title">My Links</h2>
+                    <h2 id="links-section-title">{t("My Links")}</h2>
                 </header>
                 
                 <div 

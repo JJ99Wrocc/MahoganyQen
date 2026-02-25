@@ -773,7 +773,12 @@
   filter: brightness(0.25) grayscale(0.2); 
 }
 
-/* 3. Nakładka gradientowa (Glow) - skupia wzrok na środku */
+.booking-status{
+font-size: 13px!important;
+}
+.booking-main-title{
+font-size: 30px!important;
+}
 .session-bg-overlay {
   position: absolute;
   top: 0;
@@ -1095,6 +1100,12 @@
    .session-form input,.form-group label,.session-textarea{
     font-size: 10px;
    }
+   .booking-status{
+font-size: 12px!important;
+}
+.booking-main-title{
+font-size: 28px!important;
+}
 }
 
 @media(max-width:992px){
@@ -1116,6 +1127,12 @@
    .session-form input,.form-group label,.session-textarea{
     font-size: 9px;
    }
+   .booking-status{
+font-size: 11px!important;
+}
+.booking-main-title{
+font-size: 25px!important;
+}
 }
 @media(max-width:768px){
  .booking-main-title{
@@ -1137,6 +1154,12 @@
     font-size: 8px;
     letter-spacing: 0.8px;
    }
+   .booking-status{
+font-size: 10px!important;
+}
+.booking-main-title{
+font-size: 23px!important;
+}
 }
 @media(max-width:576px){
  .booking-main-title,.session-header h2{
@@ -1157,7 +1180,12 @@
    }
    .form-group label,.session-submit{
     margin-top: 3px;
-   }
+   }.booking-status{
+font-size: 9px!important;
+}
+.booking-main-title{
+font-size: 20px!important;
+}
 }
 @media(max-width:400px){
  .booking-main-title,.session-header h2{

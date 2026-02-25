@@ -39,7 +39,7 @@
   "footerTagline": "Kraft. Eleganz. Kontrolle.",
   "footerNavigationContact": "Fußzeilen-Navigation und Kontakt",
   "footerNavigation": "Fußzeilen-Navigation",
-  "explore": "Explore",
+  "explore": "Entdecken",
   "about": "Über mich",
   "sessions": "Sitzungen",
   "goToAbout": "Gehe zum Abschnitt Über mich",
@@ -55,5 +55,10 @@
   "siteTitle": "MahoganyQen",
   "links": "Links",
    "message": "Nachricht", 
-  "Tell me more about your vision...": "Erzähle mir mehr von deiner Vision..."
+  "Tell me more about your vision...": "Erzähle mir mehr von deiner Vision...",
+  "exhibition": "Exhibitionismus",
+  "Reservation Protocol": "Reservierungsprotokoll",
+  "System Online Concierge": "Online Concierge System",
+  "visualExperience": "Visuelle Erfahrung",
+  "My Links": "Meine Links"
 }

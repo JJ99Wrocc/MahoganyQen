@@ -49,6 +49,7 @@
     animation: kenBurnsLuxury 20s linear infinite alternate;
 }
 
+
 @keyframes kenBurnsLuxury {
     0% { transform: scale(1); }
     100% { transform: scale(1.15) translateY(-2%); }
@@ -150,15 +151,14 @@
     }
 
     .about-me-h2 { 
-        text-align: left; /* Nagłówek do lewej */
+        text-align: center; /* Nagłówek do lewej */
         font-size: 38px; 
         letter-spacing: 6px; 
     }
 
-    .about-me-accent-line { 
-        margin: 10px 0 20px 0; /* Usuwamy 'auto' (które centruje) i dajemy 0 z prawej/lewej */
+       .about-me-accent-line {
+        margin: 15px auto;
     }
-
     .about-me-text { 
         font-size: 18px; 
         line-height: 1.8; 
@@ -227,6 +227,8 @@
 @media (max-width: 330px) {
 .about-me-viewport {  min-height: 800px;}
 }
+
+
 
 
 

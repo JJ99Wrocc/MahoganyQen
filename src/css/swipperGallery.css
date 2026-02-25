@@ -317,13 +317,24 @@
     animation: diamondPop 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
     animation-delay: 1.8s;
 }
-
+.preface-subtitle{
+font-size: 14px;
+}
+.preface-title{
+font-size: 30px;
+}
 
 @media (max-width: 992px) {
     .slide-wrapper { height: 500px; }
     .slide-main { max-width: 80%; }
     .slide-blur { width: 25%; }
-    
+    .preface-subtitle{
+font-size: 11px;
+}
+.preface-title{
+font-size: 25px;
+}
+
 }
 
 
@@ -401,6 +412,13 @@
           .caruzel-box{
                 margin-bottom: 2px;
             }
+            .preface-subtitle{
+font-size: 10px;
+}
+.preface-title{
+font-size: 22px;
+}
+
 }
 @media (max-width: 480px) {
     .slide-wrapper { height: 350px; }
@@ -412,6 +430,13 @@
       .carousel-indicators{
         margin-left: 0 !important;margin-right: 0 !important;
       }
+      .preface-subtitle{
+font-size: 8px;
+}
+.preface-title{
+font-size: 18px;
+}
+
 }
 @keyframes fadeInContainer {
     to { opacity: 1; }

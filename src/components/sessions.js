@@ -191,8 +191,8 @@ function Sessions() {
               <span className="diamond"></span>
               <span className="line"></span>
           </div>
-          <p className="booking-status">System Online Concierge</p>
-          <h1 className="booking-main-title">Reservation Protocol</h1>
+          <p className="booking-status">{t("System Online Concierge")}</p>
+          <h1 className="booking-main-title">{t("Reservation Protocol")}</h1>
       </header>
 
       {/* 2. FORMULARZ */}

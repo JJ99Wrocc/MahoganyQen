@@ -55,19 +55,19 @@ function Footer() {
             </p>
           </div>
 
-          {/* WRAPPER DLA EXPLORE + CONTACT */}
+         
           <div
             className="footer-links-contact-wrapper"
             role="group"
             aria-label={t("footerNavigationContact")}
           >
-            {/* EXPLORE NAVIGATION */}
+       
             <nav
               className="footer-links"
               role="navigation"
               aria-labelledby="explore-title-desktop"
             >
-              {/* MOBILE BUTTON */}
+          
               <h3
                 id="explore-title"
                 className="footer-title mobile-only"
