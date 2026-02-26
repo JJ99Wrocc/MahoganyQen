@@ -20,7 +20,7 @@ function Footer() {
   };
 
   return (
-    <div className="footer-page-wrapper">
+    <div id="contact-title"  className="footer-page-wrapper">
       {/* BACKGROUND ELEMENTS - Ukryte dla czytników, bo to tylko dekoracja */}
       <div className="footer-bg-img" aria-hidden="true"></div>
       <div className="footer-bg-overlay" aria-hidden="true"></div>
