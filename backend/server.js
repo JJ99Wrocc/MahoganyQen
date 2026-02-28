@@ -132,7 +132,7 @@ app.get("/bookings", async (req, res) => {
 
 app.post("/book", async (req, res, next) => {
   try {
-    const { token, id, name, email, date, time, phone } = req.body;
+    const { token, id, name, email, date, time, phone, message} = req.body;
 
     if (!tokens.has(token) || tokens.get(token) < Date.now()) {
       return res.status(403).json({ error: "Invalid token" });
@@ -160,6 +160,7 @@ app.post("/book", async (req, res, next) => {
         date,
         phone,
         time,
+        message,
       });
     } catch (err) {
       if (err.code === 11000) {
@@ -174,7 +175,7 @@ app.post("/book", async (req, res, next) => {
     // ===============================
     // RESEND EMAIL SENDING
     // ===============================
-    console.log("🔹 Sending email via Resend to:", email);
+console.log("🔹 Sending email via Resend to:", email);
 
     
     // Dodajemy await na początku, żeby serwer faktycznie poczekał na Resend
@@ -190,6 +191,7 @@ app.post("/book", async (req, res, next) => {
             <li><strong>Data:</strong> ${date}</li>
             <li><strong>Godzina:</strong> ${time}</li>
             <li><strong>Telefon:</strong> ${phone}</li>
+            <li><strong>Wiadomość:</strong> ${message || "Brak"}</li>
           </ul>
           <p>Do zobaczenia!</p>
         </div>
@@ -199,7 +201,7 @@ app.post("/book", async (req, res, next) => {
     .then((data) => {
       console.log("✅ Email sent SUCCESS via Resend:", data);
       // Wysyłamy odpowiedź do przeglądarki, żeby przestała kręcić kółkiem
-      res.status(200).json({ message: "Rezerwacja i email wysłane!" });
+     return res.status(200).json({ success: true, message: "Rezerwacja i email wysłane!" });
     })
     .catch((error) => {
       console.error("--- BŁĄD RESEND ---");
