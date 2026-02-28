@@ -229,7 +229,7 @@ const [isPhoneValid, setIsPhoneValid] = useState(true);
           </div>
 
           <div className="form-group">
-            <label className="label-date" id="label-date">{t("  ")}:</label>
+            <label className="label-date" id="label-date">{t("chooseDate")}:</label>
             <button 
               type="button" 
               className="date-open-btn" 
@@ -361,7 +361,7 @@ const [isPhoneValid, setIsPhoneValid] = useState(true);
               className="session-textarea" 
               value={message} 
               onChange={(e) => setMessage(e.target.value)} 
-              placeholder={t("Tell me more about your vision...") || "Tell me more about your vision..."}
+              placeholder={t("Tell me more about your vision") || "Tell me more about your vision"}
               rows="4"
             />
           </div>
