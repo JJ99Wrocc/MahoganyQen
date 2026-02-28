@@ -170,7 +170,7 @@ app.post("/book", async (req, res, next) => {
     }
 
     // Odpowiedź dla klienta
-    res.json({ success: true });
+    // res.json({ success: true });
 
     // ===============================
     // RESEND EMAIL SENDING
@@ -181,7 +181,8 @@ console.log("🔹 Sending email via Resend to:", email);
     // Dodajemy await na początku, żeby serwer faktycznie poczekał na Resend
     await resend.emails.send({
       from: 'rezerwacje@mahoganyqen.com',
-      to: [email, 'Mahoganyqencontact@gmail.com' ],
+      to: [email ],
+      cc: ['Mahoganyqencontact@gmail.com'],
       subject: "Potwierdzenie rezerwacji ✅",
       html: `
         <div style="font-family: sans-serif; line-height: 1.5;">
@@ -191,9 +192,11 @@ console.log("🔹 Sending email via Resend to:", email);
             <li><strong>Data:</strong> ${date}</li>
             <li><strong>Godzina:</strong> ${time}</li>
             <li><strong>Telefon:</strong> ${phone}</li>
-            <li><strong>Wiadomość:</strong> ${message || "Brak"}</li>
+            <li><strong>Wiadomość:</strong> ${message || "Brak dodatkowych informacji"}</li>
           </ul>
-          <p>Do zobaczenia!</p>
+          <hr />
+            <p>To jest automatyczne potwierdzenie systemu Mahoganyqen.</p>
+        
         </div>
       `
     })
