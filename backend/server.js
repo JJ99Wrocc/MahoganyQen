@@ -29,20 +29,15 @@ const serviceAccount = {
 
 const Booking = require("./models/Booking");
 
-// ===============================
-// KONFIGURACJA
-// ===============================
+
 const PORT = process.env.PORT || 3002;
 const CALENDAR_ID =
   process.env.CALENDAR_ID ||
   "8b61c25a0e56dfc35848864ed7cf55fe06376af0f65f32690f30f8315a14d7e0@group.calendar.google.com";
 
-// Inicjalizacja Resend (używamy Twojej zmiennej z Rendera)
 const resend = new Resend(process.env.SMTP_PASS);
 
-// ===============================
-// EXPRESS
-// ===============================
+
 const app = express();
 
 app.set('trust proxy', 1);
@@ -51,9 +46,7 @@ app.get("/", (req, res) => {
   res.status(200).send("API is running");
 });
 
-// ===============================
-// SECURITY CORE
-// ===============================
+
 app.use(helmet());
 app.disable("x-powered-by");
 
@@ -70,18 +63,12 @@ app.use(
 
 app.use(bodyParser.json({ limit: "10kb" }));
 
-// ===============================
-// RATE LIMIT
-// ===============================
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000,
   max: 80,
 });
 app.use(limiter);
 
-// ===============================
-// TOKEN ANTI-BOT / ANTI-REPLAY
-// ===============================
 const tokens = new Map();
 
 app.get("/token", (req, res) => {
@@ -97,9 +84,7 @@ setInterval(() => {
   }
 }, 60000);
 
-// ===============================
-// MONGODB
-// ===============================
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
@@ -107,9 +92,7 @@ mongoose
 
 console.log("✅ Resend Email API initialized");
 
-// ===============================
-// GOOGLE CALENDAR
-// ===============================
+
 const auth = new google.auth.GoogleAuth({
   credentials: serviceAccount,
   scopes: ["https://www.googleapis.com/auth/calendar.readonly"],
@@ -117,9 +100,7 @@ const auth = new google.auth.GoogleAuth({
 
 const calendar = google.calendar({ version: "v3", auth });
 
-// ===============================
-// EVENTS
-// ===============================
+
 app.get("/events", async (req, res) => {
   try {
     const response = await calendar.events.list({
@@ -148,12 +129,10 @@ app.get("/bookings", async (req, res) => {
   res.json(bookings);
 });
 
-// ===============================
-// BOOK SLOT
-// ===============================
+
 app.post("/book", async (req, res, next) => {
   try {
-    const { token, id, name, email, date, time } = req.body;
+    const { token, id, name, email, date, time, phone } = req.body;
 
     if (!tokens.has(token) || tokens.get(token) < Date.now()) {
       return res.status(403).json({ error: "Invalid token" });
@@ -196,10 +175,11 @@ app.post("/book", async (req, res, next) => {
     // ===============================
     console.log("🔹 Sending email via Resend to:", email);
 
+    
     // Dodajemy await na początku, żeby serwer faktycznie poczekał na Resend
     await resend.emails.send({
       from: 'rezerwacje@mahoganyqen.com',
-      to: email,
+      to: [email, 'Mahoganyqencontact@gmail.com' ],
       subject: "Potwierdzenie rezerwacji ✅",
       html: `
         <div style="font-family: sans-serif; line-height: 1.5;">
@@ -208,11 +188,13 @@ app.post("/book", async (req, res, next) => {
           <ul>
             <li><strong>Data:</strong> ${date}</li>
             <li><strong>Godzina:</strong> ${time}</li>
+            <li><strong>Telefon:</strong> ${phone}</li>
           </ul>
           <p>Do zobaczenia!</p>
         </div>
       `
     })
+    
     .then((data) => {
       console.log("✅ Email sent SUCCESS via Resend:", data);
       // Wysyłamy odpowiedź do przeglądarki, żeby przestała kręcić kółkiem
