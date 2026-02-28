@@ -132,26 +132,15 @@ app.get("/bookings", async (req, res) => {
 
 app.post("/book", async (req, res, next) => {
   try {
-    const { token, id, name, email, date, time, phone, message} = req.body;
+    const { token, id, name, email, date, time, phone, message } = req.body;
 
+    // 1. Walidacja tokenu
     if (!tokens.has(token) || tokens.get(token) < Date.now()) {
       return res.status(403).json({ error: "Invalid token" });
     }
     tokens.delete(token);
 
-    if (typeof name !== "string" || name.length < 2 || name.length > 50) {
-      return res.status(400).json({ error: "Invalid name" });
-    }
-
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return res.status(400).json({ error: "Invalid email" });
-    }
-
-    if (!id || !date || !time) {
-      return res.status(400).json({ error: "Invalid booking data" });
-    }
-
-    // Zapis do bazy
+    // 2. Zapis do MongoDB (Telefon i Message)
     try {
       await Booking.create({
         slotId: id,
@@ -162,64 +151,50 @@ app.post("/book", async (req, res, next) => {
         time,
         message,
       });
+      console.log("✅ Zapisano w MongoDB");
     } catch (err) {
-      if (err.code === 11000) {
-        return res.status(409).json({ error: "Slot already booked" });
-      }
+      if (err.code === 11000) return res.status(409).json({ error: "Slot already booked" });
       throw err;
     }
 
-    // Odpowiedź dla klienta
-    // res.json({ success: true });
-
-    // ===============================
-    // RESEND EMAIL SENDING
-    // ===============================
-console.log("🔹 Sending email via Resend to:", email);
-
+    // 3. Wysyłka e-maila przez Resend (Poprawny format await)
+    console.log("🔹 Próba wysyłki e-maila do:", email);
     
-    // Dodajemy await na początku, żeby serwer faktycznie poczekał na Resend
-    await resend.emails.send({
-      from: 'rezerwacje@mahoganyqen.com',
-      to: [email ],
-      cc: ['Mahoganyqencontact@gmail.com'],
-      subject: "Potwierdzenie rezerwacji ✅",
-      html: `
-        <div style="font-family: sans-serif; line-height: 1.5;">
-          <h2>Cześć ${name}!</h2>
-          <p>Twoja rezerwacja została potwierdzona.</p>
-          <ul>
-            <li><strong>Data:</strong> ${date}</li>
-            <li><strong>Godzina:</strong> ${time}</li>
-            <li><strong>Telefon:</strong> ${phone}</li>
-            <li><strong>Wiadomość:</strong> ${message || "Brak dodatkowych informacji"}</li>
-          </ul>
-          <hr />
+    try {
+      const emailData = await resend.emails.send({
+        from: 'rezerwacje@mahoganyqen.com',
+        to: [email],
+        cc: ['Mahoganyqencontact@gmail.com'],
+        subject: "Potwierdzenie rezerwacji ✅",
+        html: `
+          <div style="font-family: sans-serif; line-height: 1.5;">
+            <h2>Cześć ${name}!</h2>
+            <p>Twoja rezerwacja została potwierdzona.</p>
+            <ul>
+              <li><strong>Data:</strong> ${date}</li>
+              <li><strong>Godzina:</strong> ${time}</li>
+              <li><strong>Telefon:</strong> ${phone}</li>
+              <li><strong>Wiadomość:</strong> ${message || "Brak dodatkowych informacji"}</li>
+            </ul>
+            <hr />
             <p>To jest automatyczne potwierdzenie systemu Mahoganyqen.</p>
-        
-        </div>
-      `
-    })
-    
-    .then((data) => {
-      console.log("✅ Email sent SUCCESS via Resend:", data);
-      // Wysyłamy odpowiedź do przeglądarki, żeby przestała kręcić kółkiem
-     return res.status(200).json({ success: true, message: "Rezerwacja i email wysłane!" });
-    })
-    .catch((error) => {
-      console.error("--- BŁĄD RESEND ---");
-      console.error("Status:", error.status); 
-      console.error("Treść:", error.message); 
-      if (error.response) {
-          console.error("Szczegóły z API:", JSON.stringify(error.response.data, null, 2));
-      }
-      // Wysyłamy błąd do przeglądarki
-      res.status(error.status || 500).json({ error: error.message });
-    });
+          </div>
+        `
+      });
+      console.log("✅ E-mail wysłany:", emailData);
+    } catch (mailError) {
+      // Logujemy błąd maila, ale nie crashujemy serwera
+      console.error("❌ Błąd Resend:", mailError.message);
+    }
+
+    // 4. JEDYNA odpowiedź do klienta (na samym końcu, po wszystkim)
+    return res.status(200).json({ success: true, message: "Rezerwacja zakończona!" });
 
   } catch (err) {
-    console.error("Błąd ogólny serwera:", err);
-    next(err);
+    console.error("🔥 Krytyczny błąd serwera:", err);
+    if (!res.headersSent) {
+      return res.status(500).json({ error: "Internal server error" });
+    }
   }
 });
 
