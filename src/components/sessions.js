@@ -302,7 +302,7 @@ const [isPhoneValid, setIsPhoneValid] = useState(true);
       value={name} 
       onChange={(e) => setName(e.target.value)} 
       required 
-      placeholder="Identities" 
+      placeholder={t("Identities" ) || "Identities"}
     />
     <div className="input-glow-bar"></div>
   </div>
@@ -323,7 +323,7 @@ const [isPhoneValid, setIsPhoneValid] = useState(true);
         validateEmail(email);
       }}
       required 
-      placeholder="identity@encryption.com" 
+      placeholder={t("identity@encryption.com") || "identity@encryption.com"}
       className="luxe-input"
     />
     <div className="input-glow-bar"></div> {/* Ta linia będzie "żyć" */}
@@ -361,7 +361,7 @@ const [isPhoneValid, setIsPhoneValid] = useState(true);
               className="session-textarea" 
               value={message} 
               onChange={(e) => setMessage(e.target.value)} 
-              placeholder="Tell me more about your vision..."
+              placeholder={t("Tell me more about your vision...") || "Tell me more about your vision..."}
               rows="4"
             />
           </div>

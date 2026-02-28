@@ -60,6 +60,10 @@
   "Reservation Protocol": "Reservation Protocol",
   "System Online Concierge": "System Online Concierge",
   "visualExperience": "Visual Experience" ,
-  "My Links": "My Links"
+  "My Links": "My Links",
+    "phoneNumber": "Phone number",
+  "Identities": "Identities",
+  "identity@encryption.com": "Identities@encryption.com",
+  "Tell me more about your vision": "Tell me more about your vision"
 
 }
