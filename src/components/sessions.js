@@ -172,11 +172,13 @@ const [isPhoneValid, setIsPhoneValid] = useState(true);
       setAvailableHours([]);
       setName("");
       setEmail("");
+      setPhone("");
       setMessage("");
       setToken(null);
       fetchToken();
       fetchSlots();
-    } catch {
+    } catch (err) {
+      console.error("Error booking slot:", err);
       alert(t("bookingError"));
     } finally {
       setLoading(false);
@@ -227,7 +229,7 @@ const [isPhoneValid, setIsPhoneValid] = useState(true);
           </div>
 
           <div className="form-group">
-            <label className="label-date" id="label-date">{t("chooseDate")}:</label>
+            <label className="label-date" id="label-date">{t("  ")}:</label>
             <button 
               type="button" 
               className="date-open-btn" 

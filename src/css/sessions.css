@@ -1374,8 +1374,12 @@ font-size: 25px!important;
     font-size: 11px !important;
     letter-spacing: 1px;
    }
+
 }
 @media(max-width:768px){
+     .links:last-child {
+        display: none !important;
+    }
  .booking-main-title{
     font-size: 23px;
     letter-spacing: 8px;
