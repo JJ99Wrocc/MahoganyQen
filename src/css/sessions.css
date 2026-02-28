@@ -944,6 +944,152 @@ font-size: 30px!important;
 .session-form > div:nth-child(2) label { animation-delay: 2.0s; }
 .session-form > div:nth-child(3) label { animation-delay: 2.2s; }
 
+/* --- GŁÓWNY KONTENER GRUPY --- */
+.form-group {
+  position: relative;
+  margin-bottom: 40px; /* Więcej oddechu = większy luksus */
+  display: flex;
+  flex-direction: column;
+}
+
+/* --- LABELE: KOMENDY --- */
+.form-group label {
+  font-family: 'Cinzel', serif;
+  font-size: 10px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 15px;
+  transition: all 0.4s ease;
+}
+
+/* Efekt gdy pole jest aktywne - label lekko jaśnieje */
+.form-group:focus-within label {
+  color: #fff;
+  letter-spacing: 5px;
+}
+
+/* --- WSZYSTKIE INPUTY I TEXTAREA --- */
+.session-form input:not([type="checkbox"]), 
+.session-form textarea,
+.date-open-btn {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 0 !important; /* Ostre linie = Professional Look */
+  padding: 18px 20px !important;
+  color: #fff !important;
+  font-family: 'Cinzel', serif;
+ 
+  letter-spacing: 2px;
+  width: 100%;
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1);
+  box-sizing: border-box;
+}
+
+/* Specyficzne dla Textarea */
+.session-textarea {
+  min-height: 120px;
+  resize: none; /* Blokujemy brzydki uchwyt zmiany rozmiaru */
+}
+
+.session-form input, 
+.session-form textarea, 
+.date-open-btn,
+.luxe-phone-input input,
+.luxe-input {
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  color: #fff !important;
+  font-size: 11px;
+  font-family: 'Cinzel', serif;
+  transition: all 0.6s cubic-bezier(0.19, 1, 0.22, 1) !important;
+}
+
+/* 2. HOVER - Delikatne podświetlenie ramki */
+.session-form input:hover, 
+.session-form textarea:hover, 
+.date-open-btn:hover,
+.luxe-phone-input input:hover {
+  background: rgba(255, 255, 255, 0.04) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* 3. FOCUS - Pełna poświata (Glow) i rozszerzenie liter */
+/* Dodajemy :focus-within dla kontenerów bibliotecznych */
+.session-form input:focus, 
+.session-form textarea:focus, 
+.date-open-btn:focus,
+.luxe-phone-input:focus-within input,
+.luxe-input:focus {
+  outline: none !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border-color: rgba(255, 215, 0, 0.3) !important; /* Złoty akcent */
+  letter-spacing: 3px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5), 0 0 15px rgba(255, 215, 0, 0.1) !important;
+}
+
+/* Specyficzne poprawki dla PhoneInput, żeby nie psuł stylu */
+.luxe-phone-input {
+  display: flex;
+  align-items: center;
+}
+
+.luxe-phone-input input {
+  border: none !important; /* Usuwamy ramkę biblioteki, używamy wrapper-a jeśli trzeba, 
+                             lub stylizujemy bezpośrednio input wewnątrz */
+  background: transparent !important;
+  width: 100%;
+  padding: 18px 20px;
+}
+
+/* Styl dla poświaty pod polem (Glow Bar), jeśli go używasz */
+.input-glow-bar {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #d4af37, transparent);
+  transition: width 0.8s ease, box-shadow 0.8s ease;
+  transform: translateX(-50%);
+}
+
+.input-luxe-wrapper:focus-within .input-glow-bar,
+.luxe-phone-container:focus-within .input-glow-bar {
+  width: 100%;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.6);
+}
+
+/* --- PRZYCISK WYBORU DATY (Specyficzny dla Twojego kodu) --- */
+.date-open-btn {
+  text-align: left;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.date-open-btn::after {
+  content: '▼';
+  position: absolute;
+  right: 20px;
+  font-size: 10px;
+  opacity: 0.3;
+  transition: 0.4s;
+}
+
+.date-open-btn:hover::after {
+  color: #8b0000; /* Czerwień przy najechaniu */
+  opacity: 1;
+}
+
+
+
+/* --- PLACEHOLDERY (Dyskretne) --- */
+::placeholder {
+  color: rgba(255, 255, 255, 0.15) !important;
+  font-style: italic;
+  letter-spacing: 1px;
+}
 @keyframes labelSlide {
     to { opacity: 1; transform: translateX(0); }
 }
@@ -1075,6 +1221,69 @@ font-size: 30px!important;
     letter-spacing: 4px !important;
     box-shadow: 0 0 30px rgba(139, 0, 0, 0.4) !important;
 }
+.input-error-luxe .luxe-input,
+.phone-error .luxe-phone-input input {
+  border-color: rgba(139, 0, 0, 0.5) !important; 
+  background: rgba(139, 0, 0, 0.05) !important; 
+
+}
+.input-error-luxe .input-glow-bar,
+.phone-error .input-glow-bar {
+  background: linear-gradient(90deg, transparent, #8b0000, transparent) !important;
+  width: 100% !important; /* Linia błędu zostaje rozwinięta */
+  box-shadow: 0 0 10px rgba(139, 0, 0, 0.5) !important;
+}
+
+
+.session-textarea {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.02) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  padding: 18px 20px !important;  
+  font-family: 'Cinzel', serif;
+  transition: all 0.5s ease;
+  outline: none;
+  resize: none;
+}
+
+.session-textarea:focus {
+  border-color: rgba(212, 175, 55, 0.3) !important;
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.1) !important;
+}
+
+
+.error-message-luxe, 
+.error-hint {
+  color: #ff4d4d;
+  font-family: 'Cinzel', serif;
+  font-size: 7px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  display: block;
+  animation: errorFadeIn 0.4s ease-out;
+  opacity: 0.8;
+  font-weight: 400;
+}
+
+.error-message-luxe::before,
+.error-hint::before {
+  content: '!!';
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+/* --- ANIMACJA WEJŚCIA BŁĘDU --- */
+@keyframes errorFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 0.8;
+    transform: translateY(0);
+  }
+}
 
 
 
@@ -1106,6 +1315,22 @@ font-size: 12px!important;
 .booking-main-title{
 font-size: 28px!important;
 }
+.session-form input, 
+.session-form textarea, 
+.date-open-btn,
+.luxe-phone-input input,
+.luxe-input {
+  font-size: 9px;
+
+}
+ .error-message-luxe, 
+.error-hint {
+    font-size: 7px;
+    letter-spacing: 1px;}
+      .session-form input,.form-group label,.session-textarea{
+    font-size: 12px !important;
+    letter-spacing: 0.5px;
+   }
 }
 
 @media(max-width:992px){
@@ -1133,6 +1358,22 @@ font-size: 11px!important;
 .booking-main-title{
 font-size: 25px!important;
 }
+.session-form input, 
+.session-form textarea, 
+.date-open-btn,
+.luxe-phone-input input,
+.luxe-input {
+  font-size: 9px;
+
+}
+ .error-message-luxe, 
+.error-hint {
+    font-size: 7px;
+    letter-spacing: 1px;}
+      .session-form input,.form-group label,.session-textarea{
+    font-size: 11px !important;
+    letter-spacing: 1px;
+   }
 }
 @media(max-width:768px){
  .booking-main-title{
@@ -1160,6 +1401,21 @@ font-size: 10px!important;
 .booking-main-title{
 font-size: 23px!important;
 }
+.session-form input, 
+.session-form textarea, 
+.date-open-btn,
+.luxe-phone-input input,
+.luxe-input {
+  font-size: 8px;
+}
+  .error-message-luxe, 
+.error-hint {
+    font-size: 7px;
+    letter-spacing: 1px;}
+      .session-form input,.form-group label,.session-textarea{
+    font-size: 10px !important;
+    letter-spacing: 0.5px;
+   }
 }
 @media(max-width:576px){
  .booking-main-title,.session-header h2{
@@ -1186,6 +1442,22 @@ font-size: 9px!important;
 .booking-main-title{
 font-size: 20px!important;
 }
+.session-form input, 
+.session-form textarea, 
+.date-open-btn,
+.luxe-phone-input input,
+.luxe-input {
+  font-size:8px;
+
+}
+  .error-message-luxe, 
+.error-hint {
+    font-size: 6px;
+    letter-spacing: 1px;}
+      .session-form input,.form-group label,.session-textarea{
+    font-size: 9px !important;
+    letter-spacing: 0.5px;
+   }
 }
 @media(max-width:400px){
  .booking-main-title,.session-header h2{
@@ -1201,11 +1473,14 @@ font-size: 20px!important;
     font-size: 7px;
 
    }
-  
+  .error-message-luxe, 
+.error-hint {
+    font-size: 5px;
+    letter-spacing: 1px;}
   
    .session-form input,.form-group label,.session-textarea{
-    font-size: 6px;
-    letter-spacing: 0.5px;
+    font-size: 8px !important;
+
    }
    .form-group label,.session-submit{
     margin-top: 0px;
@@ -1213,4 +1488,10 @@ font-size: 20px!important;
    .form-group label{
     font-weight: 300;
    }
+   .luxe-input {
+  font-size:7px;
 }
+
+}
+
+

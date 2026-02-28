@@ -102,6 +102,7 @@ color: #f2f2f2;
   padding: 6px 10px;
   transition: all 0.3s ease-in-out;
   text-shadow: 6px 6px 6px black;
+ transition: letter-spacing 0.3s ease;
 }
 
 .nav-link:hover {
@@ -110,6 +111,7 @@ color: #f2f2f2;
   text-shadow: 0 0 8px rgba(255, 215, 0, 0.4);
    background: rgba(255, 255, 255, 0.05);
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+  letter-spacing: 2.5px !important;
 }
 
 .nav-link::before {
@@ -501,3 +503,5 @@ font-size: 15px;
     min-width: 140px;
   }
 }
+
+

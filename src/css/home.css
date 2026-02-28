@@ -79,6 +79,11 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     filter: drop-shadow(0 10px 20px rgba(0,0,0,0.8));
+  
+}
+.title-glow:hover {
+  filter: drop-shadow(0 15px 30px rgba(255, 215, 0, 0.9));
+  letter-spacing: 18px;
 }
 
 /* Linia pod napisem */

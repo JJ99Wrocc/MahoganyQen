@@ -5,6 +5,8 @@ import "../css/sessions.css";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n.js";
 import Select from "react-select";
+import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 
 function Sessions() {
   const { t } = useTranslation();
@@ -16,11 +18,13 @@ function Sessions() {
   const [openCalendar, setOpenCalendar] = useState(false);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
-
+  const [emailTouched, setEmailTouched] = useState(false);
+  const [isEmailValid, setIsEmailValid] = useState(true); 
   const [token, setToken] = useState(null);
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  
+  const [phone, setPhone] = useState("");
+const [isPhoneValid, setIsPhoneValid] = useState(true);
   const [company, setCompany] = useState("");
 
   const formLoadTime = useRef(Date.now());
@@ -111,18 +115,31 @@ function Sessions() {
     const hours = availableSlots.filter((slot) => slot.date === formatted);
     setAvailableHours(hours);
   };
-
+  const validateEmail = (email) => {
+  const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+  const commonMistakes = ["gmal.com", "gnail.com", "yaho.com", "outlok.com"];
+  
+  const isValid = regex.test(email);
+  const isSuspicious = commonMistakes.some(domain => email.includes(domain));
+  
+  setIsEmailValid(isValid && !isSuspicious);
+  return isValid;
+};
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (company !== "") return;
     if (Date.now() - formLoadTime.current < 3000) return alert("Zbyt szybkie wysłanie formularza.");
     if (Date.now() - lastSubmitTime.current < 5000) return alert("Zbyt wiele prób. Odczekaj chwilę.");
     lastSubmitTime.current = Date.now();
-
     if (!selectedSlot || !name || !email || !token) return alert(t("fillAllFields"));
     if (name.length < 2 || name.length > 50) return alert(t("invalidName"));
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return alert(t("invalidEmail"));
-
+    if (!phone || !isValidPhoneNumber(phone)) {
+    setIsPhoneValid(false);
+    return alert(t("invalidPhoneFormat") || "Niepoprawny numer telefonu");
+  }
+    if (company !== "") return;
+    
     setLoading(true);
     try {
       const res = await fetch("https://mahoganyqen.onrender.com/book", {
@@ -131,6 +148,7 @@ function Sessions() {
         body: JSON.stringify({
           id: selectedSlot.value,
           name, email, message,
+          phone,
           date: formatDate(selectedDate),
           time: selectedSlot.label,
           token, ts: Date.now(),
@@ -209,7 +227,7 @@ function Sessions() {
           </div>
 
           <div className="form-group">
-            <label id="label-date">{t("chooseDate")}:</label>
+            <label className="label-date" id="label-date">{t("chooseDate")}:</label>
             <button 
               type="button" 
               className="date-open-btn" 
@@ -273,31 +291,67 @@ function Sessions() {
             </div>
           )}
 
-          <div className="form-group">
-            <label htmlFor="user-name">{t("name")}:</label>
-            <input 
-              id="user-name"
-              value={name} 
-              onChange={(e) => setName(e.target.value)} 
-              required 
-              placeholder="Identities" 
-              aria-required="true"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="user-email">E-mail:</label>
-            <input 
-              id="user-email"
-              type="email" 
-              value={email} 
-              onChange={(e) => setEmail(e.target.value)} 
-              required 
-              placeholder="Secure Contact" 
-              aria-required="true"
-            />
-          </div>
-
+      <div className="form-group">
+  <label htmlFor="user-name">{t("name")}:</label>
+  <div className="input-luxe-wrapper">
+    <input 
+      id="user-name"
+      className="luxe-input"
+      value={name} 
+      onChange={(e) => setName(e.target.value)} 
+      required 
+      placeholder="Identities" 
+    />
+    <div className="input-glow-bar"></div>
+  </div>
+</div>
+       <div className={`form-group ${emailTouched && !isEmailValid ? "input-error-luxe" : ""}`}>
+  <label htmlFor="user-email">E-mail</label>
+  <div className="input-luxe-wrapper">
+    <input 
+      id="user-email"
+      type="email" 
+      value={email} 
+      onChange={(e) => {
+        setEmail(e.target.value);
+        if (emailTouched) validateEmail(e.target.value);
+      }}
+      onBlur={() => {
+        setEmailTouched(true);
+        validateEmail(email);
+      }}
+      required 
+      placeholder="identity@encryption.com" 
+      className="luxe-input"
+    />
+    <div className="input-glow-bar"></div> {/* Ta linia będzie "żyć" */}
+  </div>
+  {emailTouched && !isEmailValid && (
+    <span className="error-message-luxe">
+      {t("invalidEmailProtocol") || "Invalid Email Protocol. Check format."}
+    </span>
+  )}
+</div>
+        <div className={`form-group ${!isPhoneValid ? "phone-error" : ""}`}>
+  <label htmlFor="user-phone">{t("phoneNumber")}:</label>
+  <div className="luxe-phone-container input-luxe-wrapper"> {/* Dodaj obie klasy */}
+    <PhoneInput
+      id="user-phone"
+      international
+      defaultCountry="PL"
+      value={phone}
+      onChange={(val) => {
+        setPhone(val);
+        if (val) setIsPhoneValid(isValidPhoneNumber(val));
+      }}
+      placeholder="Ex: +48 000 000 000"
+      className="luxe-phone-input" // To jest klucz do CSS powyżej
+      smartCaret={false}
+    />
+    <div className="input-glow-bar"></div> {/* Linia pod telefonem */}
+  </div>
+  {!isPhoneValid && <span className="error-hint">{t("invalidPhoneFormat")}</span>}
+</div>
           <div className="form-group">
             <label htmlFor="user-message">{t("message") || "Additional Details"}:</label>
             <textarea 
