@@ -158,6 +158,7 @@ app.post("/book", async (req, res, next) => {
         name,
         email,
         date,
+        phone,
         time,
       });
     } catch (err) {
