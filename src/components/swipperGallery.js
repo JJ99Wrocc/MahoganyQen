@@ -13,7 +13,7 @@ import Caruzel6 from '../photo/Caruzel6.webp';
 import Caruzel7 from '../photo/Caruzel7.webp'; 
 import Caruzel8 from '../photo/Caruzel8.webp';
 import Caruzel9 from '../photo/Caruzel9.webp';
-import Caruzel10 from '../photo/Caruzel10 (1).webp';
+import Caruzel10 from '../photo/Caruzel10.webp';
 import Caruzel11 from '../photo/Caruzel11.webp';   
 import Caruzel12 from '../photo/Caruzel12.webp';
 import Caruzel13 from '../photo/Caruzel13.webp';

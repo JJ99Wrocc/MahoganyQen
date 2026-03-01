@@ -25,7 +25,7 @@
     perspective: 2000px; /* Zwiększona głębia dla lepszego efektu 3D */
     background: transparent;
 }
-/* --- LUXURY OVERLAYS (Cienie góra/dół) --- */
+
 .caruzel-box::before,
 .caruzel-box::after {
     content: "";

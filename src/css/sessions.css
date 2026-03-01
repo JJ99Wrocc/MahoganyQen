@@ -645,7 +645,7 @@
   position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  background-image: url('../photo/Evon-hero-img.jpeg'); /* Upewnij się, że ścieżka gra */
+  background-image: url('../photo/Evon-hero-img.webp'); 
   background-size: cover;
   background-position: center;
   filter: brightness(0.25) grayscale(0.5); /* Mocny mrok, żeby formularz bił po oczach */
