@@ -29,7 +29,25 @@ const images = [
   Caruzel11, Caruzel12, Caruzel13, Caruzel14, Caruzel15,
   Caruzel16, Caruzel17, Caruzel18
 ];
-
+const altTexts = [
+  "Mahogany Qen professional Dominatrix high-end BDSM session Europe",
+  "Mahogany Qen authority and absolute discipline power exchange",
+  "Mahogany Qen luxury fetish aesthetics elite latex mistress",
+  "Mahogany Qen sophisticated domination professional femdom session",
+  "Mahogany Qen exclusive BDSM experience premium fetish travel",
+  "Mahogany Qen mistress of discipline professional power exchange",
+  "Mahogany Qen high-standard professional domination services",
+  "Mahogany Qen elegant fetish photography BDSM art",
+  "Mahogany Qen professional femdom mistress session booking",
+  "Mahogany Qen supreme authority professional bondage session",
+  "Mahogany Qen elite lifestyle domination mistress Europe",
+  "Mahogany Qen luxury BDSM studio professional session",
+  "Mahogany Qen travel domina professional tour dates",
+  "Mahogany Qen leather and latex professional aesthetics",
+  "Mahogany Qen strict discipline high-end fetish mistress",
+  "Mahogany Qen professional domination protocol and etiquette",
+  "Mahogany Qen expert mistress professional power exchange"
+];
 function SwipperGallery() {
   const { t } = useTranslation();
 
@@ -38,7 +56,7 @@ function SwipperGallery() {
 
   return (
     <>
- <div className="gallery-preface">
+ <div className="gallery-preface" >
   <div className="preface-line"></div>
   <div className="preface-content">
  
@@ -55,6 +73,7 @@ function SwipperGallery() {
         className='caruzel-box' 
         role="region" 
         aria-label={t("gallerySection")}
+        title="Mahogany Qen - Visual Experience & Professional Portfolio"
       >
         <Carousel 
           indicators={true} 
@@ -79,15 +98,14 @@ function SwipperGallery() {
                 />
                 
                 {/* GŁÓWNE ZDJĘCIE (środek) */}
-                <img 
+               <img 
                   className="slide-main" 
                   src={img} 
-                  alt={`${t("galleryMain")} ${i + 1}`} 
-                  // ZMIANA: Ładujemy pierwsze 3 zdjęcia natychmiast, resztę leniwie
+                  // TUTAJ ZMIANA - teraz używamy Twojej pro tablicy altTexts
+                  alt={altTexts[i] || `Mahogany Qen Professional Dominatrix Session ${i + 1}`} 
                   loading={i < 3 ? "eager" : "lazy"}
-                  // ZMIANA: Dodajemy priorytet dla pierwszego widoku
                   {...(i === 0 ? { fetchpriority: "high" } : {})}
-                />
+                 />
                 
                 {/* Zdjęcie prawe (blur) */}
                 <img 

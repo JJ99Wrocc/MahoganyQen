@@ -445,3 +445,32 @@
   filter: blur(1.2px);
 }
 
+
+
+.protocol-seo-section {
+  background: transparent;
+  padding: 10px 0;
+  text-align: center;
+}
+
+.protocol-seo-section summary {
+  color: #222; /* Bardzo ciemny szary - prawie niewidoczny na czarnym tle */
+  font-size: 10px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  list-style: none;
+}
+
+.protocol-seo-section summary:hover {
+  color: #c5a059; /* Złoty kolor pokaże się tylko po najechaniu */
+}
+
+.protocol-content {
+  color: #444; /* Tekst wewnątrz rozwinięcia też dyskretny */
+  font-size: 12px;
+  max-width: 900px;
+  margin: 20px auto;
+  text-align: left;
+  padding: 0 20px;
+}
