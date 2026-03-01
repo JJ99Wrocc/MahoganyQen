@@ -11,6 +11,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./firebaseAuth.js";
 import './App.css';
+import CookieConsent from "react-cookie-consent";
 
 function App() {
   const { user } = useAuth();
@@ -77,6 +78,16 @@ function App() {
         title="Scroll to top"
       >
       </button>
+      <CookieConsent
+  location="bottom"
+  buttonText="Rozumiem"
+  cookieName="myAwesomeCookieName"
+  style={{ background: "#2B373B", fontSize: "13px" }}
+  buttonStyle={{ color: "#4e503b", fontSize: "13px", borderRadius: "5px" }}
+  expires={150}
+>
+  Ta strona używa ciasteczek, aby sesja rezerwacji działała poprawnie. 🍪
+</CookieConsent>
     </BrowserRouter>
   );
 }
