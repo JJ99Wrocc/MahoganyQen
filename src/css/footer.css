@@ -452,15 +452,15 @@
   width: 100%;
   text-align: center;
   padding: 20px 0;
-  background: rgba(0, 0, 0, 0.8); /* Ciemne tło, żeby odcięło się od reszty */
+  background: transparent; /* Ciemne tło, żeby odcięło się od reszty */
   z-index: 10;
   position: relative;
-  border-top: 1px solid #d4af37; /* Złota linia w Twoim stylu */
+  border-top: 1px solid rgba(255, 255, 255, 0.05); /* Złota linia w Twoim stylu */
 }
 
 .protocol-seo-section summary {
-  color: #d4af37; /* Złoty kolor - tak jak Twoje logo */
-  font-size: 0.8rem;
+  color: #fff; 
+  font-size: 10px;
   cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -468,7 +468,7 @@
 }
 
 .protocol-content {
-  color: #ffffff;
+  color: rgba(255, 255, 255, 0.05);
   max-width: 900px;
   margin: 20px auto;
   text-align: left;
@@ -477,11 +477,12 @@
 }
 
 .protocol-content h2 {
-  color: #d4af37;
-  font-size: 1.5rem;
+  color: #fff;
+  font-size: 10px;
   margin-bottom: 10px;
 }
 
-.protocol-content strong {
-  color: #d4af37; /* Słowa kluczowe na złoto */
+.protocol-content p, .protocol-content li {
+  color: rgba(255, 255, 255, 0.223); 
+  font-size: 10px;
 }

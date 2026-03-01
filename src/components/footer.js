@@ -27,24 +27,7 @@ function Footer() {
       <div className="footer-bg-shadow-top" aria-hidden="true"></div>
 
       {/* --- TUTAJ DODAJESZ SEKCJĘ SEO --- */}
-      <section className="protocol-seo-section" aria-label="Professional Protocol">
-        <details>
-          <summary>Official Session Protocol & SEO Authority</summary>
-          <div className="protocol-content">
-            <h2>The Mahogany Protocol</h2>
-            <p>
-              Engaging with <strong>Mahogany Qen</strong> is a high-end <strong>professional BDSM experience</strong>. 
-              As a premier <strong>Dominatrix in Europe</strong>, I provide elite <strong>power exchange</strong> sessions 
-              focused on <strong>strict discipline</strong>, <strong>authority</strong>, and sophisticated fetish aesthetics.
-            </p>
-            <ul>
-              <li><strong>Booking:</strong> Mandatory screening for all new submissives to ensure <strong>safety and professionalism</strong>.</li>
-              <li><strong>Travel:</strong> Exclusive sessions available during <strong>European tour dates</strong>.</li>
-              <li><strong>Etiquette:</strong> High-standard <strong>fetish protocol</strong> and absolute respect are non-negotiable.</li>
-            </ul>
-          </div>
-        </details>
-      </section>
+   
       <footer
         id="contact-title-main"
         className="gold-footer"
@@ -241,6 +224,24 @@ function Footer() {
           </div>
         </div>
 
+                   <section className="protocol-seo-section" aria-label="Professional Protocol">
+        <details>
+          <summary>Official Session Protocol & SEO Authority</summary>
+          <div className="protocol-content">
+            <h2>The Mahogany Protocol</h2>
+            <p>
+              Engaging with <strong>Mahogany Qen</strong> is a high-end <strong>professional BDSM experience</strong>. 
+              As a premier <strong>Dominatrix in Europe</strong>, I provide elite <strong>power exchange</strong> sessions 
+              focused on <strong>strict discipline</strong>, <strong>authority</strong>, and sophisticated fetish aesthetics.
+            </p>
+            <ul>
+              <li><strong>Booking:</strong> Mandatory screening for all new submissives to ensure <strong>safety and professionalism</strong>.</li>
+              <li><strong>Travel:</strong> Exclusive sessions available during <strong>European tour dates</strong>.</li>
+              <li><strong>Etiquette:</strong> High-standard <strong>fetish protocol</strong> and absolute respect are non-negotiable.</li>
+            </ul>
+          </div>
+        </details>
+      </section>
         {/* BOTTOM COPYRIGHT */}
         <div 
           className="footer-bottom" 
