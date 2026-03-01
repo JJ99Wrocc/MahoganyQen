@@ -225,23 +225,24 @@ function Footer() {
         </div>
 
                    <section className="protocol-seo-section" aria-label="Professional Protocol">
-        <details>
-          <summary>Official Session Protocol & SEO Authority</summary>
-          <div className="protocol-content">
-            <h2>The Mahogany Protocol</h2>
-            <p>
-              Engaging with <strong>Mahogany Qen</strong> is a high-end <strong>professional BDSM experience</strong>. 
-              As a premier <strong>Dominatrix in Europe</strong>, I provide elite <strong>power exchange</strong> sessions 
-              focused on <strong>strict discipline</strong>, <strong>authority</strong>, and sophisticated fetish aesthetics.
-            </p>
-            <ul>
-              <li><strong>Booking:</strong> Mandatory screening for all new submissives to ensure <strong>safety and professionalism</strong>.</li>
-              <li><strong>Travel:</strong> Exclusive sessions available during <strong>European tour dates</strong>.</li>
-              <li><strong>Etiquette:</strong> High-standard <strong>fetish protocol</strong> and absolute respect are non-negotiable.</li>
-            </ul>
-          </div>
-        </details>
-      </section>
+       <section className="protocol-seo-section" aria-label={t("protocolAriaLabel")}>
+  <details>
+    <summary>{t("protocolSummary")}</summary>
+    <div className="protocol-content">
+      <h2>{t("protocolTitle")}</h2>
+      <p>
+        {t("protocolDesc1")} <strong>Mahogany Qen</strong> {t("protocolDesc2")} <strong>{t("protocolDesc3")}</strong>. 
+        {t("protocolDesc4")} <strong>{t("protocolDesc5")}</strong>, {t("protocolDesc6")} <strong>{t("protocolDesc7")}</strong> 
+        {t("protocolDesc8")} <strong>{t("protocolDesc9")}</strong>, <strong>{t("protocolDesc10")}</strong>, {t("protocolDesc11")}.
+      </p>
+      <ul>
+        <li><strong>{t("protocolBooking")}:</strong> {t("protocolBookingDesc1")} <strong>{t("protocolBookingDesc2")}</strong>.</li>
+        <li><strong>{t("protocolTravel")}:</strong> {t("protocolTravelDesc1")} <strong>{t("protocolTravelDesc2")}</strong>.</li>
+        <li><strong>{t("protocolEtiquette")}:</strong> {t("protocolEtiquetteDesc1")} <strong>{t("protocolEtiquetteDesc2")}</strong> {t("protocolEtiquetteDesc3")}.</li>
+      </ul>
+    </div>
+  </details>
+</section>
         {/* BOTTOM COPYRIGHT */}
         <div 
           className="footer-bottom" 
