@@ -1,73 +1,24 @@
-/* .App {
-  text-align: center;
-}
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-} */
-/* Stylizacja przycisku "Back to Top" dla mahoganyqen.com */
 .scroll-to-top {
   position: fixed;
   bottom: 40px;
   right: 40px;
-  
-  /* Rozmiar i kształt */
   width: 30px;
   height: 30px;
-  border-radius: 50%; /* Idealne koło */
-  
-  /* Kolorystyka - nawiązanie do luksusowej czerni/bieli strony */
-  background-color: #ffffff; /* Białe tło */
-  color: #1a1a1a;           /* Czarna strzałka */
-  border: 1px solid #e5e5e5; /* Bardzo delikatna obramówka */
-  
-  /* Flexbox do idealnego wyśrodkowania strzałki */
+  border-radius: 50%;
+  background-color: #ffffff;
+  color: #1a1a1a;         
+  border: 1px solid #e5e5e5; 
   display: flex;
   align-items: center;
   justify-content: center;
-  
   cursor: pointer;
   z-index: 9999;
-  
-  /* Ukrycie początkowe */
   opacity: 0;
   visibility: hidden;
   transform: translateY(15px);
-  
-  /* Bardzo płynne przejście (luxury feel) */
   transition: all 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* Bardzo miękki cień */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); 
 }
 
 /* Stan aktywny (widoczny) */
@@ -103,7 +54,7 @@
 
 .shared-bg-img {
   position: absolute;
-  top: 0;
+  top: 50px;
   left: 0;
   width: 100%;
   height: 100%;
