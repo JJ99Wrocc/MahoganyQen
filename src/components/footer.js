@@ -20,14 +20,12 @@ function Footer() {
   };
 
   return (
-  <div id="contact-title" className="footer-page-wrapper">
+    <div id="contact-title" className="footer-page-wrapper">
       {/* BACKGROUND ELEMENTS */}
       <div className="footer-bg-img" aria-hidden="true"></div>
       <div className="footer-bg-overlay" aria-hidden="true"></div>
       <div className="footer-bg-shadow-top" aria-hidden="true"></div>
 
-      {/* --- TUTAJ DODAJESZ SEKCJĘ SEO --- */}
-   
       <footer
         id="contact-title-main"
         className="gold-footer"
@@ -45,31 +43,24 @@ function Footer() {
             role="region"
             aria-labelledby="footer-logo"
           >
-            <h2
-              id="footer-logo"
-              className="footer-logo"
-            >
+            <h2 id="footer-logo" className="footer-logo">
               {t("footerBrand")}
             </h2>
-
             <p className="footer-desc">
               {t("footerTagline")}
             </p>
           </div>
 
-         
           <div
             className="footer-links-contact-wrapper"
             role="group"
             aria-label={t("footerNavigationContact")}
           >
-       
             <nav
               className="footer-links"
               role="navigation"
               aria-labelledby="explore-title-desktop"
             >
-          
               <h3
                 id="explore-title"
                 className="footer-title mobile-only"
@@ -89,7 +80,6 @@ function Footer() {
                 <i className={`fa-solid ${openExplore ? 'fa-arrow-up' : 'fa-arrow-down'}`} aria-hidden="true"></i>
               </h3>
 
-              {/* DESKTOP TITLE */}
               <h3
                 className="desktop-only"
                 id="explore-title-desktop"
@@ -158,8 +148,6 @@ function Footer() {
                     {t("links")}
                   </span>
                 </li>
-
-              
               </ul>
             </nav>
 
@@ -169,7 +157,6 @@ function Footer() {
               role="region"
               aria-labelledby="contact-title-desktop"
             >
-              {/* MOBILE BUTTON */}
               <h3
                 id="contact-mobile-trigger"
                 className="footer-title mobile-only"
@@ -189,11 +176,7 @@ function Footer() {
                 <i className={`fa-solid ${openContact ? 'fa-arrow-up' : 'fa-arrow-down'}`} aria-hidden="true"></i>
               </h3>
 
-              {/* DESKTOP TITLE */}
-              <h3
-                className="desktop-only"
-                id="contact-title-desktop"
-              >
+              <h3 className="desktop-only" id="contact-title-desktop">
                 {t("contact")}
               </h3>
 
@@ -224,25 +207,26 @@ function Footer() {
           </div>
         </div>
 
-                   <section className="protocol-seo-section" aria-label="Professional Protocol">
-       <section className="protocol-seo-section" aria-label={t("protocolAriaLabel")}>
-  <details>
-    <summary>{t("protocolSummary")}</summary>
-    <div className="protocol-content">
-      <h2>{t("protocolTitle")}</h2>
-      <p>
-        {t("protocolDesc1")} <strong>Mahogany Qen</strong> {t("protocolDesc2")} <strong>{t("protocolDesc3")}</strong>. 
-        {t("protocolDesc4")} <strong>{t("protocolDesc5")}</strong>, {t("protocolDesc6")} <strong>{t("protocolDesc7")}</strong> 
-        {t("protocolDesc8")} <strong>{t("protocolDesc9")}</strong>, <strong>{t("protocolDesc10")}</strong>, {t("protocolDesc11")}.
-      </p>
-      <ul>
-        <li><strong>{t("protocolBooking")}:</strong> {t("protocolBookingDesc1")} <strong>{t("protocolBookingDesc2")}</strong>.</li>
-        <li><strong>{t("protocolTravel")}:</strong> {t("protocolTravelDesc1")} <strong>{t("protocolTravelDesc2")}</strong>.</li>
-        <li><strong>{t("protocolEtiquette")}:</strong> {t("protocolEtiquetteDesc1")} <strong>{t("protocolEtiquetteDesc2")}</strong> {t("protocolEtiquetteDesc3")}.</li>
-      </ul>
-    </div>
-  </details>
-</section>
+        {/* --- PROTOCOL SECTION --- */}
+        <section className="protocol-seo-section" aria-label={t("protocolAriaLabel")}>
+          <details>
+            <summary>{t("protocolSummary")}</summary>
+            <div className="protocol-content">
+              <h2>{t("protocolTitle")}</h2>
+              <p>
+                {t("protocolDesc1")} <strong>Mahogany Qen</strong> {t("protocolDesc2")} <strong>{t("protocolDesc3")}</strong>. 
+                {t("protocolDesc4")} <strong>{t("protocolDesc5")}</strong>, {t("protocolDesc6")} <strong>{t("protocolDesc7")}</strong> 
+                {t("protocolDesc8")} <strong>{t("protocolDesc9")}</strong>, <strong>{t("protocolDesc10")}</strong>, {t("protocolDesc11")}.
+              </p>
+              <ul>
+                <li><strong>{t("protocolBooking")}:</strong> {t("protocolBookingDesc1")} <strong>{t("protocolBookingDesc2")}</strong>.</li>
+                <li><strong>{t("protocolTravel")}:</strong> {t("protocolTravelDesc1")} <strong>{t("protocolTravelDesc2")}</strong>.</li>
+                <li><strong>{t("protocolEtiquette")}:</strong> {t("protocolEtiquetteDesc1")} <strong>{t("protocolEtiquetteDesc2")}</strong> {t("protocolEtiquetteDesc3")}.</li>
+              </ul>
+            </div>
+          </details>
+        </section>
+
         {/* BOTTOM COPYRIGHT */}
         <div 
           className="footer-bottom" 
