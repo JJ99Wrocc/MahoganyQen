@@ -447,30 +447,41 @@
 
 
 
+/* Styl dla Twojego Protokołu SEO */
 .protocol-seo-section {
-  background: transparent;
-  padding: 10px 0;
+  width: 100%;
   text-align: center;
+  padding: 20px 0;
+  background: rgba(0, 0, 0, 0.8); /* Ciemne tło, żeby odcięło się od reszty */
+  z-index: 10;
+  position: relative;
+  border-top: 1px solid #d4af37; /* Złota linia w Twoim stylu */
 }
 
 .protocol-seo-section summary {
-  color: #222; /* Bardzo ciemny szary - prawie niewidoczny na czarnym tle */
-  font-size: 10px;
+  color: #d4af37; /* Złoty kolor - tak jak Twoje logo */
+  font-size: 0.8rem;
   cursor: pointer;
   text-transform: uppercase;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   list-style: none;
 }
 
-.protocol-seo-section summary:hover {
-  color: #c5a059; /* Złoty kolor pokaże się tylko po najechaniu */
-}
-
 .protocol-content {
-  color: #444; /* Tekst wewnątrz rozwinięcia też dyskretny */
-  font-size: 12px;
+  color: #ffffff;
   max-width: 900px;
   margin: 20px auto;
   text-align: left;
   padding: 0 20px;
+  font-family: serif; /* Bardziej elegancki styl */
+}
+
+.protocol-content h2 {
+  color: #d4af37;
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+}
+
+.protocol-content strong {
+  color: #d4af37; /* Słowa kluczowe na złoto */
 }
