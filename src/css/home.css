@@ -24,10 +24,6 @@
     will-change: transform;
 }
 
-@keyframes luxuryKenBurns {
-    0% { transform: scale(1) translate(0, 0); }
-    100% { transform: scale(1.1) translate(-2%, -1%); }
-}
 
 /* --- EFEKTY ŚWIETLNE --- */
 .home-vignette {
@@ -95,23 +91,6 @@
 
 /* --- ANIMACJE --- */
 
-@keyframes titleEntrance {
-    to {
-        opacity: 1;
-        filter: blur(0);
-        transform: translateZ(0) scale(1);
-    }
-}
-
-/* Ten ruch sprawia, że napis "żyje" razem z tłem */
-@keyframes titleFloating {
-    0%, 100% { transform: translateY(0) rotateX(0); }
-    50% { transform: translateY(-15px) rotateX(2deg); }
-}
-
-@keyframes lineGrow {
-    to { width: 300px; }
-}
 
 /* --- RESPONSYWNOŚĆ --- */
 @media (max-width: 768px) {
@@ -208,7 +187,9 @@
     background-position: 0% center;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-        animation: luxuryKenBurns 30s ease-in-out infinite alternate;
+        animation: luxuryKenBurns 30s ease-in-out infinite alternate,
+        mahogEntrance 1.2s ease-out 0.3s forwards;
+        
  }
 
 
@@ -240,4 +221,28 @@
         transform: translateY(0) scale(1);
         filter: blur(0);
     }
+}
+
+
+@keyframes luxuryKenBurns {
+    0% { transform: scale(1) translate(0, 0); }
+    100% { transform: scale(1.1) translate(-2%, -1%); }
+}
+
+@keyframes titleEntrance {
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateZ(0) scale(1);
+    }
+}
+
+/* Ten ruch sprawia, że napis "żyje" razem z tłem */
+@keyframes titleFloating {
+    0%, 100% { transform: translateY(0) rotateX(0); }
+    50% { transform: translateY(-15px) rotateX(2deg); }
+}
+
+@keyframes lineGrow {
+    to { width: 300px; }
 }
