@@ -86,7 +86,7 @@
 }
 /* GŁÓWNE ZDJĘCIE - KRYSTALICZNIE CZYSTE */
 .slide-main {
-    position: absolute;
+    position:  relative;;
     z-index: 10; /* Najwyższa warstwa */
     max-width: 85%; 
     max-height: 100%; 
@@ -231,7 +231,7 @@
 .preface-subtitle {
     display: block;
     font-family: 'Cinzel', serif;
-    color: #f9f90b; /* Akcent złota/żółci, który masz na stronie */
+    color: #8b0000; 
     text-transform: uppercase;
     letter-spacing: 12px;
     font-size: 14px;

@@ -13,7 +13,7 @@ function ColorSchemesExample() {
   const { t } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [showOffcanvas, setShowOffcanvas] = useState(false);
-
+  const [activeSection, setActiveSection] = useState("");
   const handleOpen = () => setShowOffcanvas(true);
   const handleClose = () => setShowOffcanvas(false);
 
@@ -22,19 +22,29 @@ function ColorSchemesExample() {
   };
 
   // Funkcja pomocnicza do płynnego przewijania, która działa z Offcanvas
-  const handleNavLinkClick = (id) => {
+  const handleNavLinkClick = (e,id) => {
+    if (e && e.preventDefault) {
+    e.preventDefault();
+  }
+  if (activeSection === id){
+    return;
+  }
+
+
     handleClose(); // Najpierw zamykamy menu
     setTimeout(() => {
       const section = document.getElementById(id);
       if (section) {
         section.scrollIntoView({ behavior: "smooth" });
       }
-    }, 350); // Czekamy chwilę, aż animacja zamykania menu się skończy
-  };
+    }, 350);
+   
+    };
 
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 50) {
+      const threshold = window.innerHeight < 950 ? 200 : 150; 
+      if (window.scrollY > threshold  ) {
         setScrolled(true);
       } else {
         setScrolled(false);
@@ -43,6 +53,32 @@ function ColorSchemesExample() {
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+  useEffect(() => {
+    const sectionIds = ["home", "about-me", "gallery", "sessions-booking", "linki", "contact-title"];
+    
+    const observerOptions = {
+      root: null,
+      rootMargin: "-45% 0px -45% 0px", // Wykrywa sekcję, gdy jest na środku ekranu
+      threshold: 0
+    };
+
+    const observerCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id); // Ustawia ID sekcji jako aktywną
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+    
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -77,10 +113,9 @@ function ColorSchemesExample() {
           />
           <span className="nav-title">ahoganyQen</span>
         </Navbar.Brand>
-
-        {/* DROPDOWN JĘZYKOWY */}
+                        {/* DROPDOWN JĘZYKOWY */}
         <Dropdown
-          className="language-switcher"
+          className="language-switcher d-block  d-lg-none"
           aria-label="Select language"
         >
           <Dropdown.Toggle
@@ -99,6 +134,18 @@ function ColorSchemesExample() {
             <Dropdown.Item
               role="menuitem"
               tabIndex={0}
+              aria-current={i18n.language === "en" ? "true" : undefined}
+              onClick={() => handleLanguageChange("en")}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") &&
+                handleLanguageChange("en")
+              }
+            >
+              <span className="fi fi-gb" aria-hidden="true"></span> English
+            </Dropdown.Item>
+            <Dropdown.Item
+              role="menuitem"
+              tabIndex={0}
               aria-current={i18n.language === "pl" ? "true" : undefined}
               onClick={() => handleLanguageChange("pl")}
               onKeyDown={(e) =>
@@ -109,18 +156,6 @@ function ColorSchemesExample() {
               <span className="fi fi-pl" aria-hidden="true"></span> Polski
             </Dropdown.Item>
 
-            <Dropdown.Item
-              role="menuitem"
-              tabIndex={0}
-              aria-current={i18n.language === "en" ? "true" : undefined}
-              onClick={() => handleLanguageChange("en")}
-              onKeyDown={(e) =>
-                (e.key === "Enter" || e.key === " ") &&
-                handleLanguageChange("en")
-              }
-            >
-              <span className="fi fi-gb" aria-hidden="true"></span> English
-            </Dropdown.Item>
 
             <Dropdown.Item
               role="menuitem"
@@ -175,6 +210,7 @@ function ColorSchemesExample() {
             </Dropdown.Item>
           </Dropdown.Menu>
         </Dropdown>
+
 
         {/* BURGER MENU */}
         <span
@@ -236,7 +272,8 @@ function ColorSchemesExample() {
               <Nav.Link
                 role="menuitem"
                 tabIndex={0}
-                onClick={() => handleNavLinkClick("about-me")}
+                className={activeSection === "about-me" ? "active" : ""}
+                onClick={(e) => handleNavLinkClick(e, "about-me")}
               >
                 <i
                   className="fa-regular fa-address-card nav-icon"
@@ -248,7 +285,8 @@ function ColorSchemesExample() {
               <Nav.Link
                 role="menuitem"
                 tabIndex={0}
-                onClick={() => handleNavLinkClick("gallery")}
+                className={activeSection === "gallery" ? "active" : ""}
+                onClick={(e) => handleNavLinkClick(e,"gallery")}
               >
                 <img src={Icon} alt="" aria-hidden="true" className="red" />
                 {t("gallery")}
@@ -259,7 +297,8 @@ function ColorSchemesExample() {
               <Nav.Link
                 role="menuitem"
                 tabIndex={0}
-                onClick={() => handleNavLinkClick("sessions-booking")}
+                className={activeSection === "session-booking" ? "active" : ""}
+                onClick={(e) => handleNavLinkClick(e,"sessions-booking")}
               >
                 <i className="fa-regular fa-calendar nav-icon"></i> {t("session")}
               </Nav.Link>
@@ -269,7 +308,8 @@ function ColorSchemesExample() {
               <Nav.Link
                 role="menuitem"
                 tabIndex={0}
-                onClick={() => handleNavLinkClick("linki")}
+                className={activeSection === "linki" ? "active" : ""}
+                onClick={(e) => handleNavLinkClick(e,"linki")}
               >
                 <i className="fa-solid fa-link nav-icon" aria-hidden="true"></i>  {t("links")}
               </Nav.Link>
@@ -279,11 +319,110 @@ function ColorSchemesExample() {
               <Nav.Link
                 role="menuitem"
                 tabIndex={0}
-                onClick={() => handleNavLinkClick("contact-title")}
+                className={activeSection === "contact-title" ? "active" : ""}
+                onClick={(e) => handleNavLinkClick(e,"contact-title")}
               >
                 <i className="fa-solid fa-phone-volume nav-icon" aria-hidden="true"></i>
                 {t("contact")}
               </Nav.Link>
+              
+                      {/* DROPDOWN JĘZYKOWY */}
+        <Dropdown
+          className="language-switcher d-none d-lg-block"
+          aria-label="Select language"
+        >
+          <Dropdown.Toggle
+            variant="secondary"
+            id="dropdown-basic"
+            aria-haspopup="menu"
+            aria-expanded={false}
+          >
+            🌐
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu
+            role="menu"
+            aria-label="Language selection"
+          >
+            <Dropdown.Item
+              role="menuitem"
+              tabIndex={0}
+              aria-current={i18n.language === "en" ? "true" : undefined}
+              onClick={() => handleLanguageChange("en")}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") &&
+                handleLanguageChange("en")
+              }
+            >
+              <span className="fi fi-gb" aria-hidden="true"></span> English
+            </Dropdown.Item>
+            <Dropdown.Item
+              role="menuitem"
+              tabIndex={0}
+              aria-current={i18n.language === "pl" ? "true" : undefined}
+              onClick={() => handleLanguageChange("pl")}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") &&
+                handleLanguageChange("pl")
+              }
+            >
+              <span className="fi fi-pl" aria-hidden="true"></span> Polski
+            </Dropdown.Item>
+
+
+            <Dropdown.Item
+              role="menuitem"
+              tabIndex={0}
+              aria-current={i18n.language === "de" ? "true" : undefined}
+              onClick={() => handleLanguageChange("de")}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") &&
+                handleLanguageChange("de")
+              }
+            >
+              <span className="fi fi-de" aria-hidden="true"></span> Deutsch
+            </Dropdown.Item>
+
+            <Dropdown.Item
+              role="menuitem"
+              tabIndex={0}
+              aria-current={i18n.language === "es" ? "true" : undefined}
+              onClick={() => handleLanguageChange("es")}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") &&
+                handleLanguageChange("es")
+              }
+            >
+              <span className="fi fi-es" aria-hidden="true"></span> Español
+            </Dropdown.Item>
+
+            <Dropdown.Item
+              role="menuitem"
+              tabIndex={0}
+              aria-current={i18n.language === "ru" ? "true" : undefined}
+              onClick={() => handleLanguageChange("ru")}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") &&
+                handleLanguageChange("ru")
+              }
+            >
+              <span className="fi fi-ru" aria-hidden="true"></span> Русский
+            </Dropdown.Item>
+
+            <Dropdown.Item
+              role="menuitem"
+              tabIndex={0}
+              aria-current={i18n.language === "ua" ? "true" : undefined}
+              onClick={() => handleLanguageChange("ua")}
+              onKeyDown={(e) =>
+                (e.key === "Enter" || e.key === " ") &&
+                handleLanguageChange("ua")
+              }
+            >
+              <span className="fi fi-ua" aria-hidden="true"></span> Українська
+            </Dropdown.Item>
+          </Dropdown.Menu>
+        </Dropdown>
             </Nav>
           </Offcanvas.Body>
         </Navbar.Offcanvas>

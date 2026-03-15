@@ -9,8 +9,8 @@ function AboutMe() {
     <section 
       id="about-me" 
       className="about-me-viewport"
-      // aria-labelledby łączy sekcję z nagłówkiem, dzięki czemu czytnik wie, o czym jest ta sekcja
       aria-labelledby="about-me-title" 
+      data-nosnippet
     >
 
       <div className="about-me-bg" aria-hidden="true"></div>

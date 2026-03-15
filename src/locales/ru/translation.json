@@ -12,7 +12,7 @@
   "bookingError": "Ошибка при бронировании",
   "bookingSession": "Бронирование сессии",
   "bookSession": "Забронировать сессию",
-  "chooseDateTime": "Выберите удобные дату и время для записи на сессию.",
+  "chooseDateTime": "Выберите дату и время в календаре. В сообщении укажите свой опыт, предпочтительные практики, продолжительность и границы. Если ваши даты гибкие, отметьте это в сообщении",
   "chooseDate": "Выбрать дату",
   "chooseHour": "Выбрать время",
   "name": "Имя",
@@ -23,7 +23,7 @@
   "galleryBlurRight": "Размытое изображение справа галереи",
   "aboutMeTitle": "Обо мне",
   "aboutMeText": "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  "beltText": "ТЫ ЗДЕСЬ, ЧТОБЫ СЛУЖИТЬ. И НИЧЕГО БОЛЬШЕ",
+  "beltText": "ТЫ ЗДЕСЬ, ЧТОБЫ СЛУЖИТЬ",
   "navbarBrand": "Навигация Offcanvas",
   "offcanvasTitle": "Offcanvas",
   "home": "Главная",
@@ -89,5 +89,6 @@
 "protocolEtiquette": "Этикет",
 "protocolEtiquetteDesc1": "Высокий стандарт",
 "protocolEtiquetteDesc2": "фетиш-протокола",
-"protocolEtiquetteDesc3": "и абсолютное уважение не подлежат обсуждению"
+"protocolEtiquetteDesc3": "и абсолютное уважение не подлежат обсуждению",
+"protocolStatement": "Я подтверждаю и принимаю правила протокола: сессия основана на профессиональной дисциплине и строго исключает наготу Госпожи, сексуальные контакты (включая оральный, мануальный секс, римминг) и практики 'dirty play' (обмен биологическими жидкостями). Любая попытка нарушения этих границ приведет к немедленному прекращению сессии без возврата средств."
 }

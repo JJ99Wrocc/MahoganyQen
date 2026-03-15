@@ -22,8 +22,8 @@ i18n
       ru: { translation: translationRU },
       ua: { translation: translationUA },
     },
-    lng: 'pl',               // język domyślny
-    fallbackLng: 'pl',       // język zapasowy
+    lng: 'en',               // język domyślny
+    fallbackLng: 'en',       // język zapasowy
     interpolation: {
       escapeValue: false,    // React już escapuje wartości
     },

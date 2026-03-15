@@ -20,6 +20,14 @@ function Home() {
           <span className="title-glow">{t("siteTitle")}</span>
         </h1>
         <div className="title-underline"></div>
+            <div
+            className="belt-box"
+            role="presentation"
+            aria-hidden="true"
+        >
+            <div className='belt-bhi'></div>
+            <div className='belt-text'>{t("beltText")}</div>
+        </div>
       </div>
     </div>
   );

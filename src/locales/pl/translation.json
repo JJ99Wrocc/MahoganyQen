@@ -12,7 +12,7 @@
   "bookingError": "Błąd przy rezerwacji",
   "bookingSession": "Rezerwacja sesji",
   "bookSession": "Zarezerwuj sesję",
-  "chooseDateTime": "Wybierz dogodny termin i godzinę, aby umówić się na sesję.",
+  "chooseDateTime": "Wybierz termin w kalendarzu. W treści wiadomości określ swoje doświadczenie, preferowane praktyki, czas trwania oraz granice. Jeśli Twoje daty są elastyczne, zaznacz to w wiadomości",
   "chooseDate": "Wybierz termin",
   "chooseHour": "Wybierz godzinę",
   "name": "Imię",
@@ -23,7 +23,7 @@
   "galleryBlurRight": "Zdjęcie rozmyte po prawej galerii",
   "aboutMeTitle": "O mnie",
   "aboutMeText": "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  "beltText": "JESTEŚ TUTAJ, BY SŁUŻYĆ. I NIC WIĘCEJ",
+  "beltText": "JESTEŚ TUTAJ, BY SŁUŻYĆ",
   "navbarBrand": "Nawigacja Offcanvas",
   "offcanvasTitle": "Offcanvas",
   "home": "Strona główna",
@@ -87,6 +87,6 @@
 "protocolEtiquette": "Etykieta",
 "protocolEtiquetteDesc1": "Wysoki standard",
 "protocolEtiquetteDesc2": "protokołu fetish",
-"protocolEtiquetteDesc3": "oraz bezwzględny szacunek nie podlegają negocjacjom"
-    
+"protocolEtiquetteDesc3": "oraz bezwzględny szacunek nie podlegają negocjacjom",
+"protocolStatement": "Potwierdzam, że rozumiem i akceptuję zasady protokołu: sesja opiera się na profesjonalnej dyscyplinie i nie obejmuje nagości Mistrzyni, kontaktów seksualnych (w tym oralnych, manualnych, rimmingu) ani praktyk typu 'dirty play' (wymiana płynów ustrojowych). Każda próba naruszenia tych granic skutkuje natychmiastowym przerwaniem sesji bez zwrotu kosztów."
 }

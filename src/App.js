@@ -6,7 +6,7 @@ import ColorSchemesExample from './components/navbar.js';
 import Sessions from './components/sessions.js';
 import SwipperGallery from './components/swipperGallery.js'; 
 import AdminPanel from "./components/AdminPanel.js";
-import Belt from './components/belt.js';
+
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { useAuth } from "./firebaseAuth.js";
@@ -46,7 +46,7 @@ function App() {
             element={
               <>
                 <Home />
-                <Belt />  
+          
                 <AboutMe />
                 <SwipperGallery />
                 <Sessions />

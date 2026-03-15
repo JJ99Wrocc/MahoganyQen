@@ -12,7 +12,7 @@
   "bookingError": "Error al reservar",
   "bookingSession": "Reserva de sesión",
   "bookSession": "Reservar sesión",
-  "chooseDateTime": "Elija una fecha y hora conveniente para reservar una sesión.",
+  "chooseDateTime": "Elige una fecha y hora en el calendario. En el mensaje, especifica tu experiencia, prácticas preferidas, duración y límites. Si tus fechas son flexibles, indícalo en el mensaje",
   "chooseDate": "Elegir fecha",
   "chooseHour": "Elegir hora",
   "name": "Nombre",
@@ -23,7 +23,7 @@
   "galleryBlurRight": "Galerie verschwommen rechts",
   "aboutMeTitle": "Sobre mí",
   "aboutMeText": "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  "beltText": "ESTÁS AQUÍ PARA SERVIR. Y NADA MÁS",
+  "beltText": "ESTÁS AQUÍ PARA SERVIR",
   "navbarBrand": "Barra de navegación Offcanvas",
   "offcanvasTitle": "Offcanvas",
   "home": "Inicio",
@@ -87,5 +87,6 @@
 "protocolEtiquette": "Etiqueta",
 "protocolEtiquetteDesc1": "El alto estándar del",
 "protocolEtiquetteDesc2": "protocolo fetish",
-"protocolEtiquetteDesc3": "y el respeto absoluto no son negociables"
+"protocolEtiquetteDesc3": "y el respeto absoluto no son negociables",
+"protocolStatement": "Confirmo y acepto las reglas del protocolo: la sesión se basa en la disciplina profesional y excluye estrictamente la desnudez de la Mistress, contactos sexuales (incluyendo oral, manual, rimming) y prácticas de 'dirty play' (fluidos corporales). Cualquier intento de violar estos límites resultará en la terminación inmediata de la sesión sin reembolso."
 }

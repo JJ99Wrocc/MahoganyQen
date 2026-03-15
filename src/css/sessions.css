@@ -25,6 +25,7 @@
   text-align: center;
   opacity: 0.75;
   margin-bottom: 30px;
+  color: #fff;
 }
 
 
@@ -888,10 +889,10 @@ font-size: 30px!important;
     }
 }
 
-/* 2. PODTYTUŁ: MINIMALIZM I ELEGANCJA */
+
 .session-header p {
     font-family: 'Inter', sans-serif;
-    font-size: 12px;
+    font-size: 8px !important;
     text-transform: uppercase;
     letter-spacing: 6px;
     color: rgba(255, 255, 255, 0.4);
@@ -901,7 +902,6 @@ font-size: 30px!important;
     animation-delay: 1.5s;
 }
 
-/* 3. INPUTY: "THE GLASS LINE" */
 .session-form input,
 .session-form select,
 .session-textarea {
@@ -1289,14 +1289,143 @@ font-size: 30px!important;
 
 
 
+/* ==========================================================
+   ULTRA PRO CHECKBOX: THE BOUNDARIES PROTOCOL
+   ========================================================== */
 
+/* Kontener całej sekcji zgody */
+.protocol-rules-container {
+    margin: 40px 0 20px 0;
+    padding: 25px;
+    background: rgba(139, 0, 0, 0.03); /* Bardzo subtelna bordowa poświata */
+    border: 1px solid rgba(139, 0, 0, 0.15);
+    border-left: 4px solid #8b0000; /* Mocny akcent Dominy */
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.protocol-rules-container:hover {
+    background: rgba(139, 0, 0, 0.06);
+    border-left-width: 8px; /* Rozszerza się przy najechaniu */
+    box-shadow: -10px 0 30px rgba(139, 0, 0, 0.1);
+}
+
+/* Ukrywamy domyślny checkbox */
+.luxe-checkbox-input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+}
+
+/* Customowy kwadrat checkboxa */
+.luxe-checkbox-custom {
+    min-width: 22px;
+    height: 22px;
+    background: #000;
+    border: 1px solid #444;
+    display: inline-block;
+    position: relative;
+    transition: all 0.4s ease;
+    margin-right: 20px;
+}
+
+/* Efekt po zaznaczeniu */
+.luxe-checkbox-input:checked ~ .luxe-checkbox-custom {
+    background: rgb(118, 227, 118);
+    border-color: #ffffff;
+    box-shadow: 0 0 15px rgba(139, 0, 0, 0.6);
+}
+
+/* "X" w środku zaznaczonego pola */
+.luxe-checkbox-input:checked ~ .luxe-checkbox-custom::after {
+  position: absolute;
+  content: "\2713"; /* Unicode dla znaku "check" */
+    top: 50%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/* TEKST ZGODY: KLUCZ DO LUKSUSU */
+.luxe-checkbox-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    line-height: 1.8;
+    color: rgba(255, 255, 255, 0.5); /* Dyskretny, żeby nie odciągać uwagi od tytułów */
+    letter-spacing: 0.8px;
+    text-transform: none; /* Ma wyglądać jak poważny dokument */
+}
+
+/* Podświetlenie kluczowych słów w tekście zgody (opcjonalnie w JS daj je w <strong>) */
+.luxe-checkbox-text strong {
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* PRZYCISK SUBMIT - FINAL TOUCH */
+.session-submit {
+    height: 60px;
+    background: transparent !important;
+    border: 1px solid #8b0000 !important;
+    font-family: 'Cinzel', serif !important;
+    font-size: 16px !important;
+    letter-spacing: 6px !important;
+    color: #fff !important;
+    transition: all 0.8s cubic-bezier(0.19, 1, 0.22, 1) !important;
+    cursor: pointer;
+    text-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+}
+
+.session-submit:not(:disabled):hover {
+    background: #8b0000 !important;
+    color: #fff !important;
+    letter-spacing: 12px !important; /* Rozszerza się przy akceptacji */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(139, 0, 0, 0.4) !important;
+}
+
+.session-submit:disabled {
+    border-color: #222 !important;
+    color: #444 !important;
+    filter: grayscale(1);
+    cursor: not-allowed;
+}
+
+/* DODATKOWA ANIMACJA DLA FORMULARZA */
+.session-form > div {
+    animation: fadeInUp 1s ease-out forwards;
+    opacity: 0;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Stopniowe wyłanianie pól */
+.session-form > div:nth-child(1) { animation-delay: 0.2s; }
+.session-form > div:nth-child(2) { animation-delay: 0.4s; }
+.session-form > div:nth-child(3) { animation-delay: 0.6s; }
+.session-form > div:nth-child(4) { animation-delay: 0.8s; }
 @media(max-width:1200px){
  .booking-main-title{
     font-size: 26px;
     letter-spacing: 10px;
   }
-  .booking-status,.session-header p{
+  .booking-status{
     font-size: 13px;
+  }
+  .session-header p{
+    font-size: 9px!important;
+    letter-spacing: 1.8px;
   }
   .session-header h2{
     font-size: 24px;
@@ -1338,9 +1467,10 @@ font-size: 28px!important;
     font-size: 25px;
     letter-spacing: 10px;
   }
-  .booking-status,.session-header p{
+  .booking-status{
     font-size: 10px;
   }
+
   .session-header h2{
     font-size: 23px;
   }
@@ -1374,6 +1504,10 @@ font-size: 25px!important;
     font-size: 11px !important;
     letter-spacing: 1px;
    }
+   .luxe-checkbox-input:checked ~ .luxe-checkbox-custom::after {
+    font-size: 12px;
+
+}
 
 }
 @media(max-width:768px){
@@ -1384,8 +1518,12 @@ font-size: 25px!important;
     font-size: 23px;
     letter-spacing: 8px;
   }
-  .booking-status,.session-header p{
+  .booking-status{
     font-size: 9px;
+  }
+  .session-header p{
+    font-size: 8px!important;
+    letter-spacing: 1.5px;
   }
   .session-header h2{
     font-size: 21px;
@@ -1426,8 +1564,12 @@ font-size: 23px!important;
     font-size: 19px;
    
   }
-  .booking-status,.session-header p{
+  .booking-status{
     font-size: 7px;
+  }
+  .session-header p{
+    font-size: 7px!important;
+
   }
    .date-open-btn,.session-submit{
     font-size: 9px;
@@ -1469,10 +1611,14 @@ font-size: 20px!important;
     letter-spacing: 0.5px;
    
   }
-  .booking-status,.session-header p{
+  .booking-status{
     font-size: 7px;
     letter-spacing: 0.5px;
   }
+  .session-header p{
+    font-size: 6px!important;
+    letter-spacing: 1px;
+  margin: 20px -5px !important;}
    .date-open-btn,.session-submit{
     font-size: 7px;
 
@@ -1499,3 +1645,84 @@ font-size: 20px!important;
 }
 
 
+
+
+/* ==========================================================
+   ULTRA LUXE PHONE INPUT - ELITE EDITION
+   ========================================================== */
+
+/* Główny kontener PhoneInput */
+.luxe-phone-input {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    gap: 10px;
+}
+
+/* Kontener samej flagi i dropdowna */
+.PhoneInputCountry {
+    background: rgba(20, 20, 20, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0 12px;
+    border-radius: 4px;
+    height: 45px; /* Wysokość dopasowana do Twoich inputów */
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.PhoneInputCountry:hover {
+    border-color: rgba(255, 255, 255, 0.3);
+    background: rgba(30, 30, 30, 1);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
+}
+
+/* Ukrywamy domyślną strzałkę, jeśli chcesz ultra-minimalizm (opcjonalnie) */
+.PhoneInputCountryIcon {
+    box-shadow: none !important; /* Usuwamy brzydki cień pod flagą */
+    filter: grayscale(0.2) contrast(1.1); /* Delikatne wyciszenie kolorów flagi */
+}
+
+/* STYLIZACJA DROPDOWNA (SELECTA) */
+.PhoneInputCountrySelect {
+    cursor: pointer;
+}
+
+/* Właściwe pole wpisywania numeru */
+.PhoneInputInput {
+    flex: 1;
+    background: transparent !important;
+    border: none !important;
+    color: #fff !important;
+    font-family: 'Cinzel', serif !important; /* Jeśli używasz tego fontu */
+    font-size: 16px !important;
+    letter-spacing: 1px;
+    height: 45px;
+    outline: none !important;
+}
+
+.PhoneInputInput::placeholder {
+    color: rgba(255, 255, 255, 0.2) !important;
+}
+
+
+
+/* STYLIZACJA LISTY WYBORU KRAJU (Systemowa/Przeglądarkowa) */
+/* Uwaga: Biblioteka używa natywnego <select> pod flagą. 
+   Aby zrobić go PRO, musimy upewnić się, że tło opcji nie psuje klimatu */
+.PhoneInputCountrySelect {
+    background-color: #000 !important;
+    color: black !important;
+}
+
+/* FIX DLA MOBILE - żeby flagi nie były za duże */
+@media (max-width: 768px) {
+    .PhoneInputCountry {
+        padding: 0 8px;
+        height: 40px;
+    }
+    .PhoneInputInput {
+        font-size: 14px !important;
+    }
+}

@@ -116,10 +116,12 @@ function SwipperGallery() {
                   // Priorytet dla pierwszego zdjęcia (LCP Fix)
                   {...(i === 0 ? { fetchpriority: "high" } : {})}
                   style={{
-                    width: '100%',
-                    height: 'auto',
-                    aspectRatio: '2/3',
-                    objectFit: 'cover'
+                   width: 'auto',      
+                   height: 'auto',
+                   maxWidth: '100%',     
+                   maxHeight: '100%',    
+                   objectFit: 'contain',
+                   display: 'block'
                   }}
                 />
                 

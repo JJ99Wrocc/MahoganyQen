@@ -5,12 +5,13 @@ import "../css/sessions.css";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n.js";
 import Select from "react-select";
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input';
+import PhoneInput, { isValidPhoneNumber,parsePhoneNumber } from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+
 
 function Sessions() {
   const { t } = useTranslation();
-
+  const [rulesAccepted, setRulesAccepted] = useState(false);
   const [availableSlots, setAvailableSlots] = useState([]);
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedSlot, setSelectedSlot] = useState(null);
@@ -125,6 +126,7 @@ const [isPhoneValid, setIsPhoneValid] = useState(true);
   setIsEmailValid(isValid && !isSuspicious);
   return isValid;
 };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (company !== "") return;
@@ -139,7 +141,7 @@ const [isPhoneValid, setIsPhoneValid] = useState(true);
     return alert(t("invalidPhoneFormat") || "Niepoprawny numer telefonu");
   }
     if (company !== "") return;
-    
+    if (!rulesAccepted) return alert(t("acceptRulesAlert") || "Zasady protokołu muszą zostać zaakceptowane.");
     setLoading(true);
     try {
       const res = await fetch("https://mahoganyqen.onrender.com/book", {
@@ -220,6 +222,7 @@ const [isPhoneValid, setIsPhoneValid] = useState(true);
         <div className="session-header">
           <h2 id="session-title">{t("bookSession")}</h2>
           <p id="session-desc">{t("chooseDateTime")}</p>
+    
         </div>
 
         <form className="session-form" onSubmit={handleSubmit} noValidate>
@@ -365,7 +368,20 @@ const [isPhoneValid, setIsPhoneValid] = useState(true);
               rows="4"
             />
           </div>
-
+          <div className="protocol-rules-container">
+  <label className="luxe-checkbox-wrapper">
+    <input 
+      type="checkbox" 
+      className="luxe-checkbox-input"
+      checked={rulesAccepted}
+      onChange={(e) => setRulesAccepted(e.target.checked)}
+    />
+    <span className="luxe-checkbox-custom"></span>
+    <span className="luxe-checkbox-text">
+      {t("protocolStatement")}
+    </span>
+  </label>
+</div>
           <button 
             type="submit" 
             className="session-submit" 

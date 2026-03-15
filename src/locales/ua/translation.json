@@ -12,7 +12,7 @@
   "bookingError": "Помилка під час бронювання",
   "bookingSession": "Бронювання сесії",
   "bookSession": "Забронювати сесію",
-  "chooseDateTime": "Виберіть зручну дату та час, щоб записатися на сесію.",
+  "chooseDateTime": "Виберіть дату та час у календарі. У повідомленні вкажіть свій досвід, переважні практики, тривалість та межі. Якщо ваші дати гнучкі, відмітьте це у повідомленні",
   "chooseDate": "Вибрати дату",
   "chooseHour": "Вибрати час",
   "name": "Ім'я",
@@ -23,7 +23,7 @@
   "galleryBlurRight": "Розмите зображення праворуч галереї",
   "aboutMeTitle": "Про мене",
   "aboutMeText": "lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-  "beltText": "ТИ ТУТ, ЩОБ СЛУЖИТИ. І БІЛЬШЕ НІЧОГО",
+  "beltText": "ТИ ТУТ, ЩОБ СЛУЖИТИ",
   "navbarBrand": "Навігація Offcanvas",
   "offcanvasTitle": "Offcanvas",
   "home": "Головна",
@@ -89,5 +89,6 @@
 "protocolEtiquette": "Етикет",
 "protocolEtiquetteDesc1": "Високий стандарт",
 "protocolEtiquetteDesc2": "фетіш-протоколу",
-"protocolEtiquetteDesc3": "та абсолютна повага не є предметом переговорів"
+"protocolEtiquetteDesc3": "та абсолютна повага не є предметом переговорів",
+"protocolStatement": "Я підтверджую та приймаю правила протоколу: сесія базується на професійній дисципліні та суворо виключає оголеність Пані, сексуальні контакти (включно з оральним, мануальним сексом, рімінгом) та практики 'dirty play' (обмін біологічними рідинами). Будь-яка спроба порушення цих меж призведе до негайного припинення сесії без повернення коштів."
 }

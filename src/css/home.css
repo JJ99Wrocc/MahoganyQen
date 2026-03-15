@@ -177,6 +177,57 @@
     animation: mahogEntrance 1.8s ease-out 0.8s forwards;
 }
 
+
+
+/* --- DARK MINIMALIST BELT CONTAINER --- */
+.belt-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    top: -5%; left: -5%; width: 110%; height: 110%;
+    background: transparent !important;
+    overflow: hidden;
+    background-image: radial-gradient(circle at center, #0a0a0a 0%, #000 80%);
+    margin-top: 20px;
+}
+
+
+
+/* --- THE "SMOKE & STEEL" TYPOGRAPHY --- */
+.belt-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px!important;
+    text-transform: uppercase;
+    letter-spacing: 10px;
+    color: #fff;
+    position: relative;
+    z-index: 2;
+    background: linear-gradient(90deg, #fff, #aaa, #fff);
+    background-size: 200% 150%;
+    background-position: 0% center;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+        animation: luxuryKenBurns 30s ease-in-out infinite alternate;
+ }
+
+
+/* --- TWOJE MEDIA QUERIES (ZACHOWANE I DOPASOWANE) --- */
+@media(min-width:992px) and (max-width:1200px){
+    .belt-text { font-size: 12px !important; letter-spacing: 8px; }
+}
+@media(min-width:768px) and (max-width:991px){
+    .belt-text { font-size: 11px !important; letter-spacing: 6px; }
+}
+@media(min-width:578px) and (max-width:768px){
+    .belt-text { font-size: 10px !important; letter-spacing: 5px; }
+}
+@media(min-width:400px) and (max-width:577px){
+    .belt-text { font-size: 9px !important; letter-spacing: 4px; }
+}
+@media(min-width:300px) and (max-width:400px){
+    .belt-text { font-size: 7% !important; letter-spacing: 1cap; }
+}
 /* 2. Definiujemy animację wejścia */
 @keyframes mahogEntrance {
     0% {
@@ -190,4 +241,3 @@
         filter: blur(0);
     }
 }
-
