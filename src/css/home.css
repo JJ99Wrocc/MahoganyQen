@@ -177,6 +177,9 @@
 .belt-text {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 13px!important;
+    opacity: 0;                /* Startuje jako niewidoczny */
+    transform: translateY(20px); /* Startuje przesunięty w dół */
+    filter: blur(10px);
     text-transform: uppercase;
     letter-spacing: 10px;
     color: #fff;
