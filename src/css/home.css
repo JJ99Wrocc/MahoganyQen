@@ -207,7 +207,7 @@
     .belt-text { font-size: 9px !important; letter-spacing: 4px; }
 }
 @media(min-width:300px) and (max-width:400px){
-    .belt-text { font-size: 7% !important; letter-spacing: 1cap; }
+    .belt-text { font-size: 7px !important; letter-spacing: 1px; }
 }
 /* 2. Definiujemy animację wejścia */
 @keyframes mahogEntrance {
