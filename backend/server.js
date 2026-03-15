@@ -227,8 +227,7 @@ app.use(express.static(path.join(__dirname, 'my-app/build'), {
     etag: true
 }));
 
-// 3. OBSŁUGA REACT ROUTER
-// Przekierowuje wszystkie adresy (poza API) na index.html, żeby podstrony działały po odświeżeniu
+
 app.get(/^(?!\/(events|bookings|book|token)).*$/, (req, res) => {
   res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
 });
