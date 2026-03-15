@@ -13,7 +13,7 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const crypto = require("crypto");
 const { Resend } = require('resend'); // Zmiana na Resend
-
+const compression = require('compression');
 const serviceAccount = {
   type: "service_account",
   project_id: process.env.GOOGLE_PROJECT_ID,
@@ -199,8 +199,13 @@ app.post("/book", async (req, res, next) => {
 });
 
 // ===============================
-// ERROR HANDLER & STATIC FILES
+// ERROR HANDLER & STATIC FILES (ELITE CACHE VERSION)
 // ===============================
+
+// Aktywujemy kompresję Gzip - to sprawi, że pliki będą 3x lżejsze do pobrania
+app.use(compression());
+
+// Globalny handler błędów
 app.use((err, req, res, next) => {
   console.error("🔥 SERVER ERROR:", err);
   if (!res.headersSent) {
@@ -208,12 +213,27 @@ app.use((err, req, res, next) => {
   }
 });
 
-app.use(express.static(path.join(__dirname, "my-app/build")));
+// 1. CACHE DLA CIĘŻKICH PLIKÓW (JS, CSS, Zdjęcia WebP/Karuzela)
+// To sprawi, że Google PageSpeed przestanie narzekać na "10 min"
+app.use('/static', express.static(path.join(__dirname, 'my-app/build/static'), {
+    maxAge: '31536000s', // Dokładnie jeden rok w pamięci podręcznej
+    immutable: true      // Informacja, że pliki z hashem nigdy się nie zmienią
+}));
 
+// 2. PLIKI GŁÓWNE (index.html, manifest, ikony favico)
+// Tutaj dajemy cache 0, żeby klient zawsze widział nową wersję strony po aktualizacji
+app.use(express.static(path.join(__dirname, 'my-app/build'), {
+    maxAge: '0',
+    etag: true
+}));
+
+// 3. OBSŁUGA REACT ROUTER
+// Przekierowuje wszystkie adresy (poza API) na index.html, żeby podstrony działały po odświeżeniu
 app.get(/^(?!\/(events|bookings|book|token)).*$/, (req, res) => {
   res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
 });
 
+// 4. START SERWERA
 app.listen(PORT, () =>
   console.log(`🚀 Server running on port ${PORT}`)
 );
