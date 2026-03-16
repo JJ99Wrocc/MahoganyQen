@@ -87,66 +87,10 @@
     margin: 20px auto 0;
     opacity: 0.6;
     animation: lineGrow 1.5s ease-out forwards 1s;
-}
-
-/* --- ANIMACJE --- */
+}    
 
 
-/* --- RESPONSYWNOŚĆ --- */
-@media (max-width: 768px) {
-    .home-title-pro {
-        letter-spacing: 6px;
-        font-size: 3.5rem;
-    }
-    .lineGrow {
-        to { width: 150px; }
-    }
-    .home-img-layer {
-        background-position: 35% center; /* Twoje ustawienie na mobile */
-    }
-}
-@media( min-width: 992px ) and (max-width: 1199px) {
-  .title-glow {
-    font-size: 28px;
-  }
-    .title-underline{
-    margin: 7px auto;
-  }
-}
 
-@media( min-width: 768px ) and (max-width: 991px) {
-  .title-glow {
-    font-size: 22px;
-  }
-   .title-underline{
-    margin: 4px auto;
-  }
-}
-
-@media( min-width: 577px ) and (max-width: 767px) {
-  .title-glow {
-    font-size: 20px;
-  }
-  .title-underline{
-    margin: 5px auto;
-  }
-  /* Animujemy zdjęcie, więc background-position zmieniamy na samej warstwie obrazu */
-  .home-img-layer {
-    background-position: -120px center; 
-  }
-}
-
-@media( min-width: 300px ) and (max-width: 576px) {
-  .title-glow {
-    font-size: 17px;
-  }
-    .title-underline{
-    margin: 4px auto;
-  }
-  .home-img-layer {
-    background-position: 30% center; 
-  }
-}
 /* 1. Ustawiamy startową niewidoczność dla napisu */
 .title-glow {
     opacity: 0;
@@ -196,6 +140,64 @@
  }
 
 
+ @media( min-width: 992px ) and (max-width: 1199px) {
+     .title-glow {
+    font-size: 28px;  
+  }  
+    .title-underline{
+    margin: 7px auto;    
+  }  
+}  
+
+@media( min-width: 768px ) and (max-width: 991px) {
+    .title-glow {
+    font-size: 22px;  
+  }  
+   .title-underline{
+    margin: 4px auto;   
+  }  
+}  
+
+/* --- ANIMACJE --- */
+/* --- RESPONSYWNOŚĆ --- */
+@media (max-width: 768px) {
+    .home-title-pro {
+        letter-spacing: 6px;
+        font-size: 3.5rem;
+    }    
+    .lineGrow {
+        to { width: 150px; }
+    }    
+    .home-img-layer {
+        background-position: 35% center; /* Twoje ustawienie na mobile */
+    }    
+}    
+@media( min-width: 577px ) and (max-width: 767px) {
+  .title-glow {
+    font-size: 20px;  
+  }  
+  .title-underline{
+      margin: 5px auto;  
+    }  
+  /* Animujemy zdjęcie, więc background-position zmieniamy na samej warstwie obrazu */
+  .home-img-layer {
+    background-position: -120px center;   
+  }  
+  
+}  
+
+@media( min-width: 300px ) and (max-width: 576px) {
+  .title-glow {
+    font-size: 25px;  
+  }  
+    .title-underline{
+    margin: 4px auto;    
+  }  
+  .home-img-layer {
+    background-position: 30% center;   
+  }  
+
+}  
 /* --- TWOJE MEDIA QUERIES (ZACHOWANE I DOPASOWANE) --- */
 @media(min-width:992px) and (max-width:1200px){
     .belt-text { font-size: 12px !important; letter-spacing: 8px; }
@@ -206,12 +208,10 @@
 @media(min-width:578px) and (max-width:768px){
     .belt-text { font-size: 10px !important; letter-spacing: 5px; }
 }
-@media(min-width:400px) and (max-width:577px){
-    .belt-text { font-size: 9px !important; letter-spacing: 4px; }
+@media(min-width:300px) and (max-width:577px){
+    .belt-text { font-size: 12px !important; letter-spacing: 4px; }
 }
-@media(min-width:300px) and (max-width:400px){
-    .belt-text { font-size: 10px !important; letter-spacing: 1px; }
-}
+
 /* 2. Definiujemy animację wejścia */
 @keyframes mahogEntrance {
     0% {
