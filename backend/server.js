@@ -215,17 +215,7 @@ app.use((err, req, res, next) => {
 
 
 app.use('/static', express.static(path.join(__dirname, 'my-app/build/static'), {
-    maxAge: '31536000s', // Dokładnie jeden rok w pamięci podręcznej
-    immutable: true      // Informacja, że pliki z hashem nigdy się nie zmienią
-}));
-
-// 2. PLIKI GŁÓWNE (index.html, manifest, ikony favico)
-// Tutaj dajemy cache 0, żeby klient zawsze widział nową wersję strony po aktualizacji
-app.use(express.static(path.join(__dirname, 'my-app/build'), {
-    maxAge: '0',
-    etag: true
-}));
-
+    maxAge: '31536000s', immutable: true , etag: true }));
 
 app.get(/^(?!\/(events|bookings|book|token)).*$/, (req, res) => {
   res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
