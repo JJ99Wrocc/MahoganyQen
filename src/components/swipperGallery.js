@@ -65,7 +65,7 @@ const handleMagnifier = (e) => {
   // Sprawdzamy, czy to dotyk, czy myszka
   let clientX, clientY;
   
-  if (e.touches) {
+if (e.touches && e.touches.length > 0) {
     // Zapobiega przesuwaniu strony podczas jeżdżenia palcem po fotce
     if (e.cancelable) e.preventDefault(); 
     clientX = e.touches[0].clientX;
@@ -74,9 +74,10 @@ const handleMagnifier = (e) => {
     clientX = e.clientX;
     clientY = e.clientY;
   }
-
   const posX = clientX - left;
   const posY = clientY - top;
+  if (imgW !== width) setSize([width, height]);
+  
 
   setSize([width, height]);
   setXY([posX, posY]);
@@ -154,8 +155,10 @@ const showPrev = (e) => {
     onTouchStart={() => setShowMagnifier(true)}
   onTouchMove={handleMagnifier}
   onTouchEnd={() => setShowMagnifier(false)}
+  
     style={{ 
       position: 'relative', 
+      touchAction: 'none',
       display: 'inline-block', // To sprawia, że kontener nie jest szerszy niż fota
       lineHeight: 0 // Usuwa dziwny odstęp na dole zdjęcia
     }}
@@ -173,7 +176,7 @@ const showPrev = (e) => {
         className="magnifier-glass"
     style={{
   position: 'absolute',
-  top: `${y - 50}px`,
+  top: `${y - 130}px`,
   left: `${x - 50}px`,
   backgroundImage: `url(${fullscreenImg})`,
   backgroundSize: `${imgW * 1.5}px ${imgH * 1.5}px`, 
@@ -184,6 +187,12 @@ const showPrev = (e) => {
 }}
       />
     )}
+    {!showMagnifier && (
+    <div className="magnifier-hint">
+      <div className="hint-icon"></div>
+      <span>Przesuń, by przybliżyć 1.5x</span>
+    </div>
+  )}
   </div>
 </div>
 

@@ -704,3 +704,77 @@ font-size: 18px;
   touch-action: none; /* Blokuje scrollowanie strony, gdy dotykasz zdjęcia */
   -webkit-user-select: none; /* Blokuje zaznaczanie tekstu/obrazka */
 }
+/* Kontener z blokadą scrollowania na mobile */
+.magnifier-container {
+  touch-action: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* Styl dla Pulsującej Wskazówki (Hint) */
+.magnifier-hint {
+  position: absolute;
+  top: 20px; /* Dystans od góry */
+  right: 20px; /* Dystans od prawej */
+  background: rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.9);
+  padding: 10px 15px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10010;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 0.5s ease-out;
+  
+  /* Animacja pulsowania, żeby przyciągnąć wzrok */
+  animation: hintPulse 2s infinite;
+}
+
+/* Ikona wskazówki (małe kółko) */
+.hint-icon {
+  width: 12px;
+  height: 12px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  position: relative;
+}
+
+.hint-icon::after {
+  content: '';
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 4px; height: 4px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Animacja pulsowania wskazówki */
+@keyframes hintPulse {
+  0% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.03); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.9; }
+}
+
+/* Opcjonalnie: Schowaj wskazówkę, gdy użytkownik raz użyje lupy */
+.magnifier-container:hover .magnifier-hint,
+.magnifier-container:active .magnifier-hint {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Adaptacja dla desktopu: Wskazówka może być dyskretniejsza */
+@media (min-width: 1025px) {
+  .magnifier-hint {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.7);
+    top: auto;
+    bottom: 20px;
+    right: 20px;
+  }
+}
