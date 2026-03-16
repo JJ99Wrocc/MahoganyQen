@@ -700,3 +700,7 @@ font-size: 18px;
   image-rendering: -webkit-optimize-contrast; /* Dla Safari */
   image-rendering: crisp-edges; /* Dla reszty świata */
 }
+.magnifier-container {
+  touch-action: none; /* Blokuje scrollowanie strony, gdy dotykasz zdjęcia */
+  -webkit-user-select: none; /* Blokuje zaznaczanie tekstu/obrazka */
+}

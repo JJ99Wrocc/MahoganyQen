@@ -62,15 +62,25 @@ const handleMagnifier = (e) => {
   const elem = e.currentTarget;
   const { top, left, width, height } = elem.getBoundingClientRect();
 
-  // Jeśli wymiary są jeszcze niepobrane, ustawiamy je od razu
-  if (imgW !== width || imgH !== height) {
-    setSize([width, height]);
+  // Sprawdzamy, czy to dotyk, czy myszka
+  let clientX, clientY;
+  
+  if (e.touches) {
+    // Zapobiega przesuwaniu strony podczas jeżdżenia palcem po fotce
+    if (e.cancelable) e.preventDefault(); 
+    clientX = e.touches[0].clientX;
+    clientY = e.touches[0].clientY;
+  } else {
+    clientX = e.clientX;
+    clientY = e.clientY;
   }
 
-  const posX = e.pageX - left - window.pageXOffset;
-  const posY = e.pageY - top - window.pageYOffset;
+  const posX = clientX - left;
+  const posY = clientY - top;
+
+  setSize([width, height]);
   setXY([posX, posY]);
-};// Funkcja do cofania zdjęcia (prev)
+};;// Funkcja do cofania zdjęcia (prev)
   const prevImg = () => {
     const currentIndex = images.indexOf(fullscreenImg);
     const prevIndex = (currentIndex === 0 ? images.length - 1 : currentIndex - 1);
@@ -141,6 +151,9 @@ const showPrev = (e) => {
     onMouseEnter={() => setShowMagnifier(true)}
     onMouseMove={handleMagnifier}
     onMouseLeave={() => setShowMagnifier(false)}
+    onTouchStart={() => setShowMagnifier(true)}
+  onTouchMove={handleMagnifier}
+  onTouchEnd={() => setShowMagnifier(false)}
     style={{ 
       position: 'relative', 
       display: 'inline-block', // To sprawia, że kontener nie jest szerszy niż fota
