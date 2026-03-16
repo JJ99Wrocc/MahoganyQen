@@ -463,6 +463,11 @@ font-size: 15px;
    ========================= */
 
 @media (max-width: 991px) {
+      .language-switcher .dropdown-menu{
+        position: absolute;
+        top: 55px !important;
+        left: -60px!important;
+  }
   .language-switcher {
     margin-left: auto;
     margin-right: 8px;

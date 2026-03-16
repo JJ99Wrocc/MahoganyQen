@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useRef } from "react";
 import { Carousel } from "react-bootstrap";
 import "../css/swipperGallery.css";
 import { useTranslation } from "react-i18next";
@@ -51,6 +51,59 @@ const altTexts = [
 function SwipperGallery() {
   const { t } = useTranslation();
   const [fullscreenImg, setFullscreenImg] = useState(null);
+  const [currentIndex, setCurrentIndex] = useState(null);
+  const openFullscreen = (index) => setCurrentIndex(index);
+const closeFullscreen = () => setCurrentIndex(null);
+const [showMagnifier, setShowMagnifier] = useState(false);
+  const [[x, y], setXY] = useState([0, 0]);
+  const [[imgW, imgH], setSize] = useState([0, 0]);
+const imgRef = useRef(null);
+const handleMagnifier = (e) => {
+  const elem = e.currentTarget;
+  const { top, left, width, height } = elem.getBoundingClientRect();
+
+  // Jeśli wymiary są jeszcze niepobrane, ustawiamy je od razu
+  if (imgW !== width || imgH !== height) {
+    setSize([width, height]);
+  }
+
+  const posX = e.pageX - left - window.pageXOffset;
+  const posY = e.pageY - top - window.pageYOffset;
+  setXY([posX, posY]);
+};// Funkcja do cofania zdjęcia (prev)
+  const prevImg = () => {
+    const currentIndex = images.indexOf(fullscreenImg);
+    const prevIndex = (currentIndex === 0 ? images.length - 1 : currentIndex - 1);
+    setFullscreenImg(images[prevIndex]);
+  };
+
+  // Funkcja do przechodzenia do przodu (next)
+  const nextImg = () => {
+    const currentIndex = images.indexOf(fullscreenImg);
+    const nextIndex = (currentIndex === images.length - 1 ? 0 : currentIndex + 1);
+    setFullscreenImg(images[nextIndex]);
+  };
+
+  // Obsługa klawiatury (ESC, Strzałki) - Standard 100k PLN
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (!fullscreenImg) return;
+      if (e.key === "Escape") setFullscreenImg(null);
+      if (e.key === "ArrowLeft") prevImg();
+      if (e.key === "ArrowRight") nextImg();
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [fullscreenImg]); // Reaguje na zmianę zdjęcia
+const showNext = (e) => {
+  e.stopPropagation();
+  setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+};
+
+const showPrev = (e) => {
+  e.stopPropagation();
+  setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+};
  useEffect(() => {
     if (fullscreenImg) {
       document.body.style.overflow = 'hidden';
@@ -70,13 +123,63 @@ function SwipperGallery() {
 
   return (
     <>
-    {fullscreenImg && (
+  {fullscreenImg && (
   <div className="fs-overlay" onClick={() => setFullscreenImg(null)}>
-    <button className="fs-close" onClick={() => setFullscreenImg(null)}>×</button>
-    <img src={fullscreenImg} alt="Enlarged" className="fs-img-content" />
+    <button className="fs-close" onClick={() => setFullscreenImg(null)}>
+      <div className="close-lines"></div>
+    </button>
+
+    <div className="fs-content-container">
+      <button className="fs-nav-btn left" onClick={(e) => { e.stopPropagation(); prevImg(); }}>
+        <span className="arrow-icon"></span>
+      </button>
+
+      {/* TUTAJ DZIEJE SIĘ MAGIA LUPY */}
+  <div className="fs-main-stage">
+  <div 
+    className="magnifier-container" 
+    onMouseEnter={() => setShowMagnifier(true)}
+    onMouseMove={handleMagnifier}
+    onMouseLeave={() => setShowMagnifier(false)}
+    style={{ 
+      position: 'relative', 
+      display: 'inline-block', // To sprawia, że kontener nie jest szerszy niż fota
+      lineHeight: 0 // Usuwa dziwny odstęp na dole zdjęcia
+    }}
+  >
+    <img 
+      ref={imgRef} 
+      src={fullscreenImg} 
+      alt="Pro view" 
+      className="fs-img-content" 
+      style={{ display: 'block', maxWidth: '100%', maxHeight: '85vh' }}
+    />
+
+    {showMagnifier && (
+      <div 
+        className="magnifier-glass"
+    style={{
+  position: 'absolute',
+  top: `${y - 50}px`,
+  left: `${x - 50}px`,
+  backgroundImage: `url(${fullscreenImg})`,
+  backgroundSize: `${imgW * 1.5}px ${imgH * 1.5}px`, 
+  // OBLICZENIA DLA ZOOMU 10x:
+  backgroundPosition: `${(x / imgW) * 100}% ${(y / imgH) * 100}%`,
+  backgroundRepeat: 'no-repeat',
+  pointerEvents: 'none'
+}}
+      />
+    )}
   </div>
-)}
-      <div className="gallery-preface">
+</div>
+
+      <button className="fs-nav-btn right" onClick={(e) => { e.stopPropagation(); nextImg(); }}>
+        <span className="arrow-icon"></span>
+      </button>
+    </div>
+  </div>
+)}      <div className="gallery-preface">
         <div className="preface-line"></div>
         <div className="preface-content">
           <span className="preface-subtitle">{t("exhibition")}</span>
