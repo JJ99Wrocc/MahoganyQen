@@ -35,9 +35,9 @@ function Home() {
             <div className='belt-bhi'></div>
             <h1 className='belt-text'>{t("beltText")}</h1>
         </div>
-         <div  className="home-button">
+         <div  className="home-button" onClick={handleScrollToSession}> 
           <a href="#session" className="home-btn home-btn-primary" aria-label="Request a private session with the Mistress"
-           onClick={handleScrollToSession}>
+           >
            <span className="btn-text-glow">{t("Session Request")}</span>
           </a>
          <div className="arrow-wrapper">
