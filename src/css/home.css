@@ -188,7 +188,7 @@
 
 @media( min-width: 300px ) and (max-width: 576px) {
   .title-glow {
-    font-size: 25px;  
+    font-size: 25px !important;  
   }  
     .title-underline{
     margin: 4px auto;    
@@ -209,7 +209,7 @@
     .belt-text { font-size: 10px !important; letter-spacing: 5px; }
 }
 @media(min-width:300px) and (max-width:577px){
-    .belt-text { font-size: 12px !important; letter-spacing: 4px; }
+    .belt-text { font-size: 11px !important; letter-spacing: 4px; }
 }
 
 /* 2. Definiujemy animację wejścia */
