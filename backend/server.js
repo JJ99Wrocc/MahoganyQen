@@ -213,8 +213,7 @@ app.use((err, req, res, next) => {
   }
 });
 
-// 1. CACHE DLA CIĘŻKICH PLIKÓW (JS, CSS, Zdjęcia WebP/Karuzela)
-// To sprawi, że Google PageSpeed przestanie narzekać na "10 min"
+
 app.use('/static', express.static(path.join(__dirname, 'my-app/build/static'), {
     maxAge: '31536000s', // Dokładnie jeden rok w pamięci podręcznej
     immutable: true      // Informacja, że pliki z hashem nigdy się nie zmienią
