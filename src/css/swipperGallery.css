@@ -715,8 +715,8 @@ font-size: 18px;
 /* Styl dla Pulsującej Wskazówki (Hint) */
 .magnifier-hint {
   position: absolute;
-  bottom: -40px; /* Dystans od góry */
-  right: 0;  
+  top: 20px; /* Dystans od góry */
+  right: 20px; /* Dystans od prawej */
   background: rgba(0, 0, 0, 0.6);
   color: rgba(255, 255, 255, 0.9);
   padding: 10px 15px;
@@ -774,7 +774,7 @@ font-size: 18px;
     border: none;
     color: rgba(255, 255, 255, 0.7);
     top: auto;
-    bottom: 20px;
+    top: 20px;
     right: 20px;
   }
 }
