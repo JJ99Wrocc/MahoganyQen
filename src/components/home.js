@@ -36,7 +36,9 @@ function Home() {
             <h1 className='belt-text'>{t("beltText")}</h1>
         </div>
          <div  className="home-button" onClick={handleScrollToSession}> 
-          <a href="#session" className="home-btn home-btn-primary" aria-label="Request a private session with the Mistress"
+          <a href="#session" className="home-btn home-btn-primary"
+          onClick={(e) => e.preventDefault()}
+           aria-label="Request a private session with the Mistress"
            >
            <span className="btn-text-glow">{t("Session Request")}</span>
           </a>
