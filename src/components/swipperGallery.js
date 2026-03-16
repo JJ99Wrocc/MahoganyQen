@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Carousel } from "react-bootstrap";
 import "../css/swipperGallery.css";
 import { useTranslation } from "react-i18next";
@@ -50,8 +50,14 @@ const altTexts = [
 
 function SwipperGallery() {
   const { t } = useTranslation();
-
-  // Rejestracja Service Workera dla Cache PRO
+  const [fullscreenImg, setFullscreenImg] = useState(null);
+ useEffect(() => {
+    if (fullscreenImg) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+  }, [fullscreenImg]);
   useEffect(() => {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/service-worker.js')
@@ -64,6 +70,12 @@ function SwipperGallery() {
 
   return (
     <>
+    {fullscreenImg && (
+  <div className="fs-overlay" onClick={() => setFullscreenImg(null)}>
+    <button className="fs-close" onClick={() => setFullscreenImg(null)}>×</button>
+    <img src={fullscreenImg} alt="Enlarged" className="fs-img-content" />
+  </div>
+)}
       <div className="gallery-preface">
         <div className="preface-line"></div>
         <div className="preface-content">
@@ -104,27 +116,26 @@ function SwipperGallery() {
                   loading="lazy" 
                 />
                 
-                {/* GŁÓWNE ZDJĘCIE */}
-                <img 
-                  className="slide-main" 
-                  src={img} 
-                  alt={altTexts[i]} 
-                  width="800"  // Rozmiar fizyczny dla przeglądarki
-                  height="1200"
-                  // Pierwsze 2 zdjęcia ładowane natychmiast, reszta leniwie
-                  loading={i < 2 ? "eager" : "lazy"}
-                  // Priorytet dla pierwszego zdjęcia (LCP Fix)
-                  {...(i === 0 ? { fetchpriority: "high" } : {})}
-                  style={{
-                   width: 'auto',      
-                   height: 'auto',
-                   maxWidth: '100%',     
-                   maxHeight: '100%',    
-                   objectFit: 'contain',
-                   display: 'block'
-                  }}
-                />
-                
+                {/* GŁÓWNE ZDJĘCIE - KLIKALNE */}
+<img 
+  className="slide-main" 
+  src={img} 
+  alt={altTexts[i]} 
+  width="800"
+  height="1200"
+  loading={i < 2 ? "eager" : "lazy"}
+  {...(i === 0 ? { fetchpriority: "high" } : {})}
+  onClick={() => setFullscreenImg(img)}
+  style={{
+    width: 'auto',      
+    height: 'auto',
+    maxWidth: '100%',     
+    maxHeight: '100%',    
+    objectFit: 'contain',
+    display: 'block',
+    cursor: 'zoom-in' // Dodaj to, żeby było wiadomo, że można kliknąć
+  }}
+/>
                 {/* Zdjęcie prawe (blur) */}
                 <img 
                   className="slide-blur" 
