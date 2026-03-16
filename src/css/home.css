@@ -212,18 +212,18 @@
   }  
       .home-btn-primary:hover {
 
-    padding-left: 25px  !important;
-    padding-right: 25px !important;
+    padding-left: 30px  !important;
+    padding-right: 30px !important;
 }
 .btn-text-glow {
-    font-size: 10px !important;  
+    font-size: 13px !important;  
 }   
       .belt-text { font-size: 11px !important; letter-spacing: 5px; }
 }  
 
 @media( min-width: 300px ) and (max-width: 576px) {
   .title-glow {
-    font-size: 27px !important;  
+    font-size: 45px !important;  
   }  
     .title-underline{
     margin: 4px auto;    
@@ -233,11 +233,11 @@
   }  
   .home-btn-primary:hover {
 
-    padding-left: 20px  !important;
-    padding-right: 20px !important;
+    padding-left: 25px  !important;
+    padding-right: 25px !important;
 }
 .btn-text-glow {
-    font-size: 9px !important;  
+    font-size: 11px !important;  
 }
 
 }  
