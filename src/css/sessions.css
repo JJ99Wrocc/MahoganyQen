@@ -1558,6 +1558,10 @@ font-size: 23px!important;
     font-size: 10px !important;
     letter-spacing: 0.5px;
    }
+
+   .session-submit:hover{
+  letter-spacing: 1.5px !important;
+}
 }
 @media(max-width:576px){
  .booking-main-title,.session-header h2{
@@ -1572,7 +1576,7 @@ font-size: 23px!important;
 
   }
    .date-open-btn,.session-submit{
-    font-size: 9px;
+    font-size: 9px !important;
   
    }
   
@@ -1604,8 +1608,9 @@ font-size: 20px!important;
     font-size: 9px !important;
     letter-spacing: 0.5px;
    }
+
    .session-submit:hover{
-  letter-spacing: 1.2px !important;
+  letter-spacing: 1.5px !important;
 }
 }
 @media(max-width:400px){
@@ -1623,7 +1628,7 @@ font-size: 20px!important;
     letter-spacing: 1px;
   margin: 20px -5px !important;}
    .date-open-btn,.session-submit{
-    font-size: 7px;
+    font-size: 7px !important;
 
    }
   .error-message-luxe, 
