@@ -121,9 +121,7 @@
 .belt-text {
     font-family: 'Bebas Neue', sans-serif;
     font-size: 13px!important;
-    opacity: 0;                /* Startuje jako niewidoczny */
-    transform: translateY(20px); /* Startuje przesunięty w dół */
-    filter: blur(10px);
+
     text-transform: uppercase;
     letter-spacing: 10px;
     color: #fff;
@@ -138,7 +136,11 @@
         mahogEntrance 1.2s ease-out 0.4s forwards;
         
  }
-
+ .belt-text,.home-button {
+       opacity: 0;                /* Startuje jako niewidoczny */
+    transform: translateY(20px); /* Startuje przesunięty w dół */
+    filter: blur(10px);
+ }
 
  @media( min-width: 992px ) and (max-width: 1199px) {
      .title-glow {
@@ -147,6 +149,15 @@
     .title-underline{
     margin: 7px auto;    
   }  
+  .home-btn-primary:hover {
+
+    padding-left: 40px  !important;
+    padding-right: 40px !important;
+}
+.btn-text-glow {
+    font-size: 11px !important;  
+}
+ .belt-text { font-size: 12px !important; letter-spacing: 8px; }
 }  
 
 @media( min-width: 768px ) and (max-width: 991px) {
@@ -156,10 +167,25 @@
    .title-underline{
     margin: 4px auto;   
   }  
-}  
+    .home-btn-primary:hover {
 
-/* --- ANIMACJE --- */
-/* --- RESPONSYWNOŚĆ --- */
+    padding-left: 30px  !important;
+    padding-right: 30px !important;
+}
+.btn-text-glow {
+    font-size: 10px !important;  
+}
+    .belt-text { font-size: 11px !important; letter-spacing: 6px; }
+}  
+@media(max-width: 991px) {
+     .home-button{
+    bottom: -270px!important;
+}  
+.arrow-down {
+    width: 15px !important;
+    height: 15px   !important;
+}
+}
 @media (max-width: 768px) {
     .home-title-pro {
         letter-spacing: 6px;
@@ -171,10 +197,11 @@
     .home-img-layer {
         background-position: 35% center; /* Twoje ustawienie na mobile */
     }    
+   
 }    
-@media( min-width: 577px ) and (max-width: 767px) {
+@media( min-width: 577px ) and (max-width: 768px) {
   .title-glow {
-    font-size: 20px;  
+    font-size: 30   px;  
   }  
   .title-underline{
       margin: 5px auto;  
@@ -183,12 +210,20 @@
   .home-img-layer {
     background-position: -120px center;   
   }  
-  
+      .home-btn-primary:hover {
+
+    padding-left: 25px  !important;
+    padding-right: 25px !important;
+}
+.btn-text-glow {
+    font-size: 10px !important;  
+}   
+      .belt-text { font-size: 11px !important; letter-spacing: 5px; }
 }  
 
 @media( min-width: 300px ) and (max-width: 576px) {
   .title-glow {
-    font-size: 25px !important;  
+    font-size: 27px !important;  
   }  
     .title-underline{
     margin: 4px auto;    
@@ -196,18 +231,19 @@
   .home-img-layer {
     background-position: 30% center;   
   }  
+  .home-btn-primary:hover {
+
+    padding-left: 20px  !important;
+    padding-right: 20px !important;
+}
+.btn-text-glow {
+    font-size: 9px !important;  
+}
 
 }  
-/* --- TWOJE MEDIA QUERIES (ZACHOWANE I DOPASOWANE) --- */
-@media(min-width:992px) and (max-width:1200px){
-    .belt-text { font-size: 12px !important; letter-spacing: 8px; }
-}
-@media(min-width:768px) and (max-width:991px){
-    .belt-text { font-size: 11px !important; letter-spacing: 6px; }
-}
-@media(min-width:578px) and (max-width:768px){
-    .belt-text { font-size: 10px !important; letter-spacing: 5px; }
-}
+
+
+
 @media(min-width:300px) and (max-width:577px){
     .belt-text { font-size: 11px !important; letter-spacing: 4px; }
 }
@@ -249,3 +285,111 @@
 @keyframes lineGrow {
     to { width: 300px; }
 }
+
+
+
+
+
+
+/* Kontener - musi być elastyczny i lekki */
+.home-button {
+    
+     position: absolute !important;
+     font-size: 20px;
+   bottom: -250px;
+   margin: 0 auto;
+    left: 0; right: 0;
+    animation: mahogEntrance 1.5s ease-out 2.3s forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+gap:0px;
+  
+}
+
+/* Przycisk - 2026 Style: lekki, przezroczysty, z "inteligentną" krawędzią */
+.home-btn-primary {
+    position: relative;
+    padding: 5px 15px;
+    text-decoration: none;
+    background: rgba(255, 255, 255, 0.03); /* Prawie niewidoczne tło */
+    border: none; /* Wywalamy standardową ramkę */
+    /* Zamiast ramki - cienka linia na górze i na dole */
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+    backdrop-filter: blur(5px);
+}
+
+.home-btn-primary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-top-color: #fff;
+    border-bottom-color: #fff;
+    padding-left: 60px; /* Lekkie przesunięcie - efekt "aktywacji" */
+    padding-right: 60px;
+}
+
+/* Napis - czysta biel, bez "tanich" gradientów, tylko ostra typografia */
+.btn-text-glow {
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    transition: letter-spacing 0.5s ease;
+}
+
+.home-btn-primary:hover .btn-text-glow {
+    letter-spacing: 5px;
+}
+
+.arrow-wrapper {
+    height: 50px; /* Stała wysokość na animację */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: visible; /* Pozwala strzałce być widoczną */
+    margin-top: 20px;
+}
+/* Strzałka - 2026 Minimal: Dwie cienkie linie zbiegające się w punkt */
+.arrow-down {
+    width: 20px;
+    height: 20px;
+    position: relative;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: all 0.3s ease;
+    animation: arrowSlide 3s infinite cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.arrow-down::before,
+.arrow-down::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 1px;
+    height: 100%;
+    background: #fff;
+}
+
+/* Lewa i prawa strona grota - bardzo ostre kąty */
+.arrow-down::before {
+    left: 50%;
+    transform: translateX(-100%) rotate(-30deg);
+    transform-origin: bottom right;
+}
+
+.arrow-down::after {
+    right: 50%;
+       transform: translateX(100%) rotate(30deg);
+    transform-origin: bottom left;
+}
+
+/* Animacja - strzałka "płynie" zamiast skakać */
+@keyframes arrowSlide {
+    0% { transform: translateY(0) scaleY(0.8); opacity: 0; }
+    50% { transform: translateY(15px) scaleY(1.2); opacity: 1; }
+    100% { transform: translateY(30px) scaleY(0.8); opacity: 0; }
+}
+

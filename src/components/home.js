@@ -4,6 +4,13 @@ import { useTranslation } from "react-i18next";
 
 function Home() {
   const { t } = useTranslation();
+  const handleScrollToSession = (e) => {
+    e.preventDefault();
+    const sessionSection = document.getElementById("sessions-booking");
+    if (sessionSection) {
+      sessionSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <div id="home" className="home-hero-viewport" role="banner">
@@ -26,7 +33,16 @@ function Home() {
             aria-hidden="true"
         >
             <div className='belt-bhi'></div>
-            <div className='belt-text'>{t("beltText")}</div>
+            <h1 className='belt-text'>{t("beltText")}</h1>
+        </div>
+         <div  className="home-button">
+          <a href="#session" className="home-btn home-btn-primary" aria-label="Request a private session with the Mistress"
+           onClick={handleScrollToSession}>
+           <span className="btn-text-glow">{t("Session Request")}</span>
+          </a>
+         <div className="arrow-wrapper">
+    <div aria-hidden="true" className="arrow-down"></div>
+  </div>
         </div>
       </div>
     </div>
