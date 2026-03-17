@@ -192,8 +192,8 @@
     }}
   />
 )}
-        />
-      )}
+        
+      
       {!showMagnifier && (
       <div className="magnifier-hint">
         <div className="hint-icon"></div>
