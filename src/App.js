@@ -12,7 +12,7 @@ import SwipperGallery from './components/swipperGallery.js';
 
 import './App.css';
 import CookieConsent from "react-cookie-consent";
-  const AdminPanel = lazy(() => import("./components/AdminPanel.js"));
+import AdminPanel from "./components/AdminPanel.js";
 
 function App() {
   const { user } = useAuth();
