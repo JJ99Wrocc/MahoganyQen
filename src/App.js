@@ -1,3 +1,7 @@
+import React, { useState, useEffect,Suspense, lazy } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import "./firebase.js";
+import { useAuth } from "./firebaseAuth.js";
 import AboutMe from './components/aboutMe.js';
 import Footer from './components/footer.js';
 import Home from './components/home.js';
@@ -5,18 +9,15 @@ import Links from './components/links.js';
 import ColorSchemesExample from './components/navbar.js';
 import Sessions from './components/sessions.js';
 import SwipperGallery from './components/swipperGallery.js'; 
-import AdminPanel from "./components/AdminPanel.js";
 
-import React, { useState, useEffect } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { useAuth } from "./firebaseAuth.js";
 import './App.css';
 import CookieConsent from "react-cookie-consent";
+  const AdminPanel = lazy(() => import("./components/AdminPanel.js"));
 
 function App() {
   const { user } = useAuth();
   const [scrollToTop, setScrollToTop] = useState(false);
-
+  
   useEffect(() => {
     const handleScroll = () => {
       setScrollToTop(window.scrollY > 300);
@@ -65,9 +66,13 @@ function App() {
           />
 
           <Route
-            path="/admin"
-            element={user ? <AdminPanel /> : <Navigate to="/" replace />}
-          />
+  path="/admin"
+  element={
+    <Suspense fallback={<div>Ładowanie panelu...</div>}>
+      {user ? <AdminPanel /> : <Navigate to="/" replace />}
+    </Suspense>
+  }
+/>
         </Routes>
       </main>
 
