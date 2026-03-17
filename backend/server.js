@@ -13,7 +13,6 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const crypto = require("crypto");
 const { Resend } = require('resend'); 
-const compression = require('compression');
 
 const serviceAccount = {
   type: "service_account",
@@ -41,7 +40,11 @@ const app = express();
 
 app.set('trust proxy', 1);
 
-// POPRAWKA RENDERA: Helmet domyślnie blokuje zasoby. Wyłączamy CSP, żeby strona ruszyła.
+app.get("/", (req, res) => {
+  res.status(200).send("API is running");
+});
+
+// POPRAWKA RENDERA: Helmet domyślnie blokuje obrazki. Poluzowujemy CSP.
 app.use(helmet({
   contentSecurityPolicy: false,
 }));
@@ -151,18 +154,7 @@ app.post("/book", async (req, res, next) => {
         to: [email],
         cc: ['Mahoganyqencontact@gmail.com'],
         subject: "Potwierdzenie rezerwacji ✅",
-        html: `
-          <div style="font-family: sans-serif; line-height: 1.5;">
-            <h2>Cześć ${name}!</h2>
-            <p>Twoja rezerwacja została potwierdzona.</p>
-            <ul>
-              <li><strong>Data:</strong> ${date}</li>
-              <li><strong>Godzina:</strong> ${time}</li>
-              <li><strong>Telefon:</strong> ${phone}</li>
-              <li><strong>Wiadomość:</strong> ${message || "Brak dodatkowych informacji"}</li>
-            </ul>
-          </div>
-        `
+        html: `<div style="font-family: sans-serif;"><h2>Cześć ${name}!</h2><p>Twoja rezerwacja na ${date} została potwierdzona.</p></div>`
       });
     } catch (mailError) {
       console.error("❌ Błąd Resend:", mailError.message);
@@ -178,28 +170,30 @@ app.post("/book", async (req, res, next) => {
 });
 
 // ===============================
-// STATIC FILES & CACHE (FIXED)
+// ERROR HANDLER & STATIC FILES (HARDCORE CACHE)
 // ===============================
 
-app.use(compression());
-
-// To ustawienie sprawi, że WSZYSTKIE pliki (obrazy, js, css) będą trzymane rok
-app.use(express.static(path.join(__dirname, 'my-app/build'), {
-    maxAge: '31536000s', 
-    immutable: true, 
-    etag: true 
-}));
-
-// Obsługa React Router dla wszystkich podstron
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
-});
-
-// Globalny handler błędów
 app.use((err, req, res, next) => {
+  console.error("🔥 SERVER ERROR:", err);
   if (!res.headersSent) {
     res.status(500).json({ error: "Internal server error" });
   }
+});
+
+// PANCERNY CACHE: Złapie wszystko w buildzie, w tym Twoje Caruzel.webp
+app.use(express.static(path.join(__dirname, "my-app/build"), {
+  maxAge: '31536000s',
+  immutable: true,
+  etag: true,
+  setHeaders: (res, localPath) => {
+    if (localPath.match(/\.(js|css|png|jpg|jpeg|gif|webp|svg|ico|woff|woff2)$/)) {
+      res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+    }
+  }
+}));
+
+app.get(/^(?!\/(events|bookings|book|token)).*$/, (req, res) => {
+  res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
 });
 
 app.listen(PORT, () =>
