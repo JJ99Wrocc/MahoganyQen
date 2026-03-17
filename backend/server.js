@@ -24,7 +24,7 @@ const serviceAccount = {
   client_id: process.env.GOOGLE_CLIENT_ID,
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
   token_uri: "https://oauth2.googleapis.com/token",
-  auth_provider_x509_cert_url: "https://www.googleapis.com/google/v1/certs",
+  auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
   client_x509_cert_url: process.env.GOOGLE_CLIENT_X509_URL
 };
 
@@ -41,7 +41,7 @@ const app = express();
 
 app.set('trust proxy', 1);
 
-// Zmieniony Helmet - wyłączone blokowanie zasobów (CSP), żeby Render działał
+// POPRAWKA RENDERA: Helmet domyślnie blokuje zasoby. Wyłączamy CSP, żeby strona ruszyła.
 app.use(helmet({
   contentSecurityPolicy: false,
 }));
@@ -140,7 +140,6 @@ app.post("/book", async (req, res, next) => {
         time,
         message,
       });
-      console.log("✅ Zapisano w MongoDB");
     } catch (err) {
       if (err.code === 11000) return res.status(409).json({ error: "Slot already booked" });
       throw err;
@@ -172,7 +171,6 @@ app.post("/book", async (req, res, next) => {
     return res.status(200).json({ success: true, message: "Rezerwacja zakończona!" });
 
   } catch (err) {
-    console.error("🔥 Krytyczny błąd serwera:", err);
     if (!res.headersSent) {
       return res.status(500).json({ error: "Internal server error" });
     }
@@ -180,33 +178,30 @@ app.post("/book", async (req, res, next) => {
 });
 
 // ===============================
-// ERROR HANDLER & STATIC FILES (ELITE CACHE VERSION)
+// STATIC FILES & CACHE (FIXED)
 // ===============================
 
-// Zostawiamy kompresję, ale Render sam to obsłuży, jeśli nagłówki będą czyste
 app.use(compression());
 
+// To ustawienie sprawi, że WSZYSTKIE pliki (obrazy, js, css) będą trzymane rok
+app.use(express.static(path.join(__dirname, 'my-app/build'), {
+    maxAge: '31536000s', 
+    immutable: true, 
+    etag: true 
+}));
+
+// Obsługa React Router dla wszystkich podstron
+app.get("*", (req, res) => {
+    res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
+});
+
+// Globalny handler błędów
 app.use((err, req, res, next) => {
-  console.error("🔥 SERVER ERROR:", err);
   if (!res.headersSent) {
     res.status(500).json({ error: "Internal server error" });
   }
 });
 
-// TU BYŁ BŁĄD - Zmieniamy ścieżki na poprawne dla Rendera
-// Serwujemy pliki z builda z cache na 1 rok
-app.use(express.static(path.join(__dirname, 'my-app/build'), {
-  maxAge: '31536000s',
-  immutable: true,
-  etag: true
-}));
-
-// Obsługa React Router
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
-});
-
-// 4. START SERWERA
 app.listen(PORT, () =>
   console.log(`🚀 Server running on port ${PORT}`)
 );
