@@ -1,18 +1,16 @@
 {
   "files": {
     "main.css": "/static/css/main.6bf5d748.css",
-    "main.js": "/static/js/main.4a51b4b2.js",
+    "main.js": "/static/js/main.4cc0d7b6.js",
     "static/js/543.6b51458c.chunk.js": "/static/js/543.6b51458c.chunk.js",
     "static/js/453.299355d7.chunk.js": "/static/js/453.299355d7.chunk.js",
     "static/media/Caruzel15.webp": "/static/media/Caruzel15.ef60291f4e250ba69bf3.webp",
-    "static/media/Caruzel 3.webp": "/static/media/Caruzel 3.feed2132049c082fd926.webp",
     "static/media/Evon-hero-img.webp": "/static/media/Evon-hero-img.a2f9d9835162d8af202b.webp",
     "static/media/Caruzel10.webp": "/static/media/Caruzel10.69258ad45c52a7a1dc72.webp",
     "static/media/Caruzel6.webp": "/static/media/Caruzel6.fd6df74d7672bc2b2d57.webp",
     "static/media/rs.svg": "/static/media/rs.099fd9d4031b066a2362.svg",
     "static/media/Caruzel 2.webp": "/static/media/Caruzel 2.bad585a15492866dda68.webp",
     "static/media/Caruzel14.webp": "/static/media/Caruzel14.8d8cd75bd75beb57644b.webp",
-    "static/media/Caruzel 1.webp": "/static/media/Caruzel 1.3c3dbb6679a7bf5ea4fe.webp",
     "static/media/Caruzel5.webp": "/static/media/Caruzel5.3c3dbb6679a7bf5ea4fe.webp",
     "static/media/Caruzel12.webp": "/static/media/Caruzel12.b856368ea45084b7a6d7.webp",
     "static/media/sh-ac.svg": "/static/media/sh-ac.12e47249c910761e397d.svg",
@@ -29,6 +27,7 @@
     "static/media/Caruzel17.webp": "/static/media/Caruzel17.476458c4602c8f9bce85.webp",
     "static/media/Icon.svg": "/static/media/Icon.ca3ae83e4336c3d84edf2185a41d30ad.svg",
     "static/media/me.svg": "/static/media/me.2e1e72f3094e36ac941f.svg",
+    "static/media/Caruzel 3.webp": "/static/media/Caruzel 3.170a2a27ab4e612238c6.webp",
     "static/media/Caruzel18.webp": "/static/media/Caruzel18.6f96e4970631d4407b5f.webp",
     "static/media/bz.svg": "/static/media/bz.d6efb8bf4f72e304256a.svg",
     "static/media/do.svg": "/static/media/do.5b6684f3d0630d4bcec4.svg",
@@ -45,6 +44,7 @@
     "static/media/fk.svg": "/static/media/fk.a83317fea67e7de6250c.svg",
     "static/media/va.svg": "/static/media/va.bbc2e5e39631d0a12732.svg",
     "static/media/es-ga.svg": "/static/media/es-ga.a422d85b7b98ad52b43d.svg",
+    "static/media/Caruzel 1.webp": "/static/media/Caruzel 1.23e930d4a3133ecb8132.webp",
     "static/media/bt.svg": "/static/media/bt.8d9397c0bad9799f16f9.svg",
     "static/media/arab.svg": "/static/media/arab.4d8a095e5e2e4eafc280.svg",
     "static/media/fj.svg": "/static/media/fj.84732a88e04260ae6d30.svg",
@@ -306,12 +306,12 @@
     "static/media/pe.svg": "/static/media/pe.d64e9732fcaa8f765994.svg",
     "static/media/id.svg": "/static/media/id.f624e2c8444a7794b357.svg",
     "main.6bf5d748.css.map": "/static/css/main.6bf5d748.css.map",
-    "main.4a51b4b2.js.map": "/static/js/main.4a51b4b2.js.map",
+    "main.4cc0d7b6.js.map": "/static/js/main.4cc0d7b6.js.map",
     "543.6b51458c.chunk.js.map": "/static/js/543.6b51458c.chunk.js.map",
     "453.299355d7.chunk.js.map": "/static/js/453.299355d7.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6bf5d748.css",
-    "static/js/main.4a51b4b2.js"
+    "static/js/main.4cc0d7b6.js"
   ]
 }
