@@ -12,8 +12,9 @@ const { google } = require("googleapis");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 const crypto = require("crypto");
-const { Resend } = require('resend'); // Zmiana na Resend
+const { Resend } = require('resend'); 
 const compression = require('compression');
+
 const serviceAccount = {
   type: "service_account",
   project_id: process.env.GOOGLE_PROJECT_ID,
@@ -23,12 +24,11 @@ const serviceAccount = {
   client_id: process.env.GOOGLE_CLIENT_ID,
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
   token_uri: "https://oauth2.googleapis.com/token",
-  auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
+  auth_provider_x509_cert_url: "https://www.googleapis.com/google/v1/certs",
   client_x509_cert_url: process.env.GOOGLE_CLIENT_X509_URL
 };
 
 const Booking = require("./models/Booking");
-
 
 const PORT = process.env.PORT || 3002;
 const CALENDAR_ID =
@@ -37,17 +37,14 @@ const CALENDAR_ID =
 
 const resend = new Resend(process.env.SMTP_PASS);
 
-
 const app = express();
 
 app.set('trust proxy', 1);
 
-app.get("/", (req, res) => {
-  res.status(200).send("API is running");
-});
-
-
-app.use(helmet());
+// Zmieniony Helmet - wyłączone blokowanie zasobów (CSP), żeby Render działał
+app.use(helmet({
+  contentSecurityPolicy: false,
+}));
 app.disable("x-powered-by");
 
 app.use(
@@ -84,14 +81,10 @@ setInterval(() => {
   }
 }, 60000);
 
-
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch((err) => console.error("❌ MongoDB error", err));
-
-console.log("✅ Resend Email API initialized");
-
 
 const auth = new google.auth.GoogleAuth({
   credentials: serviceAccount,
@@ -99,7 +92,6 @@ const auth = new google.auth.GoogleAuth({
 });
 
 const calendar = google.calendar({ version: "v3", auth });
-
 
 app.get("/events", async (req, res) => {
   try {
@@ -129,18 +121,15 @@ app.get("/bookings", async (req, res) => {
   res.json(bookings);
 });
 
-
 app.post("/book", async (req, res, next) => {
   try {
     const { token, id, name, email, date, time, phone, message } = req.body;
 
-    // 1. Walidacja tokenu
     if (!tokens.has(token) || tokens.get(token) < Date.now()) {
       return res.status(403).json({ error: "Invalid token" });
     }
     tokens.delete(token);
 
-    // 2. Zapis do MongoDB (Telefon i Message)
     try {
       await Booking.create({
         slotId: id,
@@ -157,11 +146,8 @@ app.post("/book", async (req, res, next) => {
       throw err;
     }
 
-    // 3. Wysyłka e-maila przez Resend (Poprawny format await)
-    console.log("🔹 Próba wysyłki e-maila do:", email);
-    
     try {
-      const emailData = await resend.emails.send({
+      await resend.emails.send({
         from: 'rezerwacje@mahoganyqen.com',
         to: [email],
         cc: ['Mahoganyqencontact@gmail.com'],
@@ -176,18 +162,13 @@ app.post("/book", async (req, res, next) => {
               <li><strong>Telefon:</strong> ${phone}</li>
               <li><strong>Wiadomość:</strong> ${message || "Brak dodatkowych informacji"}</li>
             </ul>
-            <hr />
-            <p>To jest automatyczne potwierdzenie systemu Mahoganyqen.</p>
           </div>
         `
       });
-      console.log("✅ E-mail wysłany:", emailData);
     } catch (mailError) {
-      // Logujemy błąd maila, ale nie crashujemy serwera
       console.error("❌ Błąd Resend:", mailError.message);
     }
 
-    // 4. JEDYNA odpowiedź do klienta (na samym końcu, po wszystkim)
     return res.status(200).json({ success: true, message: "Rezerwacja zakończona!" });
 
   } catch (err) {
@@ -202,10 +183,9 @@ app.post("/book", async (req, res, next) => {
 // ERROR HANDLER & STATIC FILES (ELITE CACHE VERSION)
 // ===============================
 
-// Aktywujemy kompresję Gzip - to sprawi, że pliki będą 3x lżejsze do pobrania
+// Zostawiamy kompresję, ale Render sam to obsłuży, jeśli nagłówki będą czyste
 app.use(compression());
 
-// Globalny handler błędów
 app.use((err, req, res, next) => {
   console.error("🔥 SERVER ERROR:", err);
   if (!res.headersSent) {
@@ -213,11 +193,16 @@ app.use((err, req, res, next) => {
   }
 });
 
+// TU BYŁ BŁĄD - Zmieniamy ścieżki na poprawne dla Rendera
+// Serwujemy pliki z builda z cache na 1 rok
+app.use(express.static(path.join(__dirname, 'my-app/build'), {
+  maxAge: '31536000s',
+  immutable: true,
+  etag: true
+}));
 
-app.use('/static', express.static(path.join(__dirname, 'my-app/build/static'), {
-    maxAge: '31536000s', immutable: true , etag: true }));
-
-app.get(/^(?!\/(events|bookings|book|token)).*$/, (req, res) => {
+// Obsługa React Router
+app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "my-app/build", "index.html"));
 });
 
