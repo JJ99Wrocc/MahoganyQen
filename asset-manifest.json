@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/static/css/main.7221b2cc.css",
-    "main.js": "/static/js/main.388e01e1.js",
+    "main.js": "/static/js/main.bd06e76c.js",
     "static/js/453.b76acbaa.chunk.js": "/static/js/453.b76acbaa.chunk.js",
     "static/media/Caruzel15.webp": "/static/media/Caruzel15.ef60291f4e250ba69bf3.webp",
     "static/media/Evon-hero-img.webp": "/static/media/Evon-hero-img.a2f9d9835162d8af202b.webp",
@@ -305,11 +305,11 @@
     "static/media/pe.svg": "/static/media/pe.d64e9732fcaa8f765994.svg",
     "static/media/id.svg": "/static/media/id.f624e2c8444a7794b357.svg",
     "main.7221b2cc.css.map": "/static/css/main.7221b2cc.css.map",
-    "main.388e01e1.js.map": "/static/js/main.388e01e1.js.map",
+    "main.bd06e76c.js.map": "/static/js/main.bd06e76c.js.map",
     "453.b76acbaa.chunk.js.map": "/static/js/453.b76acbaa.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7221b2cc.css",
-    "static/js/main.388e01e1.js"
+    "static/js/main.bd06e76c.js"
   ]
 }
