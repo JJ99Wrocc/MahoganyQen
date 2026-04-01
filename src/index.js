@@ -4,9 +4,9 @@ import './css/index.css';
 import App from './App.js';
 import reportWebVitals from './reportWebVitals.js';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { AuthProvider } from './firebaseAuth.js';
 import i18n from './i18n.js';
 import 'flag-icons/css/flag-icons.min.css';
+import { AuthProvider } from './firebaseAuth.js';
 
 
 
