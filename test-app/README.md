@@ -1,70 +1,118 @@
-# Getting Started with Create React App
+PL
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+👑 Mahogany Qen | High-End Booking Engine
+🔗 Domain: mahoganyqen.com (Hosted on Home.pl)
+⚙️ Backend: Deployed on https://www.google.com/search?q=Render.com
+📖 O Projekcie
+Mahogany Qen to zaawansowana platforma rezerwacyjna typu "Premium Concierge", stworzona dla sektora usług profesjonalnych wymagających najwyższego poziomu dyskrecji i automatyzacji. Projekt demonstruje umiejętność łączenia nowoczesnych frameworków frontendowych z pancernym backendem i zewnętrznymi usługami Google Cloud.
 
-In the project directory, you can run:
+🚀 Key Engineering Highlights
+1. Inteligentna Synchronizacja (Google Calendar API v3)
+System eliminuje problem "Double Booking".
 
-### `npm start`
+Real-time Availability: Backend (Node.js) komunikuje się z Google Service Account, pobierając aktualne terminy bezpośrednio z kalendarza Google.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Dynamiczne Filtrowanie: Lokalna baza danych (MongoDB) współpracuje z API Google, aby w locie wykluczać zajęte sloty i potwierdzone rezerwacje.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+🛡️ 2. Architektura Bezpieczeństwa (Security Hardened)
+Projekt został zabezpieczony przed najpopularniejszymi wektorami ataków:
 
-### `npm test`
+Anti-Spam / Anti-Bot: Wdrożony autorski system Crypto Tokens (CSRF prevention) oraz technika Honeypot, która skutecznie odcina boty od formularza rezerwacji.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Data Protection: Implementacja nagłówków Helmet.js, poluzowana selektywnie pod specyficzne wymagania hostingu, oraz Rate Limiting, chroniący infrastrukturę przed atakami Brute-force.
 
-### `npm run build`
+Validation: Zaawansowana walidacja numerów telefonów (ISO standards) oraz adresów e-mail z wykrywaniem popularnych literówek.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+⚡ 3. Performance & SEO (Lighthouse Optimized)
+Hardcore Caching: Skonfigurowany pancerz pamięci podręcznej dla plików statycznych (Cache-Control: immutable), co skraca czas ładowania (LCP) do minimum.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Modern Assets: Wykorzystanie formatów WebP oraz techniki Preload dla kluczowych grafik (Hero Image).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Semantic SEO: Pełne wdrożenie mikrodanych JSON-LD (Schema.org) dla FAQ i Professional Services, co skutkuje bogatymi wynikami (Rich Snippets) w Google.
 
-### `npm run eject`
+🌍 4. Globalny Zasięg (i18n)
+Aplikacja jest w pełni wielojęzyczna (6 języków: EN, PL, DE, ES, RU, UA) przy użyciu i18next, co obejmuje nie tylko interfejs, ale i komunikaty błędów oraz potwierdzenia e-mail.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+🛠 Tech Stack
+Frontend: React 19 (Hooks, Context API), Firebase Auth (Security), React-DatePicker.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Backend: Node.js, Express.js, Mongoose.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Database: MongoDB Atlas.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Komunikacja: Resend API (Transakcyjne E-maile), Google Cloud Console (Service Accounts).
 
-## Learn More
+DevOps: Render (Backend), Home.pl (DNS & Domain Management), Git.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+🏗 Jak uruchomić lokalnie?
+Sklonuj repozytorium: git clone https://github.com/JJwrocc/mahogany-qen.git
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Skonfiguruj .env (klucze do MongoDB, Google API, Resend).
 
-### Code Splitting
+Zainstaluj zależności: npm install.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Uruchom serwer: npm start.
 
-### Analyzing the Bundle Size
+Joachim Esangbedo (JJwrocc) Fullstack Developer | JavaScript Specialist   
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+ENG 
 
-### Advanced Configuration
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+👑 Mahogany Qen | High-End Booking Engine & Web Experience
+🔗 Production Domain: mahoganyqen.com (Configured via Home.pl)
+⚙️ Backend API: Render.com (Cloud Deployment)
+📖 Project Overview
+Mahogany Qen is a sophisticated "Premium Concierge" booking platform designed for high-end professional services requiring absolute discretion and seamless automation. This project demonstrates the ability to integrate modern frontend frameworks with a hardened backend and the Google Cloud ecosystem.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+🚀 Key Engineering Highlights
+1. Smart Availability Sync (Google Calendar API v3)
+The system eliminates "Double Booking" issues through a multi-layered synchronization logic:
 
-### `npm run build` fails to minify
+Real-time Integration: The Node.js backend communicates with a Google Service Account to fetch live schedules.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Dynamic Filtering: The application cross-references the Google Calendar feed with the local MongoDB instance to exclude booked slots and provide an up-to-the-minute availability grid.
+
+🛡️ 2. Security Hardening (Production Ready)
+The project is protected against common attack vectors and malicious automation:
+
+Anti-Bot Protocol: Implemented a custom Crypto Token system (CSRF prevention) and a Honeypot strategy to silently drop automated spam attempts.
+
+Infrastructure Protection: Hardened with Helmet.js headers and Express Rate Limiting to prevent brute-force attacks and DDoS.
+
+Validation: Strict phone number validation (ISO standards) and email format checking with detection of common domain typos.
+
+⚡ 3. Performance & SEO (Lighthouse Optimized)
+Aggressive Caching: Implemented a robust caching policy for static assets (Cache-Control: immutable), significantly improving Load Speed (LCP).
+
+Asset Optimization: Full use of WebP formats and Resource Preloading for critical Hero elements.
+
+Semantic SEO: Complete implementation of JSON-LD (Schema.org) for Professional Services and FAQs, ensuring rich snippets in search engine results.
+
+🌍 4. Global Scalability (i18n)
+Full internationalization support for 6 languages (EN, PL, DE, ES, RU, UA) using i18next. This includes the UI, dynamic error messages, and transaction-based email confirmations.
+
+🛠 Tech Stack
+Frontend: React 19 (Hooks, Context API), Firebase Auth (Identity Management), React-DatePicker.
+
+Backend: Node.js, Express.js, Mongoose.
+
+Database: MongoDB Atlas.
+
+Communications: Resend API (Transactional Emails), Google Cloud Console (IAM & Service Accounts).
+
+DevOps: Render (PaaS), Home.pl (DNS & SSL Management), Git.
+
+🏗 Local Installation
+Clone the repository: git clone https://github.com/JJwrocc/mahogany-qen.git
+
+Configure .env (MongoDB URI, Google Private Keys, Resend API key).
+
+Install dependencies: npm install.
+
+Spin up the server: npm start.
+
+Joachim Esangbedo (JJwrocc) Fullstack Developer | JavaScript Specialist
