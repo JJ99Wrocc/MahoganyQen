@@ -101,10 +101,22 @@ const [isPhoneValid, setIsPhoneValid] = useState(true);
       case "warszawa": return "available-day warszawa";
       case "londyn": return "available-day londyn";
       case "wroclaw": return "available-day wroclaw";
+      case "Tuluza FRANCE": return "available-day tuluza"
       default: return "available-day";
     }
   };
+const handleBook = async () => {
+  // Sprawdzenie walidacji
+  if (message.length < 100) {
+    setError("Wiadomość musi zawierać minimum 100 znaków.");
+    return; // Przerywamy funkcję, jeśli warunek nie jest spełniony
+  }
 
+  setError(""); // Resetujemy błąd, jeśli wszystko jest OK
+  
+  // Reszta Twojego kodu wysyłającego dane...
+  // np. await axios.post('/book', { ...message });
+};
   const handleOpenCalendar = () => setOpenCalendar(prev => !prev);
 
   const handleDateChange = (date) => {
@@ -356,19 +368,24 @@ const [isPhoneValid, setIsPhoneValid] = useState(true);
     <div className="input-glow-bar"></div> {/* Linia pod telefonem */}
   </div>
   {!isPhoneValid && <span className="error-hint">{t("invalidPhoneFormat")}</span>}
+<div className="form-group">
+  <label htmlFor="user-message">{t("message") || "Additional Details"}:</label>
+  <textarea 
+    id="user-message"
+    className={`session-textarea ${error ? 'input-error' : ''}`} // Opcjonalna klasa CSS
+    value={message} 
+    onChange={(e) => {
+      setMessage(e.target.value);
+      if (error) setError(""); // Ukryj błąd, gdy użytkownik zacznie pisać
+    }} 
+    placeholder={t("Tell me more about your vision") || "Tell me more about your vision"}
+    rows="4"
+  />
+  {error && <p style={{ color: 'red', fontSize: '12px' }}>{error}</p>}
+  <p style={{ fontSize: '12px', textAlign: 'right' }}>
+    {message.length} / 100 znaków
+  </p>
 </div>
-          <div className="form-group">
-            <label htmlFor="user-message">{t("message") || "Additional Details"}:</label>
-            <textarea 
-              id="user-message"
-              className="session-textarea" 
-              value={message} 
-              onChange={(e) => setMessage(e.target.value)} 
-              placeholder={t("Tell me more about your vision") || "Tell me more about your vision"}
-              rows="4"
-            />
-          </div>
-          <div className="protocol-rules-container">
   <label className="luxe-checkbox-wrapper">
     <input 
       type="checkbox" 

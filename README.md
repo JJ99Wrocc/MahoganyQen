@@ -53,6 +53,7 @@ Skonfiguruj .env (klucze do MongoDB, Google API, Resend).
 Zainstaluj zależności: npm install.
 
 Uruchom serwer: npm start.
+Uruchom backend: cd backend     npm start server.js
 
 Joachim Esangbedo (JJwrocc) Fullstack Developer | JavaScript Specialist   
 
