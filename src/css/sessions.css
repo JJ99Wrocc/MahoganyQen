@@ -146,9 +146,9 @@
   background-color: #2196f3 !important;  
 }
 .react-datepicker__day.available-day.wroclaw { 
-  background-color: #ff9800 !important;  
+  background-color: #4d320a !important;  
 }
-/* Zamiast tylko .available-day.tuluza, używamy ścieżki z kontenerem daty */
+
 .react-datepicker__calendar .react-datepicker__day.available-day.tuluza {
 background-color: blue !important;
 }
