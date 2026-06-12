@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "../css/sessions-v2.css";
+import "../css/sessions.css";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n.js";
 import Select from "react-select";
@@ -120,7 +120,7 @@ const getDayClassName = (date) => {
     case "wroclaw": return "available-day wroclaw";
     case "tuluza": return "available-day tuluza";       // Jeśli wpiszesz "Tuluza"
     case "tuluzafrance": return "available-day tuluza"; // Jeśli wpiszesz "Tuluza FRANCE"
-    case "berlin": return "available-day niemcy";
+    case "berlin": return "available-day berlin";
     default: return "available-day";
   }
 };

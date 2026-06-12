@@ -140,18 +140,52 @@
   color: #555 !important;
 }
 .react-datepicker__day.available-day.warszawa { 
-  background-color: #ddd3d0 !important;  
+/* Gradient: biały (50%) i czerwony (50%) */
+    background: linear-gradient(to bottom, #ffffff 50%, #dc143c 50%) !important;
+    color: #000 !important; /* Czarny tekst, żeby był widoczny na białym tle */
+    border: 1px solid #ccc !important; /* Opcjonalnie: obramowanie, żeby flaga się wyróżniała */
+    border-radius: 50% !important;
+    background-size: 100% 100% !important;
 }
 .react-datepicker__day.available-day.londyn { 
-  background-color: #2196f3 !important;  
+background: linear-gradient(45deg, transparent 45%, #fff 45%, #fff 55%, transparent 55%),
+              linear-gradient(-45deg, transparent 45%, #fff 45%, #fff 55%, transparent 55%),
+              linear-gradient(90deg, #fff 45%, #C10026 45%, #C10026 55%, #fff 55%),
+              linear-gradient(0deg, #fff 45%, #C10026 45%, #C10026 55%, #fff 55%),
+              #00247D !important;
+  color: white !important;
+  font-weight: bold !important;
+  border: 1px solid #ccc !important;
+}
+.react-datepicker__day.available-day.berlin { 
+background: linear-gradient(180deg, #000 0%, #000 33.33%, #D00 33.33%, #D00 66.66%, #FFCE00 66.66%, #FFCE00 100%) !important;
+  color: white !important;
+  font-weight: bold !important;
+  border: 1px solid #ccc !important;
 }
 .react-datepicker__day.available-day.wroclaw { 
-  background-color: #4d320a !important;  
+/* Gradient: biały (50%) i czerwony (50%) */
+    background: linear-gradient(to bottom, #ffffff 50%, #dc143c 50%) !important;
+    color: #000 !important; /* Czarny tekst, żeby był widoczny na białym tle */
+    border: 1px solid #ccc !important; /* Opcjonalnie: obramowanie, żeby flaga się wyróżniała */
+    border-radius: 50% !important;
+    background-size: 100% 100% !important;
 }
 
 .react-datepicker__calendar .react-datepicker__day.available-day.tuluza {
-background-color: blue !important;
+/* Gradient 90 stopni tworzy 3 równe pionowe pasy */
+  background: linear-gradient(
+    90deg, 
+    #0055A4 0%, #0055A4 33.33%,    /* Niebieski */
+    #FFFFFF 33.33%, #FFFFFF 66.66%, /* Biały */
+    #EF4135 66.66%, #EF4135 100%    /* Czerwony */
+  ) !important;
+  
+  color: #000 !important; /* Kolor liczby dnia */
+  font-weight: bold !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
 }
+
 
 
 .react-datepicker {
