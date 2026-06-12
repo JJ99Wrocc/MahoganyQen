@@ -140,16 +140,60 @@
   color: #555 !important;
 }
 .react-datepicker__day.available-day.warszawa { 
-  background-color: #af664c !important;  
+  background: linear-gradient(
+    180deg, 
+    #FFFFFF 0%, #FFFFFF 50%, 
+    #DC143C 50%, #DC143C 100%
+  ) !important;
+  
+  /* Dodajemy obramowanie, aby flaga była wyraźniejsza */
+  border: 1px solid #ccc !important;
+  
+  /* Kolor czcionki – na białym tle lepszy będzie czarny, 
+     ale na czerwonym lepszy biały. Wybieramy czarny dla czytelności */
+  color: #000 !important;
+  font-weight: bold !important;
 }
 .react-datepicker__day.available-day.londyn { 
   background-color: #2196f3 !important;  
 }
 .react-datepicker__day.available-day.wroclaw { 
-  background-color: #ff9800 !important;  
+ background: linear-gradient(
+    180deg, 
+    #FFFFFF 0%, #FFFFFF 50%, 
+    #DC143C 50%, #DC143C 100%
+  ) !important;
+  
+  /* Dodajemy obramowanie, aby flaga była wyraźniejsza */
+  border: 1px solid #ccc !important;
+  
+  /* Kolor czcionki – na białym tle lepszy będzie czarny, 
+     ale na czerwonym lepszy biały. Wybieramy czarny dla czytelności */
+  color: #000 !important;
+  font-weight: bold !important;
 }
 .react-datepicker__day .available-day.tuluza{
-  background-color:  blue;
+/* Gradient 90 stopni tworzy 3 równe pionowe pasy */
+  background: linear-gradient(
+    90deg, 
+    #0055A4 0%, #0055A4 33.33%,    /* Niebieski */
+    #FFFFFF 33.33%, #FFFFFF 66.66%, /* Biały */
+    #EF4135 66.66%, #EF4135 100%    /* Czerwony */
+  ) !important;
+  
+  color: #000 !important; /* Kolor liczby dnia */
+  font-weight: bold !important;
+  border: 1px solid rgba(0,0,0,0.1) !important;
+}
+
+/* Opcjonalnie: stan najechania myszką, aby flaga była delikatnie jaśniejsza */
+.react-datepicker__day.available-day.tuluza:hover {
+  background: linear-gradient(
+    90deg, 
+    rgba(0, 85, 164, 0.8) 0%, rgba(0, 85, 164, 0.8) 33.33%, 
+    rgba(255, 255, 255, 0.8) 33.33%, rgba(255, 255, 255, 0.8) 66.66%, 
+    rgba(239, 65, 53, 0.8) 66.66%, rgba(239, 65, 53, 0.8) 100%
+  ) !important;
 }
 
 
