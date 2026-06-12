@@ -119,7 +119,7 @@ const getDayClassName = (date) => {
     case "londyn": return "available-day londyn";
     case "wroclaw": return "available-day wroclaw";
     case "tuluza": return "available-day tuluza";       // Jeśli wpiszesz "Tuluza"
-    case "tuluzafrance": return "available-day tuluza"; // Jeśli wpiszesz "Tuluza FRANCE"
+    case "tuluzafrance": return "available-day tuluza"; 
     case "berlin": return "available-day berlin";
     default: return "available-day";
   }
@@ -234,12 +234,13 @@ const getDayClassName = (date) => {
       {/* 1. TYTUŁ NAD FORMULARZEM */}
       <header className="booking-pre-header">
           <div className="booking-ornament" aria-hidden="true">
+            <div className="preface-line"></div>
               <span className="line"></span>
               <span className="diamond"></span>
               <span className="line"></span>
+              <div className="preface-line"></div>
           </div>
-          <p className="booking-status">{t("System Online Concierge")}</p>
-          <h1 className="booking-main-title">{t("Reservation Protocol")}</h1>
+       
       </header>
 
       {/* 2. FORMULARZ */}

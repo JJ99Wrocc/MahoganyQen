@@ -210,10 +210,10 @@
     </div>
   )}      <div className="gallery-preface">
           <div className="preface-line"></div>
-          <div className="preface-content">
-            <span className="preface-subtitle">{t("exhibition")}</span>
-            <h2 className="preface-title">{t("visualExperience")}</h2>
-            <div className="preface-diamond"></div>
+       <div className="booking-ornament" aria-hidden="true">
+              <span className="line"></span>
+              <span className="diamond"></span>
+              <span className="line"></span>
           </div>
           <div className="preface-line"></div>
         </div>
