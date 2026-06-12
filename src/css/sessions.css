@@ -155,7 +155,14 @@
   font-weight: bold !important;
 }
 .react-datepicker__day.available-day.londyn { 
-  background-color: #2196f3 !important;  
+background: linear-gradient(45deg, transparent 45%, #fff 45%, #fff 55%, transparent 55%),
+              linear-gradient(-45deg, transparent 45%, #fff 45%, #fff 55%, transparent 55%),
+              linear-gradient(90deg, #fff 45%, #C10026 45%, #C10026 55%, #fff 55%),
+              linear-gradient(0deg, #fff 45%, #C10026 45%, #C10026 55%, #fff 55%),
+              #00247D !important;
+  color: white !important;
+  font-weight: bold !important;
+  border: 1px solid #ccc !important;
 }
 .react-datepicker__day.available-day.wroclaw { 
  background: linear-gradient(
@@ -195,7 +202,12 @@
     rgba(239, 65, 53, 0.8) 66.66%, rgba(239, 65, 53, 0.8) 100%
   ) !important;
 }
-
+.react-datepicker__day.available-day.niemcy {
+  background: linear-gradient(180deg, #000 0%, #000 33.33%, #D00 33.33%, #D00 66.66%, #FFCE00 66.66%, #FFCE00 100%) !important;
+  color: white !important;
+  font-weight: bold !important;
+  border: 1px solid #ccc !important;
+}
 
 .react-datepicker {
   width: 100%; /* zajmuje cały kontener */

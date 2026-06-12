@@ -102,6 +102,7 @@ const [error, setError] = useState("");
       case "londyn": return "available-day londyn";
       case "wroclaw": return "available-day wroclaw";
       case "tuluza france": return "available-day tuluza";
+      case "berlin": return "available-day niemcy";
       default: return "available-day";
     }
   };
