@@ -179,7 +179,7 @@ background: linear-gradient(45deg, transparent 45%, #fff 45%, #fff 55%, transpar
   color: #000 !important;
   font-weight: bold !important;
 }
-.react-datepicker__day .available-day.tuluza{
+.react-datepicker__day.available-day.tuluza{
 /* Gradient 90 stopni tworzy 3 równe pionowe pasy */
   background: linear-gradient(
     90deg, 

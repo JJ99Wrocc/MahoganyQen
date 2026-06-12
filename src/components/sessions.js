@@ -89,24 +89,26 @@ const [error, setError] = useState("");
 
   const availableDates = [...new Set(availableSlots.map((slot) => slot.date))];
 
-  const normalizeCity = (str) =>
-    str.toLowerCase().replace(/ą/g, "a").replace(/ł/g, "l");
+const normalizeCity = (str) => {
+  return str.toLowerCase().replace(/ą/g, "a").replace(/ł/g, "l").trim();
+};
 
-  const getDayClassName = (date) => {
-    const formatted = formatDate(date);
-    const slot = availableSlots.find((s) => s.date === formatted);
-    if (!slot) return "";
+const getDayClassName = (date) => {
+  const formatted = formatDate(date);
+  const slot = availableSlots.find((s) => s.date === formatted);
+  if (!slot) return "";
 
-    switch (normalizeCity(slot.summary)) {
-      case "warszawa": return "available-day warszawa";
-      case "londyn": return "available-day londyn";
-      case "wroclaw": return "available-day wroclaw";
-      case "tuluza france": return "available-day tuluza";
-      case "berlin": return "available-day niemcy";
-      default: return "available-day";
-    }
-  };
+  // Teraz wystarczy sprawdzić samo "tuluza"
+  const city = normalizeCity(slot.summary);
 
+  switch (city) {
+    case "warszawa": return "available-day warszawa";
+    case "londyn": return "available-day londyn";
+    case "wroclaw": return "available-day wroclaw";
+    case "tuluza": return "available-day tuluza"; // <--- Tutaj teraz wystarczy
+    default: return "available-day";
+  }
+};
   const handleOpenCalendar = () => setOpenCalendar(prev => !prev);
 
   const handleDateChange = (date) => {
