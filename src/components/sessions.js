@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import "../css/sessions.css";
+import "../css/sessions-v2.css";
 import { useTranslation } from "react-i18next";
 import i18n from "../i18n.js";
 import Select from "react-select";
@@ -90,7 +90,18 @@ const [error, setError] = useState("");
   const availableDates = [...new Set(availableSlots.map((slot) => slot.date))];
 
 const normalizeCity = (str) => {
-  return str.toLowerCase().replace(/ą/g, "a").replace(/ł/g, "l").trim();
+  return str
+    .toLowerCase()
+    .replace(/ą/g, "a")
+    .replace(/ł/g, "l")
+    .replace(/ć/g, "c") // Warto dodać inne polskie znaki!
+    .replace(/ś/g, "s")
+    .replace(/ź/g, "z")
+    .replace(/ż/g, "z")
+    .replace(/ń/g, "n")
+    .replace(/ę/g, "e")
+    .replace(/ó/g, "o")
+    .replace(/\s+/g, ""); // Usuwa spacje
 };
 
 const getDayClassName = (date) => {
@@ -98,17 +109,22 @@ const getDayClassName = (date) => {
   const slot = availableSlots.find((s) => s.date === formatted);
   if (!slot) return "";
 
-  // Teraz wystarczy sprawdzić samo "tuluza"
   const city = normalizeCity(slot.summary);
+  
+  // LOGUJEMY DLA PEWNOŚCI
+  console.log("Wartość z kalendarza po normalizacji:", city);
 
   switch (city) {
     case "warszawa": return "available-day warszawa";
     case "londyn": return "available-day londyn";
     case "wroclaw": return "available-day wroclaw";
-    case "tuluza": return "available-day tuluza"; // <--- Tutaj teraz wystarczy
+    case "tuluza": return "available-day tuluza";       // Jeśli wpiszesz "Tuluza"
+    case "tuluzafrance": return "available-day tuluza"; // Jeśli wpiszesz "Tuluza FRANCE"
+    case "berlin": return "available-day niemcy";
     default: return "available-day";
   }
 };
+
   const handleOpenCalendar = () => setOpenCalendar(prev => !prev);
 
   const handleDateChange = (date) => {
