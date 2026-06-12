@@ -148,13 +148,35 @@ app.post("/book", async (req, res, next) => {
       throw err;
     }
 
-    try {
+ try {
+      // 1. E-mail do KLIENTA (tylko potwierdzenie)
       await resend.emails.send({
         from: 'rezerwacje@mahoganyqen.com',
         to: [email],
-        cc: ['Mahoganyqencontact@gmail.com'],
         subject: "Potwierdzenie rezerwacji ✅",
-        html: `<div style="font-family: sans-serif;"><h2>Cześć ${name}!</h2><p>Twoja rezerwacja na ${date} została potwierdzona.</p></div>`
+        html: `<div style="font-family: sans-serif;"><h2>Cześć ${name}!</h2><p>Twoje zapytanie o rezerwacje na dzień ${date} o godzinie ${time} zostało wysłane.</p></div>`
+      });
+
+      // 2. E-mail do Ciebie (szczegółowe dane)
+      await resend.emails.send({
+        from: 'rezerwacje@mahoganyqen.com',
+        to: ['Mahoganyqencontact@gmail.com'],
+        subject: "Nowa rezerwacja w systemie!",
+        html: `
+          <div style="font-family: sans-serif;">
+            <h2>Nowa rezerwacja!</h2>
+            <p>Otrzymano nowe zgłoszenie:</p>
+            <ul>
+              <li><b>Imię i nazwisko:</b> ${name}</li>
+              <li><b>Email:</b> ${email}</li>
+              <li><b>Telefon:</b> ${phone}</li>
+              <li><b>Data:</b> ${date}</li>
+              <li><b>Godzina:</b> ${time}</li>
+              <li><b>ID Slotu:</b> ${id}</li>
+              <li><b>Wiadomość:</b> ${message || "Brak"}</li>
+            </ul>
+          </div>
+        `
       });
     } catch (mailError) {
       console.error("❌ Błąd Resend:", mailError.message);
