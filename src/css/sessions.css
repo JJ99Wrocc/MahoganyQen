@@ -148,14 +148,15 @@
     background-size: 100% 100% !important;
 }
 .react-datepicker__day.available-day.londyn { 
-background: linear-gradient(45deg, transparent 45%, #fff 45%, #fff 55%, transparent 55%),
-              linear-gradient(-45deg, transparent 45%, #fff 45%, #fff 55%, transparent 55%),
-              linear-gradient(90deg, #fff 45%, #C10026 45%, #C10026 55%, #fff 55%),
-              linear-gradient(0deg, #fff 45%, #C10026 45%, #C10026 55%, #fff 55%),
-              #00247D !important;
-  color: white !important;
-  font-weight: bold !important;
-  border: 1px solid #ccc !important;
+background: 
+        linear-gradient(45deg, transparent 40%, #fff 40%, #fff 60%, transparent 60%),
+        linear-gradient(-45deg, transparent 40%, #fff 40%, #fff 60%, transparent 60%),
+        linear-gradient(90deg, transparent 40%, #C10026 40%, #C10026 60%, transparent 60%),
+        linear-gradient(0deg, transparent 40%, #C10026 40%, #C10026 60%, transparent 60%),
+        #00247D !important;
+    color: #fff !important;
+    border-radius: 50% !important;
+    background-size: 100% 100% !important;
 }
 .react-datepicker__day.available-day.berlin { 
 background: linear-gradient(180deg, #000 0%, #000 33.33%, #D00 33.33%, #D00 66.66%, #FFCE00 66.66%, #FFCE00 100%) !important;
@@ -173,19 +174,21 @@ background: linear-gradient(180deg, #000 0%, #000 33.33%, #D00 33.33%, #D00 66.6
 }
 
 .react-datepicker__calendar .react-datepicker__day.available-day.tuluza {
-/* Gradient 90 stopni tworzy 3 równe pionowe pasy */
-  background: linear-gradient(
-    90deg, 
-    #0055A4 0%, #0055A4 33.33%,    /* Niebieski */
-    #FFFFFF 33.33%, #FFFFFF 66.66%, /* Biały */
-    #EF4135 66.66%, #EF4135 100%    /* Czerwony */
-  ) !important;
-  
-  color: #000 !important; /* Kolor liczby dnia */
-  font-weight: bold !important;
-  border: 1px solid rgba(0,0,0,0.1) !important;
+background: linear-gradient(
+        90deg, 
+        #0055A4 33.33%, 
+        #FFFFFF 33.33%, #FFFFFF 66.66%, 
+        #EF4135 66.66%
+    ) !important;
+    color: #000 !important;
+    font-weight: bold !important;
+    border-radius: 50% !important;
+    background-size: 100% 100% !important;
+    border: 1px solid rgba(0,0,0,0.1) !important;
 }
-
+div.react-datepicker__day.tuluza {
+    background: linear-gradient(90deg, #0055A4 33.33%, #FFFFFF 33.33%, #FFFFFF 66.66%, #EF4135 66.66%) !important;
+}
 
 
 .react-datepicker {
