@@ -27,7 +27,7 @@ function Sessions() {
   const [phone, setPhone] = useState("");
 const [isPhoneValid, setIsPhoneValid] = useState(true);
   const [company, setCompany] = useState("");
-
+const [error, setError] = useState("");
   const formLoadTime = useRef(Date.now());
   const lastSubmitTime = useRef(0);
 
@@ -105,18 +105,7 @@ const [isPhoneValid, setIsPhoneValid] = useState(true);
       default: return "available-day";
     }
   };
-const handleBook = async () => {
-  // Sprawdzenie walidacji
-  if (message.length < 100) {
-    setError("Wiadomość musi zawierać minimum 100 znaków.");
-    return; // Przerywamy funkcję, jeśli warunek nie jest spełniony
-  }
 
-  setError(""); // Resetujemy błąd, jeśli wszystko jest OK
-  
-  // Reszta Twojego kodu wysyłającego dane...
-  // np. await axios.post('/book', { ...message });
-};
   const handleOpenCalendar = () => setOpenCalendar(prev => !prev);
 
   const handleDateChange = (date) => {
@@ -141,6 +130,11 @@ const handleBook = async () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (message.length < 100) {
+    setError("Minimum 100 characters required.");
+    return; // Zatrzymuje wysyłkę formularza
+  }
+  setError("");
     if (company !== "") return;
     if (Date.now() - formLoadTime.current < 3000) return alert("Zbyt szybkie wysłanie formularza.");
     if (Date.now() - lastSubmitTime.current < 5000) return alert("Zbyt wiele prób. Odczekaj chwilę.");
@@ -368,24 +362,28 @@ const handleBook = async () => {
     <div className="input-glow-bar"></div> {/* Linia pod telefonem */}
   </div>
   {!isPhoneValid && <span className="error-hint">{t("invalidPhoneFormat")}</span>}
-<div className="form-group">
+</div>
+          <div className="form-group">
   <label htmlFor="user-message">{t("message") || "Additional Details"}:</label>
   <textarea 
     id="user-message"
-    className={`session-textarea ${error ? 'input-error' : ''}`} // Opcjonalna klasa CSS
+    className={`session-textarea ${error ? 'input-error' : ''}`}
     value={message} 
     onChange={(e) => {
       setMessage(e.target.value);
-      if (error) setError(""); // Ukryj błąd, gdy użytkownik zacznie pisać
+      if (error) setError(""); // Ukryj błąd, gdy użytkownik poprawia
     }} 
     placeholder={t("Tell me more about your vision") || "Tell me more about your vision"}
     rows="4"
   />
+  
+  {/* Wyświetlanie błędu i licznika */}
   {error && <p style={{ color: 'red', fontSize: '12px' }}>{error}</p>}
-  <p style={{ fontSize: '12px', textAlign: 'right' }}>
-    {message.length} / 100 znaków
+  <p style={{ fontSize: '12px', textAlign: 'right', color: message.length < 100 ? 'orange' : '#666' }}>
+    {message.length} / 100 characters
   </p>
 </div>
+          <div className="protocol-rules-container">
   <label className="luxe-checkbox-wrapper">
     <input 
       type="checkbox" 
