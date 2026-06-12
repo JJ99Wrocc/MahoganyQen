@@ -148,6 +148,19 @@
 .react-datepicker__day.available-day.wroclaw { 
   background-color: #ff9800 !important;  
 }
+.react-datepicker__day.available-day.tuluza {
+  /* Gradient tworzący trzy pionowe paski */
+  background: linear-gradient(
+    90deg, 
+    #0055A4 0%, #0055A4 33.33%, 
+    #FFFFFF 33.33%, #FFFFFF 66.66%, 
+    #EF4135 66.66%, #EF4135 100%
+  );
+  
+  /* Opcjonalnie: popraw czytelność tekstu, jeśli tło jest zbyt ciemne/jasne */
+  color: #000; 
+  font-weight: bold;
+}
 
 
 .react-datepicker {
