@@ -106,12 +106,8 @@ function ColorSchemesExample() {
           className="d-flex align-items-center"
           style={{ cursor: 'pointer' }}
         >
-          <img
-            src={Mletter}
-            alt="Mahogany Queen logo"
-            className="navbar-brand-img"
-          />
-          <span className="nav-title">ahoganyQen</span>
+      
+          <span className="nav-title">MahoganyQen</span>
         </Navbar.Brand>
                         {/* DROPDOWN JĘZYKOWY */}
         <Dropdown

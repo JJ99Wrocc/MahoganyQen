@@ -36,21 +36,16 @@ color: #f2f2f2;;
   box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
 }
 
-.navbar-brand-img {
-  height: 48px!important;
-  width: 48px!important;
-  margin-right:-5px;
-  margin-bottom: 6px!important;
-  border-radius: 12%;
-  transition: transform 0.3s ease;
-}
 
-.navbar-brand-img:hover {
-  transform: scale(1.07);
-}
+
 
 
 .nav-title {
+  font-size: 19px !important;
+  margin-left: 10px !important;
+  margin-bottom: 6px!important;
+  border-radius: 12%;
+  transition: transform 0.3s ease;
   font-family: "Cinzel", serif;
   font-weight: 700;
   text-transform: uppercase;
@@ -69,6 +64,9 @@ color: #f2f2f2;;
   position: relative;
   transition: all 0.3s ease;
     text-shadow: 2px 2px 6px black;
+}
+.nav-title:hover {
+  transform: scale(1.07);
 }
 
 .nav-title::after {
@@ -251,13 +249,11 @@ color: #7a0000  !important;
     font-size: 13px ;
   }
   .nav-title{
-    font-size: 18px;
+      font-size: 18px !important;
     margin-left: -8px;
     margin-bottom: -2px;
   }
-  .navbar-brand-img{
-    margin-bottom:5px;
-  }
+
 }
 @media(min-width:992px){
   .burger-icon{
@@ -284,12 +280,7 @@ color: #7a0000  !important;
     margin-left: -8px;
 
   }
-  .navbar-brand-img{
-    margin-bottom:3px;
-    height: 30px;
-    width: 25px;
 
-  }
 }
 @media (min-width: 768px) and (max-width: 991px){
      .nav-link{
@@ -299,15 +290,11 @@ color: #7a0000  !important;
     font-size: 18px;
   }
   .nav-title{
-    font-size: 14px;
-    margin-left: -8px;
+    font-size: 18px !important;
+    margin-left: -18px !important;
 
   }
-  .navbar-brand-img{
-    margin-bottom:7px!important;
-    height: 30px;
-    width: 25px;
-  }
+
   .offcanvas-header .btn-close{
   font-size: 7px !important;
 }
@@ -324,18 +311,15 @@ color: #7a0000  !important;
     font-size: 10px!important;
   }
   .offcanvas-title{
-    font-size: 16px;
+    font-size: 16px !important;
+     margin-left: -28px !important;
   }
   .nav-title{
     font-size: 12px;
     margin-left: -8px;
 
   }
-  .navbar-brand-img{
-    margin-bottom: 9px!important;
-    height: 30px;
-    width: 25px;
-  }
+
   .navbar-toggler-icon {
 font-size: 15px;
 }
@@ -357,15 +341,11 @@ font-size: 15px;
     font-size: 16px;
   }
   .nav-title{
-    font-size: 12px;
+    font-size: 18px !important;
     margin-left: -8px;
 
   }
-  .navbar-brand-img{
-    margin-bottom:9px !important;
-    height: 30px;
-    width: 25px;
-  }
+
   .navbar-toggler-icon {
 font-size: 15px;
 }
